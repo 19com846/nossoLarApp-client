@@ -1,0 +1,71 @@
+FORMAT: 1A
+HOST: http://private-db4365-nossolar.apiary-mock.com/
+
+# nossolar
+
+## HOME [/]
+
+### Home Screen - Show all Courses [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "courseList": [
+                    {
+                        "id": "098123",
+                        "name": "Ciclo 03",
+                        "timeOfClass": "2200",
+                        "dayOfClass": "monday",
+                        "open": "true",
+                        "collaborators": 
+                            [
+                                "Joaquim Da Silva",
+                                "Marcos Santos"
+                            ],
+                        "dirigente": "Alexandre Vieira"
+                    },
+                    {
+                        "id": "128937",
+                        "name": "Estudos Mediúnicos",
+                        "timeOfClass": "2100",
+                        "dayOfClass": "sunday",
+                        "open": "true",
+                        "collaborators": 
+                            [
+                                "Joaquim Da Silva",
+                                "Marcos Santos"
+                            ],
+                        "dirigente": "José Vieira"
+                    },
+                    {
+                        "id": "098123",
+                        "name": "Ciclo 01",
+                        "timeOfClass": "2200",
+                        "dayOfClass": "saturday",
+                        "open": "false",
+                        "collaborators": 
+                            [
+                                "Joaquim Da Silva",
+                                "Marcos Santos"
+                            ],
+                        "dirigente": "Dirceu Lopes"
+                    },
+                    {
+                        "id": "128937",
+                        "name": "Ciclo 02",
+                        "timeOfClass": "2100",
+                        "dayOfClass": "friday",
+                        "open": "false",
+                        "collaborators": 
+                            [
+                                "Joaquim Da Silva",
+                                "Marcos Santos"
+                            ],
+                        "dirigente": "Rodrigo Machado"
+                    }
+                ]
+            }
+                    
+
+        ]

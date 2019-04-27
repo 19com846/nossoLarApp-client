@@ -1,0 +1,43 @@
+<ion-header>
+  <div text-center>
+  <ion-toolbar>
+      
+       <ion-buttons slot="start">
+          <ion-back-button defaultHref="home"></ion-back-button>
+         
+          <ion-title>Cadastro</ion-title>
+  </ion-buttons>
+  
+  </ion-toolbar>
+</div>
+</ion-header>
+
+<ion-content>
+      <ion-item>
+          <ion-label text-wrap>
+              Você está criando uma conta de aluno, 
+              para mudar as permissões de sua conta, 
+              consulte um administrador do Nosso Lar!
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="primary" position="floating">Nome</ion-label>
+            <ion-input [(ngModel)]="inputName" required="true"clearInput></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="floating">Email</ion-label>
+            <ion-input [(ngModel)]="inputEmail" type="email" required="true" clearInput></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="floating">Telefone</ion-label>
+            <ion-input [(ngModel)]="inputPhone" type="tel" required="true"clearInput></ion-input>
+          </ion-item>
+
+          <ion-row center>  
+              <ion-col text-center>   
+               <ion-button color="primary" size="big" (click)="registerPerson()" >Cadastrar</ion-button>  
+              </ion-col> 
+             </ion-row>
+</ion-content>
+

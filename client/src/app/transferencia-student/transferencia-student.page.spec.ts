@@ -1,24 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NavController } from 'ionic-angular';
-import { Register } from '../register';
 
-import { HomePage } from './home.page';
+import { TransferenciaStudentPage } from './transferencia-student.page';
 
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+describe('TransferenciaStudentPage', () => {
+  let component: TransferenciaStudentPage;
+  let fixture: ComponentFixture<TransferenciaStudentPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
+      declarations: [ TransferenciaStudentPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(TransferenciaStudentPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

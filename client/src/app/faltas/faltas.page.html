@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <div text-center>
+      <ion-title>Minhas faltas</ion-title>
+        </div>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+
+    <ion-card *ngFor='let faltas of faltas'> 
+      <div *ngIf="faltas.fullpresence == false; else blockedFaltas">
+            <ion-item>
+                <h1 style="color:red">Semana: {{faltas["weekNumber"]}}</h1>
+        </ion-item>
+    </div>
+    <ng-template #blockedFaltas>
+      <ion-item>
+      <h1 style="color:green">Semana: {{faltas["weekNumber"]}}</h1>
+</ion-item></ng-template>
+    </ion-card>
+
+    <ion-item>
+        <ion-label text-wrap>
+            Voce faltou {{numeroFaltas}} vezes !
+        </ion-label>
+      </ion-item>
+
+</ion-content>

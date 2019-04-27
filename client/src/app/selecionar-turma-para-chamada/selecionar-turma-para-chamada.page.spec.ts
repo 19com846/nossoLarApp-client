@@ -1,24 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NavController } from 'ionic-angular';
-import { Register } from '../register';
 
-import { HomePage } from './home.page';
+import { SelecionarTurmaParaChamadaPage } from './selecionar-turma-para-chamada.page';
 
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+describe('SelecionarTurmaParaChamadaPage', () => {
+  let component: SelecionarTurmaParaChamadaPage;
+  let fixture: ComponentFixture<SelecionarTurmaParaChamadaPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
+      declarations: [ SelecionarTurmaParaChamadaPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(SelecionarTurmaParaChamadaPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

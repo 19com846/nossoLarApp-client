@@ -1,35 +1,30 @@
 <ion-header>
     <ion-toolbar>
-      <div text-center>
-        <ion-title>Minha turma</ion-title>
-      </div>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/home-student"></ion-back-button>
-      </ion-buttons>
+        <div text-center>
+      <ion-title>Minha turma</ion-title>
+        </div>
     </ion-toolbar>
   </ion-header>
-<ion-content>
-    
-    <!-- <ion-button  (click)="transferencia()" expand="block" color="tertiary">Pedir transferência</ion-button> -->
-    <ion-list *ngFor= "let turm of turma">
-          <ion-item>
-            <h2>Turma: {{turm.title}}</h2>
+
+<ion-content padding>
+    <ion-button  (click)="faltas()" expand="block">Visualizar minhas faltas</ion-button>
+    <ion-button  (click)="transferencia()" expand="block" color="tertiary">Pedir transferência</ion-button>
+    <ion-list>
+          <h1>Nome</h1>
+          <ion-item>{{turma[0].name}}</ion-item>
+          <h1>Sala</h1>
+          <ion-item>{{turma[0].location}}</ion-item>
+          <h1>Dia da semana</h1>
+          <ion-item>{{turma[0].weekday}}</ion-item>
+          <h1>Horario</h1>
+          <ion-item>{{turma[0].startTime}} ~ {{turma[0].endTime}}</ion-item>
+          <h1>Colaboradores</h1>
+          
+          <ion-item *ngFor="let colaboradores of turma[0].collaborators; let i = index">
+            
+             <h3>{{i + 1}} {{colaboradores.name}}</h3>
+            
+            
           </ion-item>
-          <ion-item>
-            <h2>Sala: {{turm.classroom}}</h2>
-          </ion-item>
-          <ion-item>
-            <h2>Horário: {{turm.title}}</h2>
-          </ion-item>
-          <ion-list>
-            <ion-list-header>
-              <h2>Colaboradores</h2>
-            </ion-list-header>
-            <ion-item *ngFor="let collaborator of collaborators">
-              <h3>{{collaborator.name}}</h3>
-            </ion-item>
-          </ion-list>
     </ion-list>
-    <ion-button  (click)="goToMyPresences()" expand="block" routerDirection="Forward">Visualizar minhas faltas</ion-button>
-    <ion-button  (click)="goToTransferTurma(turma.id)" expand="block" routerDirection="Forward">Transferir de Turma</ion-button>
 </ion-content>

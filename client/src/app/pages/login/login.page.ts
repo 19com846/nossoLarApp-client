@@ -34,13 +34,33 @@ export class LoginPage implements OnInit {
     phone
     permission
     */
-    if (this.inputCredentials === 'stu') {
-      this.router.navigate(['home-student']);
-      // alert('student');
-    } else if (this.inputCredentials === 'collab') {
-    this.router.navigate(['home-collaborator']);
+
+    //TO DO - FAZER ISSO FUNCIONAR
+    // if (this.inputCredentials === 'stu') {
+    //   this.router.navigate(['home-student']);
+    //   // alert('student');
+    // } else if (this.inputCredentials === 'collab') {
+    // this.router.navigate(['home-collaborator']);
+
+    // if(this.inputEmail ==="stu")
+    // {
+    //   this.router.navigateByUrl('/menu/menu/home-student');
+    // } else if (this.inputEmail ==="col") {
+    //   this.router.navigate(['home-administrador']);
+     
+    // } else if (this.inputEmail ==="adm") {
+     
+    // this.router.navigate(['home-administrador']);
+    // }
+    //   else {
+    //     alert("put on email: stu/adm/col");
+    //   }
     }
-  }
+
+  // goToRegister(){
+  //   this.router.navigate(['register']);
+  //   }
+  // }
   ngOnInit() {
 
   }

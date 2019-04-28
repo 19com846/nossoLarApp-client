@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'pessoas-cadastradas', loadChildren: './pages/pessoas-cadastradas/pessoas-cadastradas.module#PessoasCadastradasPageModule' },
-  { path: 'todas-as-turmas', loadChildren: './pages/todas-as-turmas/todas-as-turmas.module#TodasAsTurmasPageModule' },
+  { path: 'home-administrador', loadChildren: './pages/home-administrador/home-administrador.module#HomeAdministradorPageModule' },
   { path: 'home-student', loadChildren: './pages/home-student/home-student.module#HomeStudentPageModule' },
   { path: 'selecionar-turma-para-chamada', loadChildren: './pages/selecionar-turma-para-chamada/selecionar-turma-para-chamada.module#SelecionarTurmaParaChamadaPageModule' },
   { path: 'minha-turma', loadChildren: './pages/minha-turma/minha-turma.module#MinhaTurmaPageModule' },
@@ -15,13 +15,23 @@ const routes: Routes = [
   { path: 'transferencia-student', loadChildren: './pages/transferencia-student/transferencia-student.module#TransferenciaStudentPageModule' },
   { path: 'cadastrar-novo-curso-student', loadChildren: './pages/cadastrar-novo-curso-student/cadastrar-novo-curso-student.module#CadastrarNovoCursoStudentPageModule' },
   { path: 'chamada', loadChildren: './pages/chamada/chamada.module#ChamadaPageModule' },
-  { path: 'home-collaborator', loadChildren: './pages/home-collaborator/home-collaborator.module#HomeCollaboratorPageModule' },
-  { path: 'all-students', loadChildren: './pages/all-students/all-students.module#AllStudentsPageModule' },
-  { path: 'all-collabs', loadChildren: './pages/all-collabs/all-collabs.module#AllCollabsPageModule' },
-  { path: 'all-admins', loadChildren: './pages/all-admins/all-admins.module#AllAdminsPageModule' },
+  { path: 'matricula', loadChildren: './pages/matricula/matricula.module#MatriculaPageModule' },
+  { path: 'transferencia-adm', loadChildren: './pages/transferencia-adm/transferencia-adm.module#TransferenciaAdmPageModule' },
+  { path: 'todos-ciclos', loadChildren: './pages/todos-ciclos/todos-ciclos.module#TodosCiclosPageModule' },
+  { path: 'informacao-turma', loadChildren: './pages/informacao-turma/informacao-turma.module#InformacaoTurmaPageModule' },
+  { path: 'alunos-do-ciclo', loadChildren: './pages/alunos-do-ciclo/alunos-do-ciclo.module#AlunosDoCicloPageModule' },
+  { path: 'student-details', loadChildren: './pages/student-details/student-details.module#StudentDetailsPageModule' },
+  { path: 'create-class', loadChildren: './pages/create-class/create-class.module#CreateClassPageModule' },
+  { path: 'perfil', loadChildren: './pages/perfil/perfil.module#PerfilPageModule' },
+  { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' },
+  { path: 'new-transfer', loadChildren: './pages/new-transfer/new-transfer.module#NewTransferPageModule' },
+  { path: 'search-student', loadChildren: './pages/search-student/search-student.module#SearchStudentPageModule' },
 
 
 ];
+
+
+
 
 @NgModule({
   imports: [

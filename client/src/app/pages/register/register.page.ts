@@ -15,7 +15,7 @@ export class RegisterPage implements OnInit {
 
 
   registerPerson(){
-    alert(this.inputName+' '+this.inputPhone);
+    
     this.router.navigate(['home']);
   }
   ngOnInit() {

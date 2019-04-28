@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StaticAPIService } from '../../services/static-api.service';
-import * as _ from 'lodash';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-minha-turma',
@@ -9,38 +7,44 @@ import * as _ from 'lodash';
   styleUrls: ['./minha-turma.page.scss'],
 })
 export class MinhaTurmaPage implements OnInit {
-  public turma: any;
-  public collaborators: any;
+  public turma: Array<Object> =[];
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) {  }
+  constructor(private router: Router) { 
 
-  goToMyPresences() {
+    /*
+      receber por parametro o id da turma
+       get api/turmas/id
+    */
+    this.turma = [{ 
+      "id": "456",
+       "name": "Ciclo 02",
+        "typeOfClass": "Ciclo 02",
+         "location": "Sala 7/8",
+        "weekday": "segunda-feira",
+         "startingWeek": "20",
+         "endingWeek": "46",
+          "startTime": "13:00",
+          "endTime": "15:30",
+          "collaborators": [ 
+               { "id": "123124",
+                   "name": "Joaozin",
+                    "email": "fulano.tal@gmail.com",
+                    "phone": "19999091120" },
+              { "id": "897987",
+                  "name": "Sicrano",
+                  "email": "sicrano.silva@hotmail.com",
+                  "phone": "null"
+                 } ] }]
+  }
+
+  faltas() {
     this.router.navigate(['faltas']);
   }
 
-  goToTransferTurma(id: number) {
+  transferencia() {
     this.router.navigate(['transferencia-student']);
   }
-
-  transferencia() {
-  }
-
   ngOnInit() {
-    const id = this.route.snapshot.params.id;
-    this.getTurma(id);
-  }
-
-  getTurma(id: String) {
-    this.api.getTurmaDetails(id).subscribe((data: Array<object>) => {
-      this.turma = data;
-      this.getCollaborators(this.turma);
-      console.log(this.turma);
-    });
-  }
-
-  getCollaborators(turma: any) {
-    this.collaborators = _.get(turma, '[0].collaborators');
-    console.log(this.collaborators);
   }
 
 }

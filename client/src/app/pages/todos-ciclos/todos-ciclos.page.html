@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button (click)="pop()"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Todas as turmas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="createClass()">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+      <ion-segment (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="ciclos">
+            <ion-label>Ciclos</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="ciclos livres">
+              <ion-label>Ciclos Livres</ion-label>
+            </ion-segment-button>
+          <ion-segment-button value="palestras">
+            <ion-label>Palestras</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+  <ion-searchbar></ion-searchbar>
+
+  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turmas of turma'> 
+      <div *ngIf="turmas.typeOfClass == 'Ciclo';">
+          <ion-item>
+              <ion-icon name="contact"></ion-icon>
+              <h3>{{turmas.name}}</h3>
+          </ion-item>
+          <ion-item>
+              <h6>Total de alunos: {{turmas.students}}</h6>
+          </ion-item>
+              
+             
+
+        <ion-card-content>
+        <h2>Dia: {{turmas.weekday}}</h2>
+        <h2>Horario: {{turmas.startTime}} ~ {{turmas.endTime}}</h2>
+        <h2>Sala: {{turmas.location}}</h2>
+        <h2>Dirigente: {{turmas?.collaborators[0].name}}</h2>
+      </ion-card-content>
+        </div>
+  </ion-card>
+
+</ion-content>

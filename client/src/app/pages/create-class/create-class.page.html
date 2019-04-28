@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button (click)="pop()"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Criar nova turma</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item >Titulo</ion-item>
+    <ion-item >Sala</ion-item>
+    <ion-item >Periodo</ion-item>
+    <ion-item >Horario</ion-item>
+    <ion-item>
+        <ion-label>Escolha o tipo de curso</ion-label>
+        <ion-select >
+          <ion-select-option>Ciclo</ion-select-option>
+          <ion-select-option>Ciclo Livre</ion-select-option>
+          <ion-select-option>Palestra</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Dirigente</ion-label>
+        <ion-select >
+          <ion-select-option>Joao</ion-select-option>
+          <ion-select-option>Ana</ion-select-option>
+          <ion-select-option>Maria</ion-select-option>
+        </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" (click)="pop()">Criar nova turma</ion-button>
+
+</ion-content>

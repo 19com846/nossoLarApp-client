@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { StaticAPIService } from 'src/app/services/static-api.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-chamada',
@@ -9,38 +8,65 @@ import { StaticAPIService } from 'src/app/services/static-api.service';
 })
 export class ChamadaPage implements OnInit {
 
-  public students: any;
+  public turma: Array < Object > = [];
+  public selectedArray :any = [];
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private api: StaticAPIService) { }
+  constructor(private navCtrl:NavController) { 
+
+    this.turma = [
+      {
+        "id": "1",
+        "name": "Joao",
+        attendance1 : false,
+        "attendance2": "false",
+      },{
+        "id": "2",
+        "name": "Guilherme",
+        attendance1: false,
+        "attendance2": "false", 
+      },{
+        "id": "3",
+        "name": "Jorge",
+        attendance1: false,
+        "attendance2": "false", 
+      },{
+        "id": "4",
+        "name": "Ariel",
+        attendance1: false,
+        "attendance2": "false", 
+      },{
+        "id": "5",
+        "name": "Salmo",
+        attendance1: false,
+        "attendance2": "false", 
+      },{
+        "id": "6",
+        "name": "Savio",
+        attendance1: false,
+        "attendance2": "false", 
+      }]
+
+  }
 
   ngOnInit() {
-    const collabID = this.route.snapshot.params.collabID;
-    const turmaID = this.route.snapshot.params.turmaID;
-    // this.getStudentsFromTurma(collabID, turmaID);
-    this.getStudentsFromTurma('collabID', 'turmaID');
   }
 
-  getStudentsFromTurma(collabID: String, turmaID: String) {
-    this.api.getStudentsfromTurma(collabID, turmaID).subscribe((data: Array<object>) => {
-      this.students = data;
-    });
-  }
-
-  selectMember(data) {
-    // if (data.attendance1 === false) {
-    //    this.selectedArray.push(data);
-    //  } else {
-    //   let names = this.selectedArray.filter(j=> j.id !== data.id);
-    //   this.selectedArray = names;
-    // }
+  selectMember(data){
+   
+    if (data.attendance1 === false) {
+       this.selectedArray.push(data);
+     } else {
+       
+      let names = this.selectedArray.filter(j=> j.id !== data.id);
+      this.selectedArray = names;
+      
+    }
+    
    }
-
-   //TODO RULE: If no student is selected, disable button
+   
    finalizar() {
-    // console.log(this.selectedArray)
-     alert("Chamada Realizada")
-    this.router.navigate(['selecionar-turma-para-chamada']);
+    console.log(this.selectedArray)
+     
+     this.navCtrl.pop();
    }
 }

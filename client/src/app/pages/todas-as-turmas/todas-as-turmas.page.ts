@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todas-as-turmas',
@@ -7,18 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodasAsTurmasPage implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
 
   Ciclos(){
-    alert("Pagina todos os ciclos")
+    
+    this.router.navigate(['todos-ciclos']);
   }
   cursosLivres(){
-    alert("Pagina cursos livres")
+    
   }
   criarNovaTurma(){
-    alert("Pagina criar nova turma")
+    
   }
 }

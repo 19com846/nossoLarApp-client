@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buscar Aluno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar></ion-searchbar>
+
+  <ion-card *ngFor="let student of students" (click)="expandItem(student)">
+    <ion-card-header>{{student.name}}</ion-card-header>
+    <ion-card-content>
+      <app-expandable expandHeight="100px" [expanded]="student.expanded">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="editStudent($event)">Editar</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="aprovarStudent($event, student)" >Aprovar</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </app-expandable>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

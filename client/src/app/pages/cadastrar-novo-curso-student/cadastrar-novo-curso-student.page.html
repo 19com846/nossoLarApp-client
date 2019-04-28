@@ -1,25 +1,35 @@
 <ion-header>
     <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button defaultHref="home"></ion-back-button>
-        </ion-buttons>
-          <ion-title>Matricular-se em novo curso</ion-title>
+        <div text-center>
+      <ion-title>Cadastro novo curso</ion-title>
+        </div>
     </ion-toolbar>
-</ion-header>
-<ion-content padding>
-  <ion-item>
-    <ion-label text-wrap>Cursos em aberto</ion-label>
-  </ion-item>
-    <ion-card (click)="presentAlertConfirm(turma)" *ngFor='let turma of turmas'> 
-      <ion-list>
-        <ion-item>
-          <ion-icon name="radio-button-on" style="color:green;font:bold;"></ion-icon>
-          <h3>{{turma.course}} - {{turma.title}}</h3>
+  </ion-header>
+
+  <ion-content padding>
+
+      <ion-item>
+          <ion-label text-wrap>
+              Cursos em aberto
+          </ion-label>
         </ion-item>
-      </ion-list>
-      <ion-card-content>
-        <h2>Data & Horario: {{turma.time}}</h2>
-        <h2>Localização: {{turma.classroom}}</h2>
-      </ion-card-content>
-    </ion-card>
+        <ion-card (click)="presentAlertConfirm(turmas)" *ngFor='let turmas of turma'> 
+            <div *ngIf="turmas.typeOfClass == 'Turma Livre' || turmas.typeOfClass == 'Palestra'">
+               
+                <ion-list>
+                    <ion-item>
+                      <ion-icon name="radio-button-on" style="color:green;font:bold;"></ion-icon>
+                      <h3>{{turmas.name}}</h3>
+                    </ion-item>
+                    </ion-list>
+  
+              <ion-card-content>
+              <h1>Dia: {{turmas.weekday}} </h1>
+              <h2>Horario: {{turmas?.startTime}} ~ {{turmas.endTime}}</h2>
+              <h2>Localização: {{turmas.location}}</h2>
+              <h2>Tipo: {{turmas.typeOfClass}}</h2>
+            </ion-card-content>
+              </div>
+        </ion-card>
+
 </ion-content>

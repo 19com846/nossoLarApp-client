@@ -6,12 +6,31 @@ class Course(models.Model):
     def __str__(self):
         return "Course: {}".format(self.name)
 
+class Person(models.Model):
+    name = models.CharField(max_length=50, null=False)
+    phone = models.CharField(max_length=15)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=50, null=True)
+    permission = models.IntegerField(null=False,blank=False)
+    def __str__(self):
+        return "Person: {}".format(self.name)
+
+class Enrolled(models.Model):
+    student = models.ForeignKey(Person, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True, null=False)
+    status = models.CharField(max_length=50, null=False)
+    finalGrade = models.CharField(max_length=5, null=True)
+    graduated = models.BooleanField(default=True, null=False)
+    def __str__(self):
+        return "Enrollment of Student: {} is active? {}".format(self.student, self.active)
+
 class Turma(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, null=False)
     classroom = models.CharField(max_length=20)
-    dirigente = models.ForeignKey(Person)
-    course = models.ForeignKey(Course)
-    time = models.CharField(max_length=10)
+    teacher = models.ForeignKey(Person, related_name="teacher", on_delete=models.PROTECT)
+    collaborators = models.ManyToManyField(Person)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    time = models.CharField(max_length=20, null=False)
     semester = models.IntegerField(null=False, blank=False)
     year = models.IntegerField(null=False, blank=False)
     enrollments = models.ManyToManyField(Enrolled)
@@ -19,46 +38,13 @@ class Turma(models.Model):
         return "Turma: {}".format(self.title)
 
 class Lesson(models.Model):
-    turma = models.ForeignKey(Turma)
-    def __str__(self):
-        return "Lesson: {}".format()
-
-class Presence(models.Model):
-    student = models.ForeignKey(Person)
-    lesson = models.ForeignKey(Lesson)
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
     date = models.DateField()
     def __str__(self):
-        return "Presence: {}".format()
+        return "Lesson:".format()
 
-class Teaches(models.Model):
-    classes = models.ManyToManyField(Turma)
-    teacher = models.ForeignKey(Pessoa)
+class Presence(models.Model):
+    student = models.ForeignKey(Person, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     def __str__(self):
-        return "Teaches: {}".format()
-
-class Collaborates(models.Model):
-    classes = models.ManyToManyField(Turma)
-    collaborators = models.ManyToManyField(Pessoa)
-    def __str__(self):
-        return "Collaborator: {}".format()
-
-class Person(models.Model):
-    name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=15)
-    email = models.CharField(max_length=20)
-    password = models.CharField(max_length=50)
-    permission = models.IntegerField(null=False,blank=False)
-    def __str__(self):
-        return "Person: {}".format(self.name)
-
-class Enrolled(models.Model):
-    student = models.ForeignKey(Person)
-    turma = models.ForeignKey(Turma)
-    active = models.BooleanField(initial=True)
-    status = models.CharField(max_length=50)
-    finalGrade = models.CharField(max_field=5)
-    graduated = models.BooleanField(initial=True)
-    def __str__(self):
-        return "Enrollment of Student: {} in class {} is active? {}".format(self.student, self.turma, self.active)
-
-
+        return "Presence:".format()

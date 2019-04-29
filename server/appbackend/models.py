@@ -4,7 +4,7 @@ from django.db import models
 class Course(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
-        return "Course: {}".format(self.name)
+        return "{}".format(self.name)
 
 class Person(models.Model):
     name = models.CharField(max_length=50, null=False)
@@ -13,7 +13,7 @@ class Person(models.Model):
     password = models.CharField(max_length=50, null=True)
     permission = models.IntegerField(null=False,blank=False)
     def __str__(self):
-        return "Person: {}".format(self.name)
+        return "{}".format(self.name)
 
 class Enrolled(models.Model):
     student = models.ForeignKey(Person, on_delete=models.CASCADE)
@@ -22,7 +22,7 @@ class Enrolled(models.Model):
     finalGrade = models.CharField(max_length=5, null=True)
     graduated = models.BooleanField(default=True, null=False)
     def __str__(self):
-        return "Enrollment of Student: {} is active? {}".format(self.student, self.active)
+        return "Matrícula de {}".format(self.student)
 
 class Turma(models.Model):
     title = models.CharField(max_length=50, null=False)
@@ -33,18 +33,18 @@ class Turma(models.Model):
     time = models.CharField(max_length=20, null=False)
     semester = models.IntegerField(null=False, blank=False)
     year = models.IntegerField(null=False, blank=False)
-    enrollments = models.ManyToManyField(Enrolled)
+    enrollments = models.ManyToManyField(Enrolled, blank=True)
     def __str__(self):
-        return "Turma: {}".format(self.title)
+        return "{} - {}".format(self.course, self.title)
 
 class Lesson(models.Model):
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
     date = models.DateField()
     def __str__(self):
-        return "Lesson:".format()
+        return "Aula {} no dia {}".format(self.turma, self.date)
 
 class Presence(models.Model):
     student = models.ForeignKey(Person, on_delete=models.CASCADE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     def __str__(self):
-        return "Presence:".format()
+        return "Presença de {} na {}:".format(self.student, self.lesson)

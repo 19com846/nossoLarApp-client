@@ -14,7 +14,8 @@ export class MinhaTurmaPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) {  }
 
-  faltas() {
+  goToMyPresences() {
+    this.router.navigate(['faltas']);
   }
 
   transferencia() {

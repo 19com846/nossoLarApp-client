@@ -13,16 +13,20 @@
   </ion-header>
   
   <ion-content>
-          <ion-item>
-
-              <ion-input [(ngModel)]="inputEmail" placeholder="EMAIL" required="true"clearInput></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-input [(ngModel)]="inputPhone" placeholder="TELEFONE"  required="true" clearInput></ion-input>
-          </ion-item>
-            <ion-row center>  
-                <ion-col text-center>   
-                 <ion-button color="primary" size="big" (click)="login()" >Entrar</ion-button>  
-                </ion-col> 
-               </ion-row>
+    <ion-grid>
+        <ion-row color="primary" justify-content-center>
+            <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <div padding>
+                <ion-item>
+                    <ion-input [(ngModel)]="inputCredentials" placeholder="E-mail ou Telefone" required="true" clearInput></ion-input>
+                </ion-item>
+                <ion-row center>  
+                    <ion-col text-center>   
+                        <ion-button color="primary" size="big" (click)="login()" expand="block" routerDirection="Forward">Entrar</ion-button>  
+                    </ion-col> 
+                </ion-row>
+            </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
   </ion-content>

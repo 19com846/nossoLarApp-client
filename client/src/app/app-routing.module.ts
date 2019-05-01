@@ -17,10 +17,6 @@ const routes: Routes = [
   { path: 'cadastrar-novo-curso-student', loadChildren: './pages/cadastrar-novo-curso-student/cadastrar-novo-curso-student.module#CadastrarNovoCursoStudentPageModule' },
   { path: 'chamada', loadChildren: './pages/chamada/chamada.module#ChamadaPageModule' },
 
-
-
-
-
 ];
 
 @NgModule({

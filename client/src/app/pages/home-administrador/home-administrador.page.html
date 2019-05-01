@@ -3,8 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <div *ngIf="dataLogin[0].permission == 'administrators'; else elseBlock"><ion-title>Home - Administrador</ion-title></div>
-    <ng-template #elseBlock><ion-title>Home - Colaboradores</ion-title></ng-template>  
+    <ion-title>Home - Administrador</ion-title>
   </ion-toolbar>
 </ion-header>
 

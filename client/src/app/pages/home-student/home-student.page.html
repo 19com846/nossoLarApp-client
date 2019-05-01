@@ -1,90 +1,39 @@
 <ion-header>
   <ion-toolbar>
-      <div text-center>
-    <ion-title>Minhas turmas</ion-title>
-      </div>
-  </ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+      <ion-title>Meus Cursos</ion-title>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content padding>
-
-    <ion-item>
-        <ion-label text-wrap>
-            Cursos em aberto
-        </ion-label>
-      </ion-item>
-      <ion-card (click)="clickCard(turmas.id)" *ngFor='let turmas of turma'> 
-          <div *ngIf="turmas.status == 'on';">
-             
-              <ion-list>
-                  <ion-item>
-                    <ion-icon name="radio-button-on" style="color:green;font:bold;"></ion-icon>
-                    <h3>{{turmas.name}}</h3>
-                  </ion-item>
-                  </ion-list>
-
-            <ion-card-content>
-            <h1>Dirigente: {{turmas?.collaborators[0].name}} </h1>
-            <h2>Horario: {{turmas?.startTime}} ~ {{turmas.endTime}}</h2>
-          </ion-card-content>
-            </div>
-      </ion-card>
-
-
-      <ion-item>
-          <ion-label text-wrap>
-              Cursos ja realizados
-          </ion-label>
-        </ion-item>
-      <ion-card *ngFor='let turmas of turma'> 
-          <div *ngIf="turmas.status == 'off';">
-            
-            <ion-list>
-              <ion-item>
-                <ion-icon name="radio-button-off"  style="color:red;font:bold;" ></ion-icon>
-                <h3>{{turmas.name}}</h3>
-              </ion-item>
-              </ion-list>
-
-            <ion-card-content>
-            <h1>Dirigente: {{turmas?.collaborators[0].name}} </h1>
-            <h2>Horario: {{turmas?.startTime}} ~ {{turmas.endTime}}</h2>
-          </ion-card-content>
-            </div>
-      </ion-card>
-
-
-  
-      <ion-button expand="block" (click)="clickPlus()">Inscrever-se para novo curso</ion-button>
-
-      <ion-item>
-        <ion-label text-wrap>
-            Cursos aguardando aprovação
-        </ion-label>
-      </ion-item>
-    <ion-card *ngFor='let turmas of turma'> 
-        <div *ngIf="turmas.status == 'waiting';'nao há nenhum curso'">
-          
-          <ion-list>
-            <ion-item>
-              <ion-icon name="radio-button-on"  style="color:darkorange;font:bold;" ></ion-icon>
-              <h3>{{turmas.name}}</h3>
-            </ion-item>
-            </ion-list>
-
-          <ion-card-content>
-          <h1>Dirigente: {{turmas?.collaborators[0].name}} </h1>
-          <h2>Horario: {{turmas?.startTime}} ~ {{turmas.endTime}}</h2>
-        </ion-card-content>
-          </div>
-    </ion-card>
-
-
-    <ng-template #elseBlockRest>
-        
-    </ng-template> 
-
-
-
-
+  <ion-item>
+    <ion-label>
+        <h3>Cursos em aberto</h3>
+    </ion-label>
+  </ion-item>
+  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turma of activeTurmas'>
+    <ion-card-content>
+      <h2>Dirigente: {{turma.teacher}} </h2>
+      <h3>Horario: {{turma.time}}</h3>
+      <h4>Semestre: {{turma.semester}}</h4>
+      <h4>Ano: {{turma.year}}</h4>
+    </ion-card-content>
+  </ion-card>
+  <ion-item>
+    <ion-label>
+      <h3>Cursos já realizados</h3>
+    </ion-label>
+  </ion-item>
+  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turma of inactiveTurmas'>
+      <ion-card-content>
+        <h2>Dirigente: {{turma.teacher}} </h2>
+        <h3>Horario: {{turma.time}}</h3>
+        <h4>Semestre: {{turma.semester}}</h4>
+        <h4>Ano: {{turma.year}}</h4>
+      </ion-card-content>
+    </ion-card>    
 </ion-content>
+<ion-footer>
+    <ion-button expand="block" (click)="clickPlus()">Matricular-se em nova Turma</ion-button>
+</ion-footer>

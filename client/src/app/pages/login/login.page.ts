@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +8,8 @@ import { Router } from '@angular/router'
 })
 export class LoginPage implements OnInit {
 
-  public dataLogin : Array<Object> = [];
-  public inputEmail:string;
-  public inputPhone:string;
-  
+  public dataLogin: Array<Object> = [];
+  public inputCredentials: String;
 
   constructor(private router: Router) {
     this.dataLogin = [
@@ -27,10 +25,7 @@ export class LoginPage implements OnInit {
 
    }
 
-  
-
-
-  login(){
+  login() {
     /*manda para api this.inputEmail e this.inputPhone. Se retornar 200
     get all datas from this person
     id
@@ -38,27 +33,16 @@ export class LoginPage implements OnInit {
     email
     phone
     permission
-*/
-    if(this.inputEmail ==="stu")
-    {
+    */
+    if (this.inputCredentials === 'stu') {
       this.router.navigate(['home-student']);
-      alert('student');
-    } else if (this.inputEmail ==="col") {
-      this.router.navigate(['home-administrador']);
-      alert("collaborators");
-    } else if (this.inputEmail ==="adm") {
-      alert ("administrators")
+      // alert('student');
+    } else {
+      // alert ("administrators")
     this.router.navigate(['home-administrador']);
     }
-      else {
-        alert("put on email: stu/adm/col");
-      }
-    }
-
-  
-
-  ngOnInit() {
-   
   }
+  ngOnInit() {
 
+  }
 }

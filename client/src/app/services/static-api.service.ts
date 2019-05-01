@@ -14,4 +14,8 @@ export class StaticAPIService {
   getAllCoursesFromStudent(studentID: number) {
         return this.httpClient.get(`${this.API_URL}/student/` + studentID);
   }
+
+  getTurmaDetails(turmaID: number) {
+        return this.httpClient.get(`${this.API_URL}/turma/` + turmaID);
+  }
 }

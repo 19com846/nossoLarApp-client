@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { StaticAPIService } from '../../services/static-api.service';
 import * as _ from 'lodash';
 
@@ -9,19 +9,17 @@ import * as _ from 'lodash';
   styleUrls: ['./home-student.page.scss'],
 })
 export class HomeStudentPage implements OnInit {
-
-  public dataLogin: Array<Object> = [];
   public turmas: any;
   public activeTurmas: any;
   public inactiveTurmas: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) {  }
 
-  // clickCard(id) {
-  //   this.router.navigate(['minha-turma']);
-  // }
+  goToTurmaDetail() {
+    this.router.navigate(['minha-turma']);
+  }
 
-  // clickPlus() {
+  // newEnrollment() {
   //   this.router.navigate(['cadastrar-novo-curso-student'])
   // }
 
@@ -52,6 +50,5 @@ export class HomeStudentPage implements OnInit {
     });
     // console.log(this.activeTurmas);
   }
-  // TO DO : getActiveCourses and getInactive Courses
 
 }

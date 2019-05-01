@@ -12,7 +12,7 @@
         <h3>Cursos em aberto</h3>
     </ion-label>
   </ion-item>
-  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turma of activeTurmas'>
+  <ion-card (click)="goToTurmaDetail(turma)" routerDirection="Forward" *ngFor='let turma of activeTurmas'>
     <ion-card-content>
       <h2>Dirigente: {{turma.teacher}} </h2>
       <h3>Horario: {{turma.time}}</h3>
@@ -25,7 +25,7 @@
       <h3>Cursos já realizados</h3>
     </ion-label>
   </ion-item>
-  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turma of inactiveTurmas'>
+  <ion-card (click)="goToTurmaDetail(turma)" routerDirection="Forward" *ngFor='let turma of inactiveTurmas'>
       <ion-card-content>
         <h2>Dirigente: {{turma.teacher}} </h2>
         <h3>Horario: {{turma.time}}</h3>
@@ -35,5 +35,5 @@
     </ion-card>    
 </ion-content>
 <ion-footer>
-    <ion-button expand="block" (click)="clickPlus()">Matricular-se em nova Turma</ion-button>
+    <ion-button expand="block" (click)="newEnrollment()">Matricular-se em nova Turma</ion-button>
 </ion-footer>

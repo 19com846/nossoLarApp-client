@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
+import { StaticAPIService } from 'src/app/services/static-api.service';
 
 @Component({
   selector: 'app-transferencia-student',
@@ -9,114 +10,42 @@ import { Router } from '@angular/router'
 })
 export class TransferenciaStudentPage implements OnInit {
 
-  public turma: Array<Object> =[];
+  public turmas: any;
 
-  constructor(public alertController: AlertController, private router: Router) { 
+  constructor(public alertController: AlertController, 
+              private route: ActivatedRoute, 
+              private router: Router,
+              private api: StaticAPIService) { }
 
-
-    
-  this.turma = [
-    {
-      "id": "123",
-      "name": "Ciclo 02",
-      "turma": "Turma 1",
-      "typeOfClass": "Ciclo",
-      "location": "Sala 7/8",
-      "weekday": "Segunda-feira",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "startTime": "22:00",
-      "status": "off",
-      "endTime": "23:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Fulano de Tal",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        },
-        {
-          "id": "897987",
-          "name": "Sicrano",
-          "email": "sicrano.silva@hotmail.com",
-          "phone": "null"
-        }
-      ]
-    },
-    {
-      "id": "456",
-      "name": "Ciclo 02",
-      "turma": "Turma 2",
-      "typeOfClass": "Ciclo",
-      "location": "Sala SSP",
-      "weekday": "Sábado",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "status": "on",
-      "startTime": "13:00",
-      "endTime": "15:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Joaozin",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        },
-        {
-          "id": "897987",
-          "name": "Sicrano",
-          "email": "sicrano.silva@hotmail.com",
-          "phone": "null"
-        }
-      ]
-    }, {
-      "id": "789",
-      "name": "Ciclo 02",
-      "turma": "Turma 3",
-      "typeOfClass": "Ciclo",
-      "location": "Sala SSP",
-      "weekday": "Domingo",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "status": "waiting",
-      "startTime": "08:00",
-      "endTime": "10:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Joaozin",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        }
-      ]
-    },
-   ]
+  ngOnInit() {
+    const id = this.route.snapshot.params.id;
+    this.getOpenTurmas(id);
   }
 
-  cardClicked(turmas) {
-    alert(turmas.turma);
+  getOpenTurmas(id: number) {
+    this.api.getOpenTurmasOfCourse(id).subscribe((data: Array<object>) => {
+      this.turmas = data;
+    });
+  }
+
+  cardClicked(turma) {
     this.router.navigate(['home-student']);
   }
-  ngOnInit() {
-  }
 
-  async presentAlertConfirm(turmas) {
+  async presentAlertConfirm(turma) {
     const alert = await this.alertController.create({
       header: 'Atenção!',
-      message: "Você deseja mesmo transferir sua turma para a "+turmas.turma+" ?",
+      message: 'Você deseja mesmo transferir sua turma para a ' + turma.title + ' ?',
       buttons: [
         {
           text: 'Não',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
+          handler: () => { }
         }, {
           text: 'SIM !',
           handler: () => {
-            console.log('Confirm Okay');
-            this.cardClicked(turmas);
+            this.cardClicked(turma);
           }
         }
       ]

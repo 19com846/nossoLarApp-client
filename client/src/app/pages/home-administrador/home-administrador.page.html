@@ -6,9 +6,7 @@
     <ion-title>Home - Administrador</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
     <div *ngIf="dataLogin[0].permission == 'administrators'; else elseBlockRest">
         <ion-button  (click)="Chamada()" expand="block">Chamada</ion-button>
         <ion-button  (click)="Matriculas()" expand="block">Matriculas</ion-button>

@@ -19,9 +19,9 @@ export class HomeStudentPage implements OnInit {
     this.router.navigate(['minha-turma']);
   }
 
-  // newEnrollment() {
-  //   this.router.navigate(['cadastrar-novo-curso-student'])
-  // }
+  newEnrollment() {
+    this.router.navigate(['cadastrar-novo-curso-student'])
+  }
 
   ngOnInit() {
     const id = this.route.snapshot.params.id;

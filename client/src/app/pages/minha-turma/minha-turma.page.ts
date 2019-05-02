@@ -18,6 +18,10 @@ export class MinhaTurmaPage implements OnInit {
     this.router.navigate(['faltas']);
   }
 
+  goToTransferTurma(id: number) {
+    this.router.navigate(['transferencia-student']);
+  }
+
   transferencia() {
   }
 

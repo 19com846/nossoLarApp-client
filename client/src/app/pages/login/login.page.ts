@@ -37,9 +37,8 @@ export class LoginPage implements OnInit {
     if (this.inputCredentials === 'stu') {
       this.router.navigate(['home-student']);
       // alert('student');
-    } else {
-      // alert ("administrators")
-    this.router.navigate(['home-administrador']);
+    } else if (this.inputCredentials === 'collab') {
+    this.router.navigate(['home-collaborator']);
     }
   }
   ngOnInit() {

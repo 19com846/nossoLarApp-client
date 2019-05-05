@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nosso Lar - App</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h2>Ações de Colaborador</h2>
+  <ion-button  (click)="selectTurma()" expand="block" routerDirection="Forward">Fazer Chamada</ion-button>
+  <ion-button  (click)="goToAllUser()" expand="block" routerDirection="Forward">Todos os Usuários</ion-button>
+  <ion-button  (click)="Turmas()" expand="block" routerDirection="Forward">Turmas</ion-button>
+  <ion-button  (click)="goToOpenTransfers()" expand="block" routerDirection="Forward">Transferências</ion-button>  
+  <h2>Ações de Aluno</h2> 
+  <ion-button  (click)="goToMyTurmas()" expand="block" routerDirection="Forward">Minhas Turmas</ion-button>
+</ion-content>

@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'faltas', loadChildren: './pages/faltas/faltas.module#FaltasPageModule' },
   { path: 'transferencia-student', loadChildren: './pages/transferencia-student/transferencia-student.module#TransferenciaStudentPageModule' },
   { path: 'cadastrar-novo-curso-student', loadChildren: './pages/cadastrar-novo-curso-student/cadastrar-novo-curso-student.module#CadastrarNovoCursoStudentPageModule' },
-  { path: 'chamada', loadChildren: './pages/chamada/chamada.module#ChamadaPageModule' },
+  { path: 'chamada', loadChildren: './pages/chamada/chamada.module#ChamadaPageModule' },  { path: 'home-collaborator', loadChildren: './pages/home-collaborator/home-collaborator.module#HomeCollaboratorPageModule' },
+
 
 ];
 

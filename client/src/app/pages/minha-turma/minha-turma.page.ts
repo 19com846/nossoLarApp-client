@@ -30,7 +30,7 @@ export class MinhaTurmaPage implements OnInit {
     this.getTurma(id);
   }
 
-  getTurma(id: number) {
+  getTurma(id: String) {
     this.api.getTurmaDetails(id).subscribe((data: Array<object>) => {
       this.turma = data;
       this.getCollaborators(this.turma);

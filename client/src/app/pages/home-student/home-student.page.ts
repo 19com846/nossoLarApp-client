@@ -28,7 +28,7 @@ export class HomeStudentPage implements OnInit {
     this.getTurmas(id);
   }
 
-  getTurmas(id: number) {
+  getTurmas(id: String) {
     this.api.getAllCoursesFromStudent(id).subscribe((data: Array<object>) => {
       this.turmas = data;
       // console.log(data);

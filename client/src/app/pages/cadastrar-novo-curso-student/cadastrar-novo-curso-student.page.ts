@@ -22,7 +22,7 @@ export class CadastrarNovoCursoStudentPage implements OnInit {
     this.getOpenTurmas(id);
   }
 
-  getOpenTurmas(id: number) {
+  getOpenTurmas(id: String) {
     this.api.getOpenTurmas(id).subscribe((data: Array<object>) => {
       this.turmas = data;
       // console.log(data);

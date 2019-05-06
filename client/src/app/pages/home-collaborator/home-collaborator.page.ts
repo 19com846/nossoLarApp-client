@@ -17,4 +17,8 @@ export class HomeCollaboratorPage implements OnInit {
     this.router.navigate(['selecionar-turma-para-chamada']);
   }
 
+  goToAllUser() {
+    this.router.navigate(['pessoas-cadastradas']);
+  }
+
 }

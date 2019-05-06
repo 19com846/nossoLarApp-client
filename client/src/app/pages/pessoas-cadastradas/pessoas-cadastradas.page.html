@@ -6,23 +6,20 @@
     <ion-title>Pessoas Cadastradas</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
   <ion-list>
-    <ion-item (click)="Administrador()">
+    <ion-item (click)="goToAllAdministrators()" routerDirection="Forward">
       <ion-icon name="contacts"></ion-icon>
       <ion-label>Administrador</ion-label>
     </ion-item>
-    <ion-item (click)="Colaboradores()">
+    <ion-item (click)="goToAllCollaborators()" routerDirection="Forward">
       <ion-icon name="clipboard"></ion-icon>
       <ion-label>Colaboradores</ion-label>
     </ion-item>
-    <ion-item (click)="Alunos()">
+    <ion-item (click)="goToAllStudents()" routerDirection="Forward">
       <ion-icon name="md-create"></ion-icon>
       <ion-label>Alunos</ion-label>
     </ion-item>
   </ion-list>
   <ion-button expand="block" (click)="novoCadastro()">Novo Cadastro</ion-button>
-
 </ion-content>

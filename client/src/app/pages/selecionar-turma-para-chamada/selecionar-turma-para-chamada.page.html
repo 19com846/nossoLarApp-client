@@ -1,28 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title text-center>Selecionar Turma Para Chamada</ion-title>
+    <ion-title text-center>Fazer Chamada</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-item text-center>
-    <ion-title text-wrap>Selecione a turma</ion-title>
+    <ion-title>Selecione a turma</ion-title>
   </ion-item>
-  <ion-searchbar></ion-searchbar>
-
-
-  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turmas of turma'> 
-      <div *ngIf="turmas.status == 'on';">
-          <ion-list>
-              <ion-item>
-              <ion-icon name="contact"></ion-icon>
-                  <h3>{{turmas.name}}</h3>
-              </ion-item>
-              </ion-list>
-
-        <ion-card-content>
-        <h2>Horario: {{turmas.startTime}} ~ {{turmas.endTime}}</h2>
-      </ion-card-content>
-        </div>
+  <ion-searchbar placeholder="Buscar Turma"></ion-searchbar>
+  <ion-card (click)="clickOnTurma(turma.id)" *ngFor='let turma of turmasParaChamada'> 
+      <ion-list>
+        <ion-item>
+          <ion-icon name="contact"></ion-icon>
+          <h3>{{turma.turma}}</h3>
+        </ion-item>
+      </ion-list>
+    <ion-card-content>
+      <h2>Horario: {{turma.date}}</h2>
+    </ion-card-content>
   </ion-card>
 </ion-content>

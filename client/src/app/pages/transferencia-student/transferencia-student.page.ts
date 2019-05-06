@@ -22,7 +22,7 @@ export class TransferenciaStudentPage implements OnInit {
     this.getOpenTurmas(id);
   }
 
-  getOpenTurmas(id: number) {
+  getOpenTurmas(id: String) {
     this.api.getOpenTurmasOfCourse(id).subscribe((data: Array<object>) => {
       this.turmas = data;
     });

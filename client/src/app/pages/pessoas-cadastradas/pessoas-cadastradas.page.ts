@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-pessoas-cadastradas',
@@ -12,19 +13,19 @@ export class PessoasCadastradasPage implements OnInit {
 
   ngOnInit() {
   }
-
-  Administrador(){
-    alert("Todos os administradores");
+  goToAllAdministrators() {
+    // alert("Todos os administradores");
+    this.router.navigate(['all-admins']);
   }
-  Colaboradores(){
-    alert("Todos os colaboradores");
-
+  goToAllCollaborators() {
+    // alert("Todos os colaboradores");
+    this.router.navigate(['all-collabs']);
   }
-  Alunos(){
-    alert("Todos os administradores");
-
+  goToAllStudents() {
+    // alert("Todos os estudantes");
+    this.router.navigate(['all-students']);
   }
-  novoCadastro(){
+  novoCadastro() {
     this.router.navigate(['register']);
   }
 }

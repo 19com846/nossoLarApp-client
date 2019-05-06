@@ -11,6 +11,18 @@ export class StaticAPIService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getAllAdministrators() {
+    return this.httpClient.get(`${this.API_URL}/administrators/`);
+  }
+
+  getAllCollaborators() {
+    return this.httpClient.get(`${this.API_URL}/collaborators/`);
+  }
+
+  getAllStudents() {
+    return this.httpClient.get(`${this.API_URL}/students/`);
+  }
+
   getStudentsfromTurma(collaboratorID: String, turmaID: String) {
     return this.httpClient.get(`${this.API_URL}/chamada/` + collaboratorID + '/' + turmaID)
   }

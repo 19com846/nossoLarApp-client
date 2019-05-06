@@ -37,7 +37,7 @@ export class ChamadaPage implements OnInit {
     // }
    }
 
-   //If no student is selected, disable button
+   //TODO RULE: If no student is selected, disable button
    finalizar() {
     // console.log(this.selectedArray)
      alert("Chamada Realizada")

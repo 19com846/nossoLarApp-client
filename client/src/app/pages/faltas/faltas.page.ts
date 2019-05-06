@@ -15,7 +15,7 @@ export class FaltasPage implements OnInit {
     this.getPresencesFromStudentInClass(id);
   }
 
-  getPresencesFromStudentInClass(id: number) {
+  getPresencesFromStudentInClass(id: String) {
     this.api.getPresencesFromStudentInClass(id).subscribe((data: Array<object>) => {
       this.faltas = data;
       console.log(this.faltas);

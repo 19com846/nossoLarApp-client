@@ -6,26 +6,35 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StaticAPIService {
-  getOpenTurmasOfCourse(turmaID: number) {
-    return this.httpClient.get(`${this.API_URL}/turmas/` + turmaID);
-  }
-  API_URL = Constants.STATIC_URL;
 
-  getOpenTurmas(studentID: number) {
-    return this.httpClient.get(`${this.API_URL}/matriculas/` + studentID);
-  }
+  API_URL = Constants.STATIC_URL;
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllCoursesFromStudent(studentID: number) {
+  getStudentsfromTurma(collaboratorID: String, turmaID: String) {
+    return this.httpClient.get(`${this.API_URL}/chamada/` + collaboratorID + '/' + turmaID)
+  }
+
+  getTurmasToAssessPresence(collaboratorID: String) {
+    return this.httpClient.get(`${this.API_URL}/chamada/` + collaboratorID);
+  }
+  getOpenTurmasOfCourse(turmaID: String) {
+    return this.httpClient.get(`${this.API_URL}/turmas/` + turmaID);
+  }
+
+  getOpenTurmas(studentID: String) {
+    return this.httpClient.get(`${this.API_URL}/matriculas/` + studentID);
+  }
+
+  getAllCoursesFromStudent(studentID: String) {
     return this.httpClient.get(`${this.API_URL}/student/` + studentID);
   }
 
-  getTurmaDetails(turmaID: number) {
+  getTurmaDetails(turmaID: String) {
     return this.httpClient.get(`${this.API_URL}/turma/` + turmaID);
   }
 
-  getPresencesFromStudentInClass(presenceID: number) {
+  getPresencesFromStudentInClass(presenceID: String) {
     return this.httpClient.get(`${this.API_URL}/faltas/` + presenceID);
   }
 }

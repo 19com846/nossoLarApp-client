@@ -1,10 +1,7 @@
-import {
-  Component,
-  OnInit,
-  
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
+import { StaticAPIService } from 'src/app/services/static-api.service';
 
 @Component({
   selector: 'app-selecionar-turma-para-chamada',
@@ -12,71 +9,23 @@ import { Router } from '@angular/router'
   styleUrls: ['./selecionar-turma-para-chamada.page.scss'],
 })
 export class SelecionarTurmaParaChamadaPage implements OnInit {
-  public turma: Array < Object > = [];
+  public turmasParaChamada: any;
 
-  constructor( private router: Router) {
+  constructor(private router: Router, private api: StaticAPIService, private route: ActivatedRoute) { }
 
-    this.turma = [
-      {
-        "id": "123",
-        "name": "Ciclo 01",
-        "typeOfClass": "Ciclo",
-        "location": "Sala 7/8",
-        "weekday": "segunda-feira",
-        "startingWeek": "20",
-        "endingWeek": "46",
-        "startTime": "22:00",
-        "status": "on",
-        "endTime": "23:30",
-        "collaborators": [
-          {
-            "id": "123124",
-            "name": "Fulano de Tal",
-            "email": "fulano.tal@gmail.com",
-            "phone": "19999091120"
-          },
-          {
-            "id": "897987",
-            "name": "Sicrano",
-            "email": "sicrano.silva@hotmail.com",
-            "phone": "null"
-          }
-        ]
-      },
-      {
-        "id": "456",
-        "name": "Ciclo 02",
-        "typeOfClass": "Turma Livre",
-        "location": "Sala SSP",
-        "weekday": "sabado",
-        "startingWeek": "20",
-        "endingWeek": "46",
-        "status": "on",
-        "startTime": "13:00",
-        "endTime": "15:30",
-        "collaborators": [
-          {
-            "id": "123124",
-            "name": "Joaozin",
-            "email": "fulano.tal@gmail.com",
-            "phone": "19999091120"
-          },
-          {
-            "id": "897987",
-            "name": "Sicrano",
-            "email": "sicrano.silva@hotmail.com",
-            "phone": "null"
-          }
-        ]
-      }
-     ]
-    }
+  ngOnInit() {
+    const collaboratorID = this.route.snapshot.params.id; //use it below
+    this.getTurmasParaChamada('123908');
+  }
 
-    clickCard(turma){
-      alert('clicou turma: '+ turma);
-      this.router.navigate(['chamada']);
-    }
+  getTurmasParaChamada(collaboratorID: String) {
+    this.api.getTurmasToAssessPresence(collaboratorID).subscribe((data: Array<object>) => {
+      this.turmasParaChamada = data;
+    });
+  }
 
-  ngOnInit() {}
+  clickOnTurma(turmaID: String) {
+    this.router.navigate(['chamada']);
+  }
 
 }

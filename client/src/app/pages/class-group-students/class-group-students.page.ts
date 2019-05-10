@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-alunos-do-ciclo',
-  templateUrl: './alunos-do-ciclo.page.html',
-  styleUrls: ['./alunos-do-ciclo.page.scss'],
+  selector: 'app-class-group-students',
+  templateUrl: './class-group-students.page.html',
+  styleUrls: ['./class-group-students.page.scss'],
 })
-export class AlunosDoCicloPage implements OnInit {
+export class ClassGroupStudentsPage implements OnInit {
 
   public alunos: Array < Object > = [];
 

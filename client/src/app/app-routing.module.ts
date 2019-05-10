@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: 'alunos-do-ciclo', loadChildren: './pages/alunos-do-ciclo/alunos-do-ciclo.module#AlunosDoCicloPageModule' },
   { path: 'student-details', loadChildren: './pages/student-details/student-details.module#StudentDetailsPageModule' },
   { path: 'create-class', loadChildren: './pages/create-class/create-class.module#CreateClassPageModule' },
-  { path: 'perfil', loadChildren: './pages/perfil/perfil.module#PerfilPageModule' },
   { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' },
   { path: 'new-transfer', loadChildren: './pages/new-transfer/new-transfer.module#NewTransferPageModule' },
   { path: 'search-student', loadChildren: './pages/search-student/search-student.module#SearchStudentPageModule' },
@@ -26,6 +25,7 @@ const routes: Routes = [
   { path: 'enrollments', loadChildren: './pages/enrollments/enrollments.module#EnrollmentsPageModule' },
   { path: 'my-class-group', loadChildren: './pages/my-class-group/my-class-group.module#MyClassGroupPageModule' },
   { path: 'all-users', loadChildren: './pages/all-users/all-users.module#AllUsersPageModule' },
+  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
 
 
 ];

@@ -16,46 +16,25 @@
       Cursos em aberto
     </ion-label>
   </ion-item>
-  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turmas of turma'>
-    <div *ngIf="turmas.status == 'on';">
+  <ion-card (click)="goToTurmaDetail(turma)" routerDirection="Forward" *ngFor='let turma of activeTurmas'>
+    <ion-card-content>
+      <h2>Dirigente: {{turma.teacher}} </h2>
+      <h3>Horario: {{turma.time}}</h3>
+      <h4>Semestre: {{turma.semester}}</h4>
+      <h4>Ano: {{turma.year}}</h4>
+    </ion-card-content>
 
-      <ion-list>
-        <ion-item>
-          <ion-icon name="radio-button-on" style="color:green;font:bold;"></ion-icon>
-          <h3>{{turmas.name}}</h3>
-        </ion-item>
-      </ion-list>
-
-      <ion-card-content>
-        <h1>Dirigente: {{turmas?.collaborators[0].name}} </h1>
-        <h2>Horario: {{turmas?.startTime}} ~ {{turmas.endTime}}</h2>
-      </ion-card-content>
-    </div>
-  </ion-card>
-
-
-  <ion-item>
-    <ion-label text-wrap>
-      Cursos ja realizados
+    <ion-label>
+      <h3>Cursos já realizados</h3>
     </ion-label>
-  </ion-item>
-  <ion-card *ngFor='let turmas of turma'>
-    <div *ngIf="turmas.status == 'off';">
-
-      <ion-list>
-        <ion-item>
-          <ion-icon name="radio-button-off" style="color:red;font:bold;"></ion-icon>
-          <h3>{{turmas.name}}</h3>
-        </ion-item>
-      </ion-list>
-
+    <ion-card (click)="goToTurmaDetail(turma)" routerDirection="Forward" *ngFor='let turma of inactiveTurmas'>
       <ion-card-content>
-        <h1>Dirigente: {{turmas?.collaborators[0].name}} </h1>
-        <h2>Horario: {{turmas?.startTime}} ~ {{turmas.endTime}}</h2>
+        <h2>Dirigente: {{turma.teacher}} </h2>
+        <h3>Horario: {{turma.time}}</h3>
+        <h4>Semestre: {{turma.semester}}</h4>
+        <h4>Ano: {{turma.year}}</h4>
       </ion-card-content>
-    </div>
-  </ion-card>
-
+    </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="clickPlus()">
@@ -85,3 +64,6 @@
     </div>
   </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-button expand="block" (click)="newEnrollment()" routerDirection="Forward">Matricular-se em nova Turma</ion-button>
+</ion-footer>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { StaticAPIService } from '../../services/static-api.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-home-student',
@@ -8,102 +10,18 @@ import { Router } from '@angular/router'
 })
 export class HomeStudentPage implements OnInit {
 
-  public dataLogin : Array<Object> = [];
-  public turma: Array<Object> =[];
+  public turmas: any;
+  public activeTurmas: any;
+  public inactiveTurmas: any;
 
-  constructor(private router: Router) {
-    /*
-      get api/turmas/id todas as turmas daquela pessoa
-    */
+  constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) { }
 
-   this.turma = [
-    {
-      "id": "123",
-      "name": "Ciclo 01",
-      "typeOfClass": "Ciclo",
-      "location": "Sala 7/8",
-      "weekday": "segunda-feira",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "startTime": "22:00",
-      "status": "off",
-      "endTime": "23:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Fulano de Tal",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        },
-        {
-          "id": "897987",
-          "name": "Sicrano",
-          "email": "sicrano.silva@hotmail.com",
-          "phone": "null"
-        }
-      ]
-    },
-    {
-      "id": "456",
-      "name": "Ciclo 02",
-      "typeOfClass": "Turma Livre",
-      "location": "Sala SSP",
-      "weekday": "sabado",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "status": "on",
-      "startTime": "13:00",
-      "endTime": "15:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Joaozin",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        },
-        {
-          "id": "897987",
-          "name": "Sicrano",
-          "email": "sicrano.silva@hotmail.com",
-          "phone": "null"
-        }
-      ]
-    }, {
-      "id": "789",
-      "name": "Palestra tema X",
-      "typeOfClass": "Turma Livre",
-      "location": "Sala SSP",
-      "weekday": "Quarta-feira",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "status": "waiting",
-      "startTime": "20:00",
-      "endTime": "21:300",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Ronaldo",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        }
-      ]
-    },
-   ]
-
-    this.dataLogin = [
-      {
-        "id": "123",
-        "name:": "Joao",
-        "email": "a@a.com",
-        "phone": "111111111",
-        "permission": "administrators",
-        //collaborators,student,administrators
-      }
-    ]
-
-  
+  goToTurmaDetail() {
+    this.router.navigate(['minha-turma']);
   }
-
+  newEnrollment() {
+    this.router.navigate(['cadastrar-novo-curso-student'])
+  }
   clickCard(id) {
     this.router.navigate(['minha-turma']);
   }
@@ -113,6 +31,31 @@ export class HomeStudentPage implements OnInit {
   }
 
   ngOnInit() {
+    const id = this.route.snapshot.params.id;
+    this.getTurmas(id);
+  }
+
+  getTurmas(id: String) {
+    this.api.getAllCoursesFromStudent(id).subscribe((data: Array<object>) => {
+      this.turmas = data;
+      // console.log(data);
+      this.getActiveCourses(this.turmas);
+      this.getInactiveCourses(this.turmas);
+    });
+  }
+
+  getActiveCourses(turmas: any) {
+    this.activeTurmas = _.filter(turmas , function(o) {
+      return o.active;
+    });
+    // console.log(this.activeTurmas);
+  }
+
+  getInactiveCourses(turmas: any) {
+    this.inactiveTurmas = _.filter(turmas , function(o) {
+      return !o.active;
+    });
+    // console.log(this.activeTurmas);
   }
 
 }

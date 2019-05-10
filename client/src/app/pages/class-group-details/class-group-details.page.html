@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button (click)="pop()"></ion-back-button>
-        </ion-buttons>
-    <ion-title>Turma {{turma[0].name}}</ion-title>
-  </ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button (click)="pop()"></ion-back-button>
+      </ion-buttons>
+  <ion-title>Turma {{turma[0].name}}</ion-title>
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -19,6 +19,5 @@
   <ion-button (click)="relatorio()" expand="block">Emitir relatório de presença</ion-button>
   <ion-button expand="block" (click)="verAlunos()">Informação dos Alunos</ion-button>
   <ion-button expand="block" (click)="changeRoll()">Alterar chamada</ion-button>
-
 
 </ion-content>

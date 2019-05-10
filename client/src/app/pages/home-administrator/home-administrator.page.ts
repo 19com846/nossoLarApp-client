@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home-administrador',
-  templateUrl: './home-administrador.page.html',
-  styleUrls: ['./home-administrador.page.scss'],
+  selector: 'app-home-administrator',
+  templateUrl: './home-administrator.page.html',
+  styleUrls: ['./home-administrator.page.scss'],
 })
-export class HomeAdministradorPage implements OnInit {
+export class HomeAdministratorPage implements OnInit {
 
-  public dataLogin : Array<Object> = [];
+  public dataLogin: Array<Object> = [];
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
 
     this.dataLogin = [
       {

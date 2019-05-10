@@ -14,7 +14,7 @@ const routes: Routes = [
     component: MenuPage,
     children: [
       { path: 'home-student', loadChildren: './../../pages/home-student/home-student.module#HomeStudentPageModule' },
-      { path: 'perfil', loadChildren: './../../pages/perfil/perfil.module#PerfilPageModule' }
+      { path: 'profile', loadChildren: './../../pages/profile/profile.module#ProfilePageModule' }
     ]
   }, {
     path: '',

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { StaticAPIService } from 'src/app/services/static-api.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-my-class-group',
@@ -7,44 +9,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-class-group.page.scss'],
 })
 export class MyClassGroupPage implements OnInit {
-  public turma: Array<Object> =[];
+  public turma: any;
+  public collaborators: any;
 
-  constructor(private router: Router) { 
+  constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) { }
 
-    /*
-      receber por parametro o id da turma
-       get api/turmas/id
-    */
-    this.turma = [{ 
-      "id": "456",
-       "name": "Ciclo 02",
-        "typeOfClass": "Ciclo 02",
-         "location": "Sala 7/8",
-        "weekday": "segunda-feira",
-         "startingWeek": "20",
-         "endingWeek": "46",
-          "startTime": "13:00",
-          "endTime": "15:30",
-          "collaborators": [ 
-               { "id": "123124",
-                   "name": "Joaozin",
-                    "email": "fulano.tal@gmail.com",
-                    "phone": "19999091120" },
-              { "id": "897987",
-                  "name": "Sicrano",
-                  "email": "sicrano.silva@hotmail.com",
-                  "phone": "null"
-                 } ] }]
+  goToMyAbscences() {
+    this.router.navigate(['abscences']);
+  }
+  tranferClassGroup() {
+    this.router.navigate(['transfer-class-group']);
   }
 
-  faltas() {
-    this.router.navigate(['faltas']);
+  getTurma(id: String) {
+    this.api.getTurmaDetails(id).subscribe((data: Array<object>) => {
+      this.turma = data;
+      this.getCollaborators(this.turma);
+      console.log(this.turma);
+    });
   }
 
-  transferencia() {
-    this.router.navigate(['transferencia-student']);
+  getCollaborators(turma: any) {
+    this.collaborators = _.get(turma, '[0].collaborators');
+    console.log(this.collaborators);
   }
+
   ngOnInit() {
+    // const id = this.route.snapshot.params.id;
+    const id = '1';
+    this.getTurma(id);
   }
 
 }

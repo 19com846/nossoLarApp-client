@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Minhas Faltas</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,17 +14,17 @@
     </ion-label>	
   </ion-item>	
   <ion-list>	
-      <ion-card *ngFor='let falta of faltas'>	
+      <ion-card *ngFor='let abscence of abscences'>	
         <ion-card-header>	
           <ion-card-subtitle>	
-            {{falta.lesson.turma.course}} - {{falta.lesson.turma.title}}	
+            {{abscence.lesson.turma.course}} - {{abscence.lesson.turma.title}}	
           </ion-card-subtitle>	
           <ion-card-title>	
-            {{falta.lesson.date}}	
+            {{abscence.lesson.date}}	
           </ion-card-title>	
         </ion-card-header>	
         <ion-card-content>	
-          Semestre {{falta.lesson.turma.semester}} de {{falta.lesson.turma.year}}	
+          Semestre {{abscence.lesson.turma.semester}} de {{abscence.lesson.turma.year}}	
         </ion-card-content>	
       </ion-card>	
   </ion-list>

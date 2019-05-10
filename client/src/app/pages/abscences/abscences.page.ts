@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { StaticAPIService } from 'src/app/services/static-api.service';
 
 @Component({
@@ -9,19 +9,20 @@ import { StaticAPIService } from 'src/app/services/static-api.service';
 })
 export class AbscencesPage implements OnInit {
 
-  public faltas: any;
+  public abscences: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) { }
+  constructor(private route: ActivatedRoute, private api: StaticAPIService) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.params.id;
-    this.getPresencesFromStudentInClass(id);
+    // const id = this.route.snapshot.params.id;
+    const id = '1';
+    this.getAbscences(id);
   }
 
-  getPresencesFromStudentInClass(id: String) {
-    this.api.getPresencesFromStudentInClass(id).subscribe((data: Array<object>) => {
-      this.faltas = data;
-      console.log(this.faltas);
+  getAbscences(id: String) {
+    this.api.getAbscences(id).subscribe((data: Array<object>) => {
+      this.abscences = data;
+      console.log(data);
     });
   }
 }

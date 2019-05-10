@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StaticAPIService {
+  
 
   API_URL = Constants.STATIC_URL;
 
@@ -39,14 +40,18 @@ export class StaticAPIService {
   }
 
   getAllCoursesFromStudent(studentID: String) {
-    return this.httpClient.get(`${this.API_URL}/student/` + studentID);
+    return this.httpClient.get(`${this.API_URL}/students/` + studentID + '/class-groups');
   }
 
   getTurmaDetails(turmaID: String) {
-    return this.httpClient.get(`${this.API_URL}/turma/` + turmaID);
+    return this.httpClient.get(`${this.API_URL}/class-groups/` + turmaID);
   }
 
-  getPresencesFromStudentInClass(presenceID: String) {
-    return this.httpClient.get(`${this.API_URL}/faltas/` + presenceID);
+  getAbscences(studentID: String) {
+    return this.httpClient.get(`${this.API_URL}/abscences/` + studentID);
+  }
+
+  getTransferClassGroups(studentID: String, courseID: String) {
+    return this.httpClient.get(`${this.API_URL}/students/` + studentID + '/courses/' + courseID + '/turmas');
   }
 }

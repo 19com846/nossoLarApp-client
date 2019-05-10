@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: 'pessoas-cadastradas', loadChildren: './pages/pessoas-cadastradas/pessoas-cadastradas.module#PessoasCadastradasPageModule' },
   { path: 'home-student', loadChildren: './pages/home-student/home-student.module#HomeStudentPageModule' },
   { path: 'selecionar-turma-para-chamada', loadChildren: './pages/selecionar-turma-para-chamada/selecionar-turma-para-chamada.module#SelecionarTurmaParaChamadaPageModule' },
-  { path: 'minha-turma', loadChildren: './pages/minha-turma/minha-turma.module#MinhaTurmaPageModule' },
   { path: 'transferencia-student', loadChildren: './pages/transferencia-student/transferencia-student.module#TransferenciaStudentPageModule' },
   { path: 'enroll-in-course', loadChildren: './pages/enroll-in-course/enroll-in-course.module#EnrollInCoursePageModule' },
   { path: 'transferencia-adm', loadChildren: './pages/transferencia-adm/transferencia-adm.module#TransferenciaAdmPageModule' },
@@ -26,6 +25,7 @@ const routes: Routes = [
   { path: 'home-administrator', loadChildren: './pages/home-administrator/home-administrator.module#HomeAdministratorPageModule' },
   { path: 'class-group-details', loadChildren: './pages/class-group-details/class-group-details.module#ClassGroupDetailsPageModule' },
   { path: 'enrollments', loadChildren: './pages/enrollments/enrollments.module#EnrollmentsPageModule' },
+  { path: 'my-class-group', loadChildren: './pages/my-class-group/my-class-group.module#MyClassGroupPageModule' },
 
 
 ];

@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MinhaTurmaPage } from './minha-turma.page';
+import { MyClassGroupPage } from './my-class-group.page';
 
-describe('MinhaTurmaPage', () => {
-  let component: MinhaTurmaPage;
-  let fixture: ComponentFixture<MinhaTurmaPage>;
+describe('MyClassGroupPage', () => {
+  let component: MyClassGroupPage;
+  let fixture: ComponentFixture<MyClassGroupPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MinhaTurmaPage ],
+      declarations: [ MyClassGroupPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MinhaTurmaPage);
+    fixture = TestBed.createComponent(MyClassGroupPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

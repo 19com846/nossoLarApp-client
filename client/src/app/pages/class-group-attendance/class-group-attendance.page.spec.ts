@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelecionarTurmaParaChamadaPage } from './selecionar-turma-para-chamada.page';
+import { ClassGroupAttendancePage } from './class-group-attendance.page';
 
-describe('SelecionarTurmaParaChamadaPage', () => {
-  let component: SelecionarTurmaParaChamadaPage;
-  let fixture: ComponentFixture<SelecionarTurmaParaChamadaPage>;
+describe('ClassGroupAttendancePage', () => {
+  let component: ClassGroupAttendancePage;
+  let fixture: ComponentFixture<ClassGroupAttendancePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelecionarTurmaParaChamadaPage ],
+      declarations: [ ClassGroupAttendancePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelecionarTurmaParaChamadaPage);
+    fixture = TestBed.createComponent(ClassGroupAttendancePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,7 +7,6 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'home-student', loadChildren: './pages/home-student/home-student.module#HomeStudentPageModule' },
-  { path: 'selecionar-turma-para-chamada', loadChildren: './pages/selecionar-turma-para-chamada/selecionar-turma-para-chamada.module#SelecionarTurmaParaChamadaPageModule' },
   { path: 'transferencia-student', loadChildren: './pages/transferencia-student/transferencia-student.module#TransferenciaStudentPageModule' },
   { path: 'enroll-in-course', loadChildren: './pages/enroll-in-course/enroll-in-course.module#EnrollInCoursePageModule' },
   { path: 'transferencia-adm', loadChildren: './pages/transferencia-adm/transferencia-adm.module#TransferenciaAdmPageModule' },
@@ -26,6 +25,7 @@ const routes: Routes = [
   { path: 'my-class-group', loadChildren: './pages/my-class-group/my-class-group.module#MyClassGroupPageModule' },
   { path: 'all-users', loadChildren: './pages/all-users/all-users.module#AllUsersPageModule' },
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
+  { path: 'class-group-attendance', loadChildren: './pages/class-group-attendance/class-group-attendance.module#ClassGroupAttendancePageModule' },
 
 
 ];

@@ -1,17 +1,17 @@
-import {Component,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-todos-ciclos',
-  templateUrl: './todos-ciclos.page.html',
-  styleUrls: ['./todos-ciclos.page.scss'],
+  selector: 'app-all-courses',
+  templateUrl: './all-courses.page.html',
+  styleUrls: ['./all-courses.page.scss'],
 })
-export class TodosCiclosPage implements OnInit {
+export class AllCoursesPage implements OnInit {
 
   public turma: Array < Object > = [];
 
-  constructor(private router: Router, private navCtrl:NavController) {
+  constructor(private router: Router, private navCtrl: NavController) {
     this.turma = [{
         "id": "123",
         "name": "Ciclo 01",
@@ -182,5 +182,4 @@ export class TodosCiclosPage implements OnInit {
   }
 
   ngOnInit() {}
-
 }

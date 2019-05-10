@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Minhas Faltas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>	
+    <ion-label text-wrap>	
+        Você tem presenças nesses dias dessa turma!	
+    </ion-label>	
+  </ion-item>	
+  <ion-list>	
+      <ion-card *ngFor='let falta of faltas'>	
+        <ion-card-header>	
+          <ion-card-subtitle>	
+            {{falta.lesson.turma.course}} - {{falta.lesson.turma.title}}	
+          </ion-card-subtitle>	
+          <ion-card-title>	
+            {{falta.lesson.date}}	
+          </ion-card-title>	
+        </ion-card-header>	
+        <ion-card-content>	
+          Semestre {{falta.lesson.turma.semester}} de {{falta.lesson.turma.year}}	
+        </ion-card-content>	
+      </ion-card>	
+  </ion-list>
+</ion-content>

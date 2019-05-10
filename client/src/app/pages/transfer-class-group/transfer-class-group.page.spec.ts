@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransferenciaStudentPage } from './transferencia-student.page';
+import { TransferClassGroupPage } from './transfer-class-group.page';
 
-describe('TransferenciaStudentPage', () => {
-  let component: TransferenciaStudentPage;
-  let fixture: ComponentFixture<TransferenciaStudentPage>;
+describe('TransferClassGroupPage', () => {
+  let component: TransferClassGroupPage;
+  let fixture: ComponentFixture<TransferClassGroupPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransferenciaStudentPage ],
+      declarations: [ TransferClassGroupPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransferenciaStudentPage);
+    fixture = TestBed.createComponent(TransferClassGroupPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' },
   { path: 'new-transfer', loadChildren: './pages/new-transfer/new-transfer.module#NewTransferPageModule' },
   { path: 'search-student', loadChildren: './pages/search-student/search-student.module#SearchStudentPageModule' },
+  { path: 'attendance', loadChildren: './pages/attendance/attendance.module#AttendancePageModule' },
 
 
 ];

@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'all-users', loadChildren: './pages/all-users/all-users.module#AllUsersPageModule' },
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
   { path: 'class-group-attendance', loadChildren: './pages/class-group-attendance/class-group-attendance.module#ClassGroupAttendancePageModule' },
+  { path: 'all-class-groups', loadChildren: './pages/all-class-groups/all-class-groups.module#AllClassGroupsPageModule' },
 
 
 ];

@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'attendance', loadChildren: './pages/attendance/attendance.module#AttendancePageModule' },
   { path: 'abscences', loadChildren: './pages/abscences/abscences.module#AbscencesPageModule' },
   { path: 'home-administrator', loadChildren: './pages/home-administrator/home-administrator.module#HomeAdministratorPageModule' },
+  { path: 'class-group-details', loadChildren: './pages/class-group-details/class-group-details.module#ClassGroupDetailsPageModule' },
 
 
 ];

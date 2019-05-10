@@ -3,11 +3,12 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-informacao-turma',
-  templateUrl: './informacao-turma.page.html',
-  styleUrls: ['./informacao-turma.page.scss'],
+  selector: 'app-class-group-details',
+  templateUrl: './class-group-details.page.html',
+  styleUrls: ['./class-group-details.page.scss'],
 })
-export class InformacaoTurmaPage implements OnInit {
+export class ClassGroupDetailsPage implements OnInit {
+
   public turma: Array < Object > = [];
 
   constructor(public alertController: AlertController, private router: Router, private navCtrl:NavController) { 
@@ -90,7 +91,6 @@ export class InformacaoTurmaPage implements OnInit {
     }
   ]
   }
-
   async relatorio(){
     console.log("entrou")
     const alert = await this.alertController.create({
@@ -112,21 +112,21 @@ export class InformacaoTurmaPage implements OnInit {
           }
         }
       ]
-      })
+      });
       await alert.present();
     }
 
-    verAlunos(){
-    this.router.navigate(['alunos-do-ciclo']);
-    }
+    verAlunos() {
+      this.router.navigate(['alunos-do-ciclo']);
+      }
 
-    changeRoll(){
-    this.router.navigate(['chamada']);
+      changeRoll() {
+      this.router.navigate(['chamada']);
 
-    }
-    pop(){
-      this.navCtrl.pop();
-    }
+      }
+      pop() {
+        this.navCtrl.pop();
+      }
 
   ngOnInit() {
   }

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
 
 @Component({
-  selector: 'app-minha-turma',
-  templateUrl: './minha-turma.page.html',
-  styleUrls: ['./minha-turma.page.scss'],
+  selector: 'app-my-class-group',
+  templateUrl: './my-class-group.page.html',
+  styleUrls: ['./my-class-group.page.scss'],
 })
-export class MinhaTurmaPage implements OnInit {
+export class MyClassGroupPage implements OnInit {
   public turma: Array<Object> =[];
 
   constructor(private router: Router) { 

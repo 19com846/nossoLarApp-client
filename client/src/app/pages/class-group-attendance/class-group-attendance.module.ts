@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SelecionarTurmaParaChamadaPage } from './selecionar-turma-para-chamada.page';
+import { ClassGroupAttendancePage } from './class-group-attendance.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SelecionarTurmaParaChamadaPage
+    component: ClassGroupAttendancePage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SelecionarTurmaParaChamadaPage]
+  declarations: [ClassGroupAttendancePage]
 })
-export class SelecionarTurmaParaChamadaPageModule {}
+export class ClassGroupAttendancePageModule {}

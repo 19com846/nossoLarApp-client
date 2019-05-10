@@ -1,13 +1,12 @@
-import { Component,  OnInit,} from '@angular/core';
-
-import { Router } from '@angular/router'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-selecionar-turma-para-chamada',
-  templateUrl: './selecionar-turma-para-chamada.page.html',
-  styleUrls: ['./selecionar-turma-para-chamada.page.scss'],
+  selector: 'app-class-group-attendance',
+  templateUrl: './class-group-attendance.page.html',
+  styleUrls: ['./class-group-attendance.page.scss'],
 })
-export class SelecionarTurmaParaChamadaPage implements OnInit {
+export class ClassGroupAttendancePage implements OnInit {
   public turma: Array < Object > = [];
 
   constructor( private router: Router) {
@@ -73,5 +72,4 @@ export class SelecionarTurmaParaChamadaPage implements OnInit {
     }
 
   ngOnInit() {}
-
 }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-transferencia-adm',
-  templateUrl: './transferencia-adm.page.html',
-  styleUrls: ['./transferencia-adm.page.scss'],
+  selector: 'app-pending-transfers',
+  templateUrl: './pending-transfers.page.html',
+  styleUrls: ['./pending-transfers.page.scss'],
 })
-export class TransferenciaAdmPage implements OnInit {
+export class PendingTransfersPage implements OnInit {
   public turma: Array<Object> =[];
   public selectedArray :any = [];
   constructor(private router: Router) { 

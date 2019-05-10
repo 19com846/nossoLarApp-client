@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TransferenciaAdmPage } from './transferencia-adm.page';
+import { PendingTransfersPage } from './pending-transfers.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TransferenciaAdmPage
+    component: PendingTransfersPage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TransferenciaAdmPage]
+  declarations: [PendingTransfersPage]
 })
-export class TransferenciaAdmPageModule {}
+export class PendingTransfersPageModule {}

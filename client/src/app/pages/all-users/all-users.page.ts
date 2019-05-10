@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
-  selector: 'app-pessoas-cadastradas',
-  templateUrl: './pessoas-cadastradas.page.html',
-  styleUrls: ['./pessoas-cadastradas.page.scss'],
+  selector: 'app-all-users',
+  templateUrl: './all-users.page.html',
+  styleUrls: ['./all-users.page.scss'],
 })
-export class PessoasCadastradasPage implements OnInit {
+export class AllUsersPage implements OnInit {
   public turma: Array < Object > = [];
 
   constructor(private router: Router) {

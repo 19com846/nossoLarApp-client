@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-cadastrar-novo-curso-student',
-  templateUrl: './cadastrar-novo-curso-student.page.html',
-  styleUrls: ['./cadastrar-novo-curso-student.page.scss'],
+  selector: 'app-enroll-in-course',
+  templateUrl: './enroll-in-course.page.html',
+  styleUrls: ['./enroll-in-course.page.scss'],
 })
-export class CadastrarNovoCursoStudentPage implements OnInit {
+export class EnrollInCoursePage implements OnInit {
 
   public turma: Array<Object> =[];
 
-  constructor(public alertController: AlertController, private router: Router) { 
+  constructor(public alertController: AlertController, private router: Router) {
     this.turma = [
       {
         "id": "123",
@@ -93,6 +93,7 @@ export class CadastrarNovoCursoStudentPage implements OnInit {
   cardClicked(turmas) {
     this.router.navigateByUrl('/menu/menu/home-student');
   }
+
   async presentAlertConfirm(turmas) {
     const alert = await this.alertController.create({
       header: 'Atenção!',

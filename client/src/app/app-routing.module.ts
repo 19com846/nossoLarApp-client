@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'minha-turma', loadChildren: './pages/minha-turma/minha-turma.module#MinhaTurmaPageModule' },
   { path: 'faltas', loadChildren: './pages/faltas/faltas.module#FaltasPageModule' },
   { path: 'transferencia-student', loadChildren: './pages/transferencia-student/transferencia-student.module#TransferenciaStudentPageModule' },
-  { path: 'cadastrar-novo-curso-student', loadChildren: './pages/cadastrar-novo-curso-student/cadastrar-novo-curso-student.module#CadastrarNovoCursoStudentPageModule' },
+  { path: 'enroll-in-course', loadChildren: './pages/enroll-in-course/enroll-in-course.module#EnrollInCoursePageModule' },
   { path: 'chamada', loadChildren: './pages/chamada/chamada.module#ChamadaPageModule' },
   { path: 'matricula', loadChildren: './pages/matricula/matricula.module#MatriculaPageModule' },
   { path: 'transferencia-adm', loadChildren: './pages/transferencia-adm/transferencia-adm.module#TransferenciaAdmPageModule' },
@@ -29,8 +29,6 @@ const routes: Routes = [
 
 
 ];
-
-
 
 
 @NgModule({

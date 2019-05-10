@@ -11,8 +11,9 @@ export class AlunosDoCicloPage implements OnInit {
 
   public alunos: Array < Object > = [];
 
-  constructor(private router:Router, private navCtrl:NavController) { 
-    this.alunos=[{
+  constructor(private router: Router, private navCtrl: NavController) {
+    this.alunos= [ 
+      {
       "id": "13541",
       "name": "Joao",
       "email":"jjjfofa@ok.com",
@@ -267,10 +268,10 @@ export class AlunosDoCicloPage implements OnInit {
   ]
   }
 
-  details(alunos){
+  details(alunos) {
     this.router.navigate(['student-details']);
   }
-  pop(){
+  pop() {
     this.navCtrl.pop();
   }
 

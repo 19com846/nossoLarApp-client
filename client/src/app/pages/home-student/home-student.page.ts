@@ -109,7 +109,7 @@ export class HomeStudentPage implements OnInit {
   }
 
   clickPlus() {
-    this.router.navigate(['cadastrar-novo-curso-student'])
+    this.router.navigate(['enroll-in-course']);
   }
 
   ngOnInit() {

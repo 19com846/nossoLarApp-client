@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'
 
 @Component({
-  selector: 'app-transferencia-student',
-  templateUrl: './transferencia-student.page.html',
-  styleUrls: ['./transferencia-student.page.scss'],
+  selector: 'app-transfer-class-group',
+  templateUrl: './transfer-class-group.page.html',
+  styleUrls: ['./transfer-class-group.page.scss'],
 })
-export class TransferenciaStudentPage implements OnInit {
+export class TransferClassGroupPage implements OnInit {
 
   public turma: Array<Object> =[];
 
@@ -124,5 +122,4 @@ export class TransferenciaStudentPage implements OnInit {
 
     await alert.present();
   }
-
 }

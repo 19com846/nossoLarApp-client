@@ -7,7 +7,6 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'home-student', loadChildren: './pages/home-student/home-student.module#HomeStudentPageModule' },
-  { path: 'transferencia-student', loadChildren: './pages/transferencia-student/transferencia-student.module#TransferenciaStudentPageModule' },
   { path: 'enroll-in-course', loadChildren: './pages/enroll-in-course/enroll-in-course.module#EnrollInCoursePageModule' },
   { path: 'alunos-do-ciclo', loadChildren: './pages/alunos-do-ciclo/alunos-do-ciclo.module#AlunosDoCicloPageModule' },
   { path: 'student-details', loadChildren: './pages/student-details/student-details.module#StudentDetailsPageModule' },
@@ -27,6 +26,7 @@ const routes: Routes = [
   { path: 'all-class-groups', loadChildren: './pages/all-class-groups/all-class-groups.module#AllClassGroupsPageModule' },
   { path: 'all-courses', loadChildren: './pages/all-courses/all-courses.module#AllCoursesPageModule' },
   { path: 'pending-transfers', loadChildren: './pages/pending-transfers/pending-transfers.module#PendingTransfersPageModule' },
+  { path: 'transfer-class-group', loadChildren: './pages/transfer-class-group/transfer-class-group.module#TransferClassGroupPageModule' },
 
 
 ];

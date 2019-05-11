@@ -17,7 +17,7 @@ class TeacherSerializer(serializers.ModelSerializer):
 class CollaboratorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('id', 'name', 'phone', 'permission')
+        fields = ('name', 'phone', 'email')
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):
@@ -37,7 +37,7 @@ class TurmaSerializer(serializers.ModelSerializer):
     teacher = serializers.ReadOnlyField(source='teacher.name')
     collaborators = CollaboratorSerializer(many=True, read_only=True)
     enrollments = EnrollmentSerializer(many=True, read_only=True)
-    course = CourseSerializer()
+    course = serializers.ReadOnlyField(source='course.name')
     class Meta:
         model = Turma
         fields = '__all__'

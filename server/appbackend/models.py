@@ -21,7 +21,7 @@ class Person(models.Model):
     phone = models.CharField(max_length=15)
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=50, null=True)
-    permission = models.IntegerField(null=False,blank=False)
+    permission = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
         return "{}".format(self.name)
@@ -53,7 +53,7 @@ class ClassGroup(models.Model):
     time = models.CharField(max_length=20, null=False)
     semester = models.IntegerField(null=False, blank=False)
     year = models.IntegerField(null=False, blank=False)
-    enrollments = models.ManyToManyField(Enrollment, blank=True)
+    # enrollments = models.ManyToManyField(Enrollment, blank=True)
 
     def __str__(self):
         return "{} - {}".format(self.course, self.title)
@@ -66,7 +66,7 @@ class Lesson(models.Model):
     class_group = models.ForeignKey(ClassGroup, on_delete=models.CASCADE)
     date = models.DateField()
     def __str__(self):
-        return "Aula {} no dia {}".format(self.turma, self.date)
+        return "Aula {} no dia {}".format(self.class_group, self.date)
 
 
 class Attendance(models.Model):
@@ -86,8 +86,8 @@ class TransferRequest(models.Model):
     transferred from one class group to another. It must be approved by a collaborator.
     """
     student = models.ForeignKey(Person, on_delete=models.CASCADE)
-    origin_group = models.ForeignKey(ClassGroup, on_delete=models.CASCADE)
-    target_group = models.ForeignKey(ClassGroup, on_delete=models.CASCADE)
+    origin_group = models.ForeignKey(ClassGroup, related_name= "origin_group", on_delete=models.CASCADE)
+    target_group = models.ForeignKey(ClassGroup, related_name= "target_group", on_delete=models.CASCADE)
     accepted = models.IntegerField(null=False, blank=False)
 
     def __str__(self):

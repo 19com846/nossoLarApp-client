@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .serializers import TurmaSerializer, CourseSerializer, StudentSerializer
-from .models import Turma, Course, Person
+from .serializers import *
+from .models import ClassGroup, Course, Person
 
 
 class StudentApi(generics.ListAPIView):
@@ -24,22 +24,22 @@ class CourseApi(generics.ListAPIView):
     serializer_class = CourseSerializer
 
 
-class TurmaApi(generics.ListAPIView):
-    queryset = Turma.objects.all()
-    serializer_class = TurmaSerializer
+class ClassGroupApi(generics.ListAPIView):
+    queryset = ClassGroup.objects.all()
+    serializer_class = ClassGroupSerializer
 
 
-class TurmaDetailApi(generics.RetrieveAPIView):
-    queryset = Turma.objects.all()
-    serializer_class = TurmaSerializer
+class ClassGroupDetailApi(generics.RetrieveAPIView):
+    queryset = ClassGroup.objects.all()
+    serializer_class = ClassGroupSerializer
 
 
-class TurmasDoAlunoApi(generics.ListAPIView):
-    serializer_class = TurmaSerializer
+class StudentClassGroupsApi(generics.ListAPIView):
+    serializer_class = ClassGroupSerializer
     def get_queryset(self):
         student_id = self.kwargs['pk']
         print("student_id: {}".format(student_id))
-        all_turmas = Turma.objects.all()
+        all_turmas = ClassGroup.objects.all()
         list_of_turmas = []
         for t in all_turmas:
             for e in t.enrollments.all():
@@ -47,3 +47,11 @@ class TurmasDoAlunoApi(generics.ListAPIView):
                     print("show")
                     list_of_turmas.append(t)
         return list_of_turmas
+
+
+class RequestTransferApi(generics.CreateAPIView):
+    serializer_class = TransferRequestSerializer
+
+
+class ConfirmTransferApi(generics.UpdateAPIView):
+    serializer_class = TransferRequestSerializer

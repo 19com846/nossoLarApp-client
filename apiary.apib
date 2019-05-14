@@ -3,66 +3,870 @@ HOST: http://private-db4365-nossolar.apiary-mock.com/
 
 # nossolar
 
-## HOME [/]
+## HOME-STUDENT [/students/{student_id}/turmas]
 
-### Home Screen - Show all Courses [GET]
+### Home Screen - Show all Turmas of Student [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "name": "openCourses",
-                "courseList": [
-                    {
-                        "id": "098123",
-                        "name": "Ciclo 03",
-                        "timeOfClass": "2200",
-                        "dayOfClass": "monday",
-                        "collaborators": [
-                            "Joaquim Da Silva",
-                            "Marcos Santos"
-                        ],
-                        "dirigente": "Alexandre Vieira"
-                    },
-                    {
-                        "id": "128937",
-                        "name": "Estudos Mediúnicos",
-                        "timeOfClass": "2100",
-                        "dayOfClass": "monday",
-                        "collaborators": [
-                            "Joaquim Da Silva",
-                            "Marcos Santos"
-                        ],
-                        "dirigente": "Alexandre Vieira"
-                    }
-                ]
+              "title": "Turma 01",
+              "classroom": "SSP",
+              "teacher": "Euclides da Cunha",
+              "active": true,
+              "collaborators": [
+                {
+                  "name": "Euclides da Cunha",
+                  "phone": "996211499",
+                  "email": "euclides.cunha@gmail.com"
+                },
+                {
+                  "name": "Machado de Assis",
+                  "phone": "991211499",
+                  "email": "machado.assis@gmail.com"
+                },
+                {
+                  "name": "Leonardo da Vinci",
+                  "phone": "99621121499",
+                  "email": "leo.vinci@hotmail.com"
+                }
+              ],
+              "course": "Ciclo 01",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2019"
             },
             {
-                "name": "completedCourses",
-                "courseList": [
-                    {
-                        "id": "098123",
-                        "name": "Ciclo 01",
-                        "timeOfClass": "2200",
-                        "dayOfClass": "monday",
-                        "collaborators": [
-                            "Joaquim Da Silva",
-                            "Marcos Santos"
-                        ],
-                        "dirigente": "Alexandre Vieira"
-                    },
-                    {
-                        "id": "128937",
-                        "name": "Ciclo 02",
-                        "timeOfClass": "2100",
-                        "dayOfClass": "monday",
-                        "collaborators": [
-                            "Joaquim Da Silva",
-                            "Marcos Santos"
-                        ],
-                        "dirigente": "Alexandre Vieira"
-                    }
-                ]
-                
+              "title": "Turma 08",
+              "classroom": "SSP",
+              "teacher": "Jorge Amado",
+              "active": true,
+              "collaborators": [
+                {
+                  "name": "John Man",
+                  "phone": "996211499",
+                  "email": "john.man@gmail.com"
+                },
+                {
+                  "name": "Judyard Kipling",
+                  "phone": "991211499",
+                  "email": "judyard.kipling@gmail.com"
+                },
+                {
+                  "name": "James Frost",
+                  "phone": "99621121499",
+                  "email": "james.frost@hotmail.com"
+                }
+              ],
+              "course": "Ciclo 02",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2019"
+            },
+            {
+              "title": "Turma 03",
+              "classroom": "SSP",
+              "teacher": "Raphael Draccon",
+              "active": true,
+              "collaborators": [
+                {
+                  "name": "Rick Riorda",
+                  "phone": "996211499",
+                  "email": "rick.riordan@gmail.com"
+                },
+                {
+                  "name": "CS Lewis",
+                  "phone": "991211499",
+                  "email": "cs.lewis@gmail.com"
+                },
+                {
+                  "name": "George Martin",
+                  "phone": "99621121499",
+                  "email": "george.martin@hotmail.com"
+                }
+              ],
+              "course": "Estudos Evangélicos",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2019"
+            },
+            {
+              "title": "Turma 05",
+              "classroom": "SSP",
+              "teacher": "Bernard Cornwell",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "John Flannagan",
+                  "phone": "996211499",
+                  "email": "jogn.flannagan@gmail.com"
+                },
+                {
+                  "name": "Isabel Mendes",
+                  "phone": "991211499",
+                  "email": "isabel.mendes@gmail.com"
+                },
+                {
+                  "name": "Ethan Hawke",
+                  "phone": "99621121499",
+                  "email": "ethan.hawke@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 01",
+              "classroom": "SSP",
+              "teacher": "Luke Skywalker",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Yoda Jedi",
+                  "phone": "996211499",
+                  "email": "jedi.yoda@gmail.com"
+                },
+                {
+                  "name": "Darth Maul",
+                  "phone": "991211499",
+                  "email": "maul.darth@gmail.com"
+                },
+                {
+                  "name": "Obi-Wan Kenobi",
+                  "phone": "99621121499",
+                  "email": "obikenobi@hotmail.com"
+                }
+              ],
+              "course": "Ciclo 01",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2017"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            }
+        ]
+
+## TURMA-DETAILS [/turmas/{turma_id}]
+
+### Details of Turma clicked by Student - Show Turma Details [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            }
+        ]
+
+## STUDENT-TURMA-DETAILS [/faltas/{student_id}]
+
+### List of Presences/Abscenses of a Student [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": "123098123",
+              "lesson": {
+                "date": "2015-05-05",
+                "turma": {
+                  "title": "Turma 02",
+                  "course": "Ciclo 03",
+                  "semester": "01",
+                  "year": "2015"
+                }
+              }
+            },
+            {
+              "id": "123098123",
+              "lesson": {
+                "date": "2015-05-05",
+                "turma": {
+                  "title": "Turma 02",
+                  "course": "Ciclo 03",
+                  "semester": "01",
+                  "year": "2015"
+                }
+              }
+            },
+            {
+              "id": "123098123",
+              "lesson": {
+                "date": "2015-05-05",
+                "turma": {
+                  "title": "Turma 02",
+                  "course": "Ciclo 03",
+                  "semester": "01",
+                  "year": "2015"
+                }
+              }
+            },
+            {
+              "id": "123098123",
+              "lesson": {
+                "date": "2015-05-05",
+                "turma": {
+                  "title": "Turma 02",
+                  "course": "Ciclo 03",
+                  "semester": "01",
+                  "year": "2015"
+                }
+              }
+            },
+            {
+              "id": "123098123",
+              "lesson": {
+                "date": "2015-05-05",
+                "turma": {
+                  "title": "Turma 02",
+                  "course": "Ciclo 03",
+                  "semester": "01",
+                  "year": "2015"
+                }
+              }
+            },
+            {
+              "id": "123098123",
+              "lesson": {
+                "date": "2015-05-05",
+                "turma": {
+                  "title": "Turma 02",
+                  "course": "Ciclo 03",
+                  "semester": "01",
+                  "year": "2015"
+                }
+              }
+            },
+            {
+              "id": "123098123",
+              "lesson": {
+                "date": "2015-05-05",
+                "turma": {
+                  "title": "Turma 02",
+                  "course": "Ciclo 03",
+                  "semester": "01",
+                  "year": "2015"
+                }
+              }
+            }
+        ]
+        
+## MATRICULAR-SE [/matriculas/{student_id}]
+
+### Mostra todas as matrículas abertas que o aluno pode se inscrever [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "title": "Turma 01",
+              "classroom": "SSP",
+              "teacher": "Euclides da Cunha",
+              "active": true,
+              "collaborators": [
+                {
+                  "name": "Euclides da Cunha",
+                  "phone": "996211499",
+                  "email": "euclides.cunha@gmail.com"
+                },
+                {
+                  "name": "Machado de Assis",
+                  "phone": "991211499",
+                  "email": "machado.assis@gmail.com"
+                },
+                {
+                  "name": "Leonardo da Vinci",
+                  "phone": "99621121499",
+                  "email": "leo.vinci@hotmail.com"
+                }
+              ],
+              "course": "Ciclo 01",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2019"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "Outra Sala",
+              "teacher": "Jorge Amado",
+              "active": true,
+              "collaborators": [
+                {
+                  "name": "John Man",
+                  "phone": "996211499",
+                  "email": "john.man@gmail.com"
+                },
+                {
+                  "name": "Judyard Kipling",
+                  "phone": "991211499",
+                  "email": "judyard.kipling@gmail.com"
+                },
+                {
+                  "name": "James Frost",
+                  "phone": "99621121499",
+                  "email": "james.frost@hotmail.com"
+                }
+              ],
+              "course": "Ciclo 02",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2019"
+            },
+            {
+              "title": "Turma 03",
+              "classroom": "SSP",
+              "teacher": "Raphael Draccon",
+              "active": true,
+              "collaborators": [
+                {
+                  "name": "Rick Riorda",
+                  "phone": "996211499",
+                  "email": "rick.riordan@gmail.com"
+                },
+                {
+                  "name": "CS Lewis",
+                  "phone": "991211499",
+                  "email": "cs.lewis@gmail.com"
+                },
+                {
+                  "name": "George Martin",
+                  "phone": "99621121499",
+                  "email": "george.martin@hotmail.com"
+                }
+              ],
+              "course": "Estudos Evangélicos",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2019"
+            },
+            {
+              "title": "Turma 05",
+              "classroom": "SSP",
+              "teacher": "Bernard Cornwell",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "John Flannagan",
+                  "phone": "996211499",
+                  "email": "jogn.flannagan@gmail.com"
+                },
+                {
+                  "name": "Isabel Mendes",
+                  "phone": "991211499",
+                  "email": "isabel.mendes@gmail.com"
+                },
+                {
+                  "name": "Ethan Hawke",
+                  "phone": "99621121499",
+                  "email": "ethan.hawke@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 01",
+              "classroom": "SSP",
+              "teacher": "Luke Skywalker",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Yoda Jedi",
+                  "phone": "996211499",
+                  "email": "jedi.yoda@gmail.com"
+                },
+                {
+                  "name": "Darth Maul",
+                  "phone": "991211499",
+                  "email": "maul.darth@gmail.com"
+                },
+                {
+                  "name": "Obi-Wan Kenobi",
+                  "phone": "99621121499",
+                  "email": "obikenobi@hotmail.com"
+                }
+              ],
+              "course": "Ciclo 01",
+              "time": "20h - 22h30",
+              "semester": "01",
+              "year": "2017"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            }
+        ]
+
+
+## TRANSFER TURMA DETAILS [/open-turmas/{turma_id}]
+
+### Details of open Turmas of a Given course that a student can transfer into (should be student/{student_id}/courses/{course_id}/turmas [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            },
+            {
+              "title": "Turma 08",
+              "classroom": "5/7",
+              "teacher": "Fulano de Tal",
+              "active": false,
+              "collaborators": [
+                {
+                  "name": "Rito Gomes",
+                  "phone": "996211499",
+                  "email": "rito.gomes@gmail.com"
+                },
+                {
+                  "name": "Stephen Strange",
+                  "phone": "991211499",
+                  "email": "stephen.strange@gmail.com"
+                },
+                {
+                  "name": "Jorge Martínez",
+                  "phone": "99621121499",
+                  "email": "jorge.martinez@hotmail.com"
+                }
+              ],
+              "course": "GM",
+              "time": "15h - 16h30",
+              "semester": "02",
+              "year": "2018"
+            }
+        ]
+        
+## Chamadas Collaborator [/chamada/{collaborator_id}]
+
+### Shows all the turmas a Collaborator can assess presences of its students [GET]
+
+#### It should show the lessons of the day, +- a few days
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": "18237",
+              "turma": "turma 02",
+              "date": "2019-04-12"
+            },
+            {
+              "id": "09182",
+              "turma": "turma 03",
+              "date": "2019-04-12"
+            },
+            {
+              "id": "304985",
+              "turma": "turma 04",
+              "date": "2019-04-10"
+            },
+            {
+              "id": "1980300",
+              "turma": "turma 05",
+              "date": "2019-04-09"
+            },
+            {
+              "id": "21876",
+              "turma": "turma 06",
+              "date": "2019-04-07"
+            },
+            {
+              "id": "18212337",
+              "turma": "turma 07",
+              "date": "2019-03-31"
+            }
+        ]
+        
+## Realizar chamada  [/chamada/{collaborator_id}/{turma_ID}]
+
+### Shows a list of students to create objects of type Presence [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": "10928312",
+              "name": "Joaquin1",
+              "phone": "19199191919",
+              "email": "joaquin.1@gmail.com"
+            },
+            {
+              "id": "1092831",
+              "name": "Joaquin2",
+              "phone": "19199191919",
+              "email": "joaquin.2@gmail.com"
+            },
+            {
+              "id": "109281",
+              "name": "Joaquin3",
+              "phone": "19199191919",
+              "email": "joaquin.3@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin4",
+              "phone": "19199191919",
+              "email": "joaquin.4@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin5",
+              "phone": "19199191919",
+              "email": "joaquin.6@gmail.com"
+            }
+        ]
+
+
+## Todos os Admins  [/administrators]
+
+### Shows a list of all admins  [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": "10928312",
+              "name": "Joaquin1",
+              "phone": "19199191919",
+              "email": "joaquin.1@gmail.com"
+            },
+            {
+              "id": "1092831",
+              "name": "Joaquin2",
+              "phone": "19199191919",
+              "email": "joaquin.2@gmail.com"
+            },
+            {
+              "id": "109281",
+              "name": "Joaquin3",
+              "phone": "19199191919",
+              "email": "joaquin.3@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin4",
+              "phone": "19199191919",
+              "email": "joaquin.4@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin5",
+              "phone": "19199191919",
+              "email": "joaquin.6@gmail.com"
+            }
+        ]
+        
+## Todos os Collaborators   [/collaborators]
+
+### Shows a list of all collabs  [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": "10928312",
+              "name": "Joaquin1",
+              "phone": "19199191919",
+              "email": "joaquin.1@gmail.com"
+            },
+            {
+              "id": "1092831",
+              "name": "Joaquin2",
+              "phone": "19199191919",
+              "email": "joaquin.2@gmail.com"
+            },
+            {
+              "id": "109281",
+              "name": "Joaquin3",
+              "phone": "19199191919",
+              "email": "joaquin.3@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin4",
+              "phone": "19199191919",
+              "email": "joaquin.4@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin5",
+              "phone": "19199191919",
+              "email": "joaquin.6@gmail.com"
+            }
+        ]
+        
+## Todos os Estudantes  [/students]
+
+### Shows a list of all estudantes  [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": "10928312",
+              "name": "Joaquin1",
+              "phone": "19199191919",
+              "email": "joaquin.1@gmail.com"
+            },
+            {
+              "id": "1092831",
+              "name": "Joaquin2",
+              "phone": "19199191919",
+              "email": "joaquin.2@gmail.com"
+            },
+            {
+              "id": "109281",
+              "name": "Joaquin3",
+              "phone": "19199191919",
+              "email": "joaquin.3@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin4",
+              "phone": "19199191919",
+              "email": "joaquin.4@gmail.com"
+            },
+            {
+              "id": "10928",
+              "name": "Joaquin5",
+              "phone": "19199191919",
+              "email": "joaquin.6@gmail.com"
             }
         ]

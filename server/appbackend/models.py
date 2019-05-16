@@ -1,5 +1,6 @@
 from django.db import models
 from enumfields import Enum, EnumField
+from datetime import date
 
 
 class Role(Enum):
@@ -85,7 +86,7 @@ class Lesson(models.Model):
     Defines model for Lesson, which is the date in which a session of a ClassGroup was held.
     """
     class_group = models.ForeignKey(ClassGroup, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.DateField(default=date.today)
 
     def __str__(self):
         return "Aula {} no dia {}".format(self.class_group, self.date)

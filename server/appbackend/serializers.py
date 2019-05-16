@@ -46,6 +46,14 @@ class ClassGroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class LessonSerializer(serializers.ModelSerializer):
+    class_group = ClassGroupSerializer(read_only=True)
+
+    class Meta:
+        model = Lesson
+        fields = '__all__'
+
+
 class TransferRequestSerializer(serializers.ModelSerializer):
     enrollment = EnrollmentSerializer(read_only=True)
     target_group = ClassGroupSerializer(read_only=True)

@@ -48,11 +48,6 @@ class StudentClassGroupsApi(generics.ListAPIView):
         for e in enrollments:
             class_group = ClassGroup.objects.filter(id=e.class_group_id)[:1].get()
             list_of_class_groups.append(class_group)
-        # for t in all_class_groups:
-        #     for e in t.enrollments.all():
-        #         if e.student.id == student_id:
-        #             print("show")
-        #             list_of_class_groups.append(t)
         return list_of_class_groups
 
 
@@ -82,3 +77,18 @@ class ConfirmTransferRequestApi(generics.UpdateAPIView):
         transfer_request = self.queryset.get(pk=kwargs["pk"])
         transfer_request.confirm()
         return Response(TransferRequestSerializer(transfer_request).data)
+
+
+class CreateLessonApi(generics.CreateAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+
+    def post(self, request, *args, **kwargs):
+        class_group = ClassGroup.objects.filter(pk=kwargs["pk"])[:1].get()
+        lesson = Lesson.objects.create(
+            class_group=class_group
+        )
+        return Response(
+            data=LessonSerializer(lesson).data,
+            status=status.HTTP_201_CREATED
+        )

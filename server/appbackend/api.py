@@ -42,13 +42,17 @@ class StudentClassGroupsApi(generics.ListAPIView):
     def get_queryset(self):
         student_id = self.kwargs['pk']
         print("student_id: {}".format(student_id))
-        all_class_groups = ClassGroup.objects.all()
         list_of_class_groups = []
-        for t in all_class_groups:
-            for e in t.enrollments.all():
-                if e.student.id == student_id:
-                    print("show")
-                    list_of_class_groups.append(t)
+        enrollments = list(Enrollment.objects.filter(student_id=self.kwargs['pk']).all())
+
+        for e in enrollments:
+            class_group = ClassGroup.objects.filter(id=e.class_group_id)[:1].get()
+            list_of_class_groups.append(class_group)
+        # for t in all_class_groups:
+        #     for e in t.enrollments.all():
+        #         if e.student.id == student_id:
+        #             print("show")
+        #             list_of_class_groups.append(t)
         return list_of_class_groups
 
 

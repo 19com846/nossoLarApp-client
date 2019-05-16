@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appbackend',
     'rest_framework',
+    'enumfields'
 ]
 
 MIDDLEWARE = [

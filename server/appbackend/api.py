@@ -11,7 +11,7 @@ class StudentApi(generics.ListAPIView):
     def get_queryset(self):
         list_of_students = []
         for s in Person.objects.all():
-            if s.role == 'STUDENT':
+            if s.role == Role.STUDENT:
                 list_of_students.append(s)
         return list_of_students
 

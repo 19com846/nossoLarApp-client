@@ -4,9 +4,11 @@ from .models import *
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    role = serializers.CharField(source='role.name')
+
     class Meta:
         model = Person
-        fields = ('id', 'name', 'phone', 'role.name')
+        fields = ('id', 'name', 'phone', 'role')
 
 
 class TeacherSerializer(serializers.ModelSerializer):

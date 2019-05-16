@@ -39,7 +39,6 @@ class CourseSerializer(serializers.ModelSerializer):
 class ClassGroupSerializer(serializers.ModelSerializer):
     teacher = serializers.ReadOnlyField(source='teacher.name')
     collaborators = CollaboratorSerializer(many=True, read_only=True)
-    enrollments = EnrollmentSerializer(many=True, read_only=True)
     course = serializers.ReadOnlyField(source='course.name')
 
     class Meta:

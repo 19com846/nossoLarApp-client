@@ -6,13 +6,13 @@ from .models import *
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('id', 'name', 'phone', 'permission')
+        fields = ('id', 'name', 'phone', 'role.name')
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('id', 'name', 'phone', 'permission')
+        fields = ('id', 'name', 'phone', 'role.name')
 
 
 class CollaboratorSerializer(serializers.ModelSerializer):
@@ -46,10 +46,9 @@ class ClassGroupSerializer(serializers.ModelSerializer):
 
 
 class TransferRequestSerializer(serializers.ModelSerializer):
-    student = serializers.ReadOnlyField(source='student.name')
-    origin_group = ClassGroupSerializer(read_only= True)
-    target_group = ClassGroupSerializer(read_only= True)
-    accepted = serializers.IntegerField(min_value=0, max_value=1)
+    enrollment = EnrollmentSerializer(read_only=True)
+    target_group = ClassGroupSerializer(read_only=True)
+    status = serializers.CharField(source='status.name')
 
     class Meta:
         model = TransferRequest

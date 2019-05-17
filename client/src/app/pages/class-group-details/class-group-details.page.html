@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button (click)="pop()"></ion-back-button>
+      </ion-buttons>
+  <ion-title>Turma {{turma[0].name}}</ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>Título: {{turma[0].name}}</ion-item>
+    <ion-item>Sala: {{turma[0].location}}</ion-item>
+    <ion-item>Dirigente: {{turma[0].collaborators[0].name}}</ion-item>
+    <ion-item>Total de alunos: {{turma[0].students}}</ion-item>
+    <ion-item>Horario: {{turma[0].startTime}} ~ {{turma[0].endTime}}</ion-item>
+  </ion-list>
+
+  <ion-button (click)="relatorio()" expand="block">Emitir relatório de presença</ion-button>
+  <ion-button expand="block" (click)="verAlunos()">Informação dos Alunos</ion-button>
+  <ion-button expand="block" (click)="changeRoll()">Alterar chamada</ion-button>
+
+</ion-content>

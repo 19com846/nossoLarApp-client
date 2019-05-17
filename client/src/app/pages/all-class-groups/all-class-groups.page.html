@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home-administrator"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Todas as turmas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <ion-item  (click)="Ciclos()" expand="block">Ciclos</ion-item>
+        <ion-item  (click)="cursosLivres()" expand="block">Cursos Livres</ion-item>
+        <ion-item  (click)="cursosLivres()" expand="block">Palestras</ion-item>
+      </div>
+      <ion-button expand="block" (click)="criarNovaTurma()">Criar Nova Turma</ion-button>
+      <ion-button expand="block" (click)="criarNovaTurma()">Alterar Chamada</ion-button>
+</ion-content>

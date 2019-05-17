@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button (click)="pop()"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-icon name="create"></ion-icon>
+          </ion-buttons>
+    <ion-title>Detalhes do Aluno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>{{alunos[0].name}}</ion-item>
+    <ion-item>{{alunos[0].email}}</ion-item>
+    <ion-item>{{alunos[0].telefone}}</ion-item>
+    <ion-item>{{alunos[0].permission}}</ion-item>
+  </ion-list>
+
+  <h4>Em andamento</h4>
+  <ion-list>
+    <ion-item>{{alunos[0].cursos[0].name}}</ion-item>
+    <ion-item>{{alunos[0].cursos[1].name}}</ion-item>
+  </ion-list>
+
+  <h4>Concluidos</h4>
+  <ion-list>
+    <ion-item>{{alunos[0].cursos[2].name}}</ion-item>
+  </ion-list>
+
+</ion-content>

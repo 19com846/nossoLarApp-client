@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <div *ngIf="dataLogin[0].permission == 'administrators'; else elseBlock"><ion-title>Home - Administrador</ion-title></div>
+    <ng-template #elseBlock><ion-title>Home - Colaboradores</ion-title></ng-template>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="dataLogin[0].permission == 'administrators'; else elseBlockRest">
+    <ion-button  (click)="Chamada()" expand="block">Chamada</ion-button>
+    <ion-button  (click)="Matriculas()" expand="block">Matriculas</ion-button>
+    <ion-button  (click)="Cadastros()" expand="block">Cadastros</ion-button>
+    <ion-button  (click)="Turmas()" expand="block">Turmas</ion-button>
+    <ion-button  (click)="buscarAluno()" expand="block">Buscar aluno</ion-button>
+    <ion-button  (click)="transferencia()" expand="block">Transferências</ion-button>
+</div>
+<ng-template #elseBlockRest>
+    <ion-button  (click)="Chamada()" expand="block">Chamada</ion-button>
+    <ion-button  (click)="Turmas()" expand="block">Turmas</ion-button>
+</ng-template> 
+</ion-content>

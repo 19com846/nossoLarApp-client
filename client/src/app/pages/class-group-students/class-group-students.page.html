@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="pop()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Alunos Do Ciclo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item (click)="details()" *ngFor="let aluno of alunos">{{aluno.name}}</ion-item>
+  </ion-list>
+
+</ion-content>

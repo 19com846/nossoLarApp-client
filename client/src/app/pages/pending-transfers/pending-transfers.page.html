@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="end" (click)="finalizar()">
+          <ion-icon name="checkmark"></ion-icon>
+      </ion-buttons>
+      <div text-center>
+          <ion-title>Transferência de turma</ion-title>
+      </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div text-center>
+      <ion-label>Transferencias aguardando aprovação</ion-label>
+  </div>
+  <div *ngFor="let entry of turma">
+      <ion-card>
+          <ion-list>
+              <ion-item>
+                  <ion-grid>
+                      <ion-row>
+                          <ion-col size='10' style="display:flex;justify-content: center; align-items: center">
+                              <ion-icon name="contact" style="color:gray"></ion-icon>
+                              <span style="color:mediumblue">{{entry.name}}</span>
+                          </ion-col>
+                          <ion-col size='2' float-right>
+                              <ion-checkbox style="border-color:blue" (click)="selectMember(entry)"
+                                  [(ngModel)]="entry.check"></ion-checkbox>
+                          </ion-col>
+                      </ion-row>
+                      <ion-item>
+                          Turma anterior: {{entry.pTurma}}
+                      </ion-item>
+                      <ion-item>
+                          Nova turma: {{entry.nTurma}}
+                      </ion-item>
+                  </ion-grid>
+
+              </ion-item>
+          </ion-list>
+      </ion-card>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button (click)="newTransfer()">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+</ion-content>

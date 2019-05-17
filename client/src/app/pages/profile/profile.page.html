@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <div text-center>
+    <ion-title>Meu Perfil</ion-title>
+      </div>
+      <ion-buttons slot="end" (click)="editInfo()">
+        <ion-icon name="create"></ion-icon>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card> 
+              <ion-card-header>
+                <ion-item>
+                  <ion-card-title>{{me[0].name}}</ion-card-title>
+                </ion-item>
+                </ion-card-header>
+
+        <ion-card-content>
+            
+              <ion-list>
+                  <ion-item>
+        <h2>Email: {{me[0].email}} </h2>
+              </ion-item>
+              <ion-item>
+        <h2>Telefone: {{me[0].phone}}</h2>
+      </ion-item>
+    <ion-item>
+        <h2>Permissão: {{me[0].permission}}</h2>
+      </ion-item>
+      </ion-list>
+            
+      </ion-card-content>
+        
+  </ion-card>
+</ion-content>

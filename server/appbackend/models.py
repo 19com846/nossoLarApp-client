@@ -1,17 +1,7 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from enumfields import Enum, EnumField
 from datetime import date
-
-
-class Role(Enum):
-    STUDENT = 's'
-    COLLABORATOR = 'c'
-    ADMIN = 'a'
-
-    class Labels:
-        STUDENT = 'Aluno'
-        COLLABORATOR = 'Colaborador'
-        ADMIN = 'Administrador'
 
 
 class TransferStatus(Enum):
@@ -21,6 +11,17 @@ class TransferStatus(Enum):
     class Labels:
         PENDING = 'Pendente'
         ACCEPTED = 'Aceita'
+
+
+class EnrollmentStatus(Enum):
+    PENDING = 'p',
+    ACCEPTED = 'a',
+    REJECTED = 'r'
+
+    class Labels:
+        PENDING = 'Pendente'
+        ACCEPTED = 'Aceita'
+        REJECTED = 'Rejeitada'
 
 
 class Course(models.Model):
@@ -34,19 +35,15 @@ class Course(models.Model):
         return "{}".format(self.name)
 
 
-class Person(models.Model):
+class Person(AbstractUser):
     """
     Defines model for Persons; can have student or collaborator permissions.
     """
-
-    name = models.CharField(max_length=50, null=False)
+    pass
     phone = models.CharField(max_length=15)
-    email = models.CharField(max_length=50)
-    password = models.CharField(max_length=50, null=True)
-    role = EnumField(Role, max_length=1)
 
     def __str__(self):
-        return "{}".format(self.name)
+        return "{}".format(self.first_name)
 
 
 class ClassGroup(models.Model):
@@ -72,9 +69,9 @@ class Enrollment(models.Model):
     """
     student = models.ForeignKey(Person, on_delete=models.CASCADE)
     class_group = models.ForeignKey(ClassGroup, related_name="class_group", on_delete=models.CASCADE)
-    active = models.BooleanField(default=True, null=False)
+    active = models.BooleanField(default=True, null=False, )
     status = models.CharField(max_length=50, null=False)
-    finalGrade = models.CharField(max_length=5, null=True)
+    finalGrade = models.CharField(default=None, max_length=5, null=True)
     graduated = models.BooleanField(default=True, null=False)
 
     def __str__(self):

@@ -3,24 +3,30 @@ from rest_framework import serializers
 from .models import *
 
 
-class StudentSerializer(serializers.ModelSerializer):
-    role = serializers.CharField(source='role.name')
+class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
-        fields = ('id', 'name', 'phone', 'role')
+        fields = '__all__'
+
+
+class StudentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Person
+        fields = ('id', 'first_name', 'last_name', 'phone')
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('id', 'name', 'phone', 'role.name')
+        fields = ('id', 'first_name', 'last_name', 'phone')
 
 
 class CollaboratorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('name', 'phone', 'email')
+        fields = ('first_name', 'last_name', 'phone', 'email')
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):
@@ -37,7 +43,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class ClassGroupSerializer(serializers.ModelSerializer):
-    teacher = serializers.ReadOnlyField(source='teacher.name')
+    teacher = serializers.ReadOnlyField(source='teacher.first_name')
     collaborators = CollaboratorSerializer(many=True, read_only=True)
     course = serializers.ReadOnlyField(source='course.name')
 
@@ -52,6 +58,19 @@ class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
+
+
+class AttendanceSerializer(serializers.ModelSerializer):
+    lesson = LessonSerializer(read_only=True)
+    student = StudentSerializer(read_only=True)
+
+    class Meta:
+        model = Attendance
+        fields = '__all__'
+
+
+class TokenSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(max_length=255)
 
 
 class TransferRequestSerializer(serializers.ModelSerializer):

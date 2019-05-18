@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { StaticAPIService } from 'src/app/services/static-api.service';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-transfer-class-group',
@@ -10,11 +10,11 @@ import { StaticAPIService } from 'src/app/services/static-api.service';
 })
 export class TransferClassGroupPage implements OnInit {
 
-  public turmas: any;
+  public classGroups: any;
 
-  constructor(public alertController: AlertController, private router: Router, private api: StaticAPIService) { }
+  constructor(public alertController: AlertController, private router: Router, private api: APIService) { }
 
-  cardClicked(turma) {
+  cardClicked(classGroup) {
     this.router.navigateByUrl('/menu/menu/home-student');
   }
 
@@ -27,15 +27,15 @@ export class TransferClassGroupPage implements OnInit {
 
   getTransferClassGroups(studentId: String, courseId: String) {
     this.api.getTransferClassGroups(studentId, courseId).subscribe((data: Array<object>) => {
-      this.turmas = data;
+      this.classGroups = data;
       console.log(data);
     });
   }
 
-  async presentAlertConfirm(turma) {
+  async presentAlertConfirm(classGroup) {
     const alert = await this.alertController.create({
       header: 'Atenção!',
-      message: 'Você deseja mesmo transferir sua turma para a ' + turma.title + ' ?',
+      message: 'Você deseja mesmo transferir sua turma para a ' + classGroup.title + ' ?',
       buttons: [
         {
           text: 'Não',
@@ -48,7 +48,7 @@ export class TransferClassGroupPage implements OnInit {
           text: 'SIM !',
           handler: () => {
             console.log('Confirm Okay');
-            this.cardClicked(turma);
+            this.cardClicked(classGroup);
           }
         }
       ]

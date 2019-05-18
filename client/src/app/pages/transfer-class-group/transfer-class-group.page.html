@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
       <div text-center>
-    <ion-title>Transferência de turma</ion-title>
+    <ion-title>Transferência de Turma</ion-title>
       </div>
   </ion-toolbar>
 </ion-header>
@@ -14,16 +14,16 @@
         Turmas disponíveis baseado no seu ciclo
     </ion-label>
   </ion-item>
-  <ion-card  (click)="presentAlertConfirm(turma)" *ngFor='let turma of turmas'> 
+  <ion-card  (click)="presentAlertConfirm(classGroup)" *ngFor='let classGroup of classGroups'> 
       <ion-list>
         <ion-item>
           <ion-icon name="radio-button-on" style="color:green;font:bold;"></ion-icon>
-          <h3>{{turma.title}}</h3>
+          <h3>{{classGroup.title}}</h3>
         </ion-item>
       </ion-list>
       <ion-card-content>
-        <h2>Horario: {{turma.time}}</h2>
-        <h2>Ciclo: {{turma.course}} </h2>
+        <h2>Horario: {{classGroup.time}}</h2>
+        <h2>Ciclo: {{classGroup.course}} </h2>
       </ion-card-content>
   </ion-card>
 </ion-content>

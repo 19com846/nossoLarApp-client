@@ -3,20 +3,20 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Minha turma</ion-title>
+    <ion-title>Minha Turma</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngFor= "let turm of turma">
+    <ion-list *ngFor= "let classGroup of classGroups">
         <ion-item>
-          <h2>Turma: {{turm.title}}</h2>
+          <h2>Turma: {{classGroup.title}}</h2>
         </ion-item>
         <ion-item>
-          <h2>Sala: {{turm.classroom}}</h2>
+          <h2>Sala: {{classGroup.classroom}}</h2>
         </ion-item>
         <ion-item>
-          <h2>Horário: {{turm.title}}</h2>
+          <h2>Horário: {{classGroup.title}}</h2>
         </ion-item>
         <ion-list>
           <ion-list-header>

@@ -3,21 +3,21 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Turma {{turma[0].name}}</ion-title>
+    <ion-title *ngIf="classGroup">{{classGroup[0].title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>Título: {{turma[0].name}}</ion-item>
-    <ion-item>Sala: {{turma[0].location}}</ion-item>
-    <ion-item>Dirigente: {{turma[0].collaborators[0].name}}</ion-item>
-    <ion-item>Total de alunos: {{turma[0].students}}</ion-item>
-    <ion-item>Horario: {{turma[0].startTime}} ~ {{turma[0].endTime}}</ion-item>
+  <ion-list *ngIf="classGroup">
+    <ion-item>Título: {{classGroup[0].title}}</ion-item>
+    <ion-item>Sala: {{classGroup[0].classroom}}</ion-item>
+    <ion-item>Dirigente: {{classGroup[0].teacher}}</ion-item>
+    <ion-item>Total de alunos: {{studentCount}}</ion-item>
+    <ion-item>Horario: {{classGroup[0].time}}</ion-item>
   </ion-list>
 
-  <ion-button (click)="relatorio()" expand="block">Emitir relatório de presença</ion-button>
-  <ion-button expand="block" (click)="verAlunos()">Informação dos Alunos</ion-button>
-  <ion-button expand="block" (click)="changeRoll()">Alterar chamada</ion-button>
+  <ion-button (click)="report()" expand="block">Emitir relatório de presença</ion-button>
+  <ion-button expand="block" (click)="goToAllStudents()">Informação dos Alunos</ion-button>
+  <ion-button expand="block" (click)="goToRollCall()">Alterar chamada</ion-button>
 
 </ion-content>

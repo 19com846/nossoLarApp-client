@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { StaticAPIService } from '../../services/static-api.service';
+import { APIService } from '../../services/api.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -10,13 +10,14 @@ import * as _ from 'lodash';
 })
 export class HomeStudentPage implements OnInit {
 
-  public turmas: any;
-  public activeTurmas: any;
-  public inactiveTurmas: any;
+  public classGroups: any;
+  public activeClassGroups: any;
+  public inactiveClassGroups: any;
+  public pendingClassGroups: any;
 
-  constructor(private router: Router, private api: StaticAPIService) { }
+  constructor(private router: Router, private api: APIService) { }
 
-  goToTurmaDetail() {
+  goToClassGroupDetails() {
     this.router.navigate(['my-class-group']);
   }
   newEnrollment() {
@@ -26,27 +27,32 @@ export class HomeStudentPage implements OnInit {
   ngOnInit() {
     // const id = this.route.snapshot.params.id;
     const id = '1';
-    this.getTurmas(id);
+    this.getClassGroups(id);
   }
 
-  getTurmas(id: String) {
+  getClassGroups(id: String) {
     this.api.getAllCoursesFromStudent(id).subscribe((data: Array<object>) => {
-      this.turmas = data;
-      this.getActiveCourses(this.turmas);
-      this.getInactiveCourses(this.turmas);
+      this.classGroups = data;
+      this.getActiveCourses(this.classGroups);
+      this.getInactiveCourses(this.classGroups);
+      this.getPendingCourses(this.classGroups);
     });
   }
 
-  getActiveCourses(turmas: any) {
-    this.activeTurmas = _.filter(turmas , function(o) {
+  getActiveCourses(classGroups: any) {
+    this.activeClassGroups = _.filter(classGroups , function(o) {
       return o.active;
     });
   }
 
-  getInactiveCourses(turmas: any) {
-    this.inactiveTurmas = _.filter(turmas , function(o) {
+  getInactiveCourses(classGroups: any) {
+    this.inactiveClassGroups = _.filter(classGroups , function(o) {
       return !o.active;
     });
+  }
+
+  getPendingCourses(classGroups: any) {
+    // TO DO FILTER
   }
 
 }

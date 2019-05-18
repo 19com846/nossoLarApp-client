@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { StaticAPIService } from 'src/app/services/static-api.service';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-absences',
@@ -11,7 +11,7 @@ export class AbsencesPage implements OnInit {
 
   public absences: any;
 
-  constructor(private route: ActivatedRoute, private api: StaticAPIService) { }
+  constructor(private route: ActivatedRoute, private api: APIService) { }
 
   ngOnInit() {
     // const id = this.route.snapshot.params.id;

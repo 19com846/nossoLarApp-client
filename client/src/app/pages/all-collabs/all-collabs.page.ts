@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaticAPIService } from 'src/app/services/static-api.service';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-all-collabs',
@@ -10,7 +10,7 @@ export class AllCollabsPage implements OnInit {
 
   collaborators: any;
 
-  constructor(private api: StaticAPIService) { }
+  constructor(private api: APIService) { }
 
   ngOnInit() {
     this.getAllCollaborators();

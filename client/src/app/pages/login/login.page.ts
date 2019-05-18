@@ -11,9 +11,6 @@ export class LoginPage implements OnInit {
   public dataLogin: Array<Object> = [];
   public inputCredentials: String;
 
-  ngOnInit() {
-  }
-
   constructor(private router: Router) {
     this.dataLogin = [
       {
@@ -27,6 +24,11 @@ export class LoginPage implements OnInit {
     ]
 
    }
+
+
+  ngOnInit() {
+  }
+
 
     login() {
       if (this.inputCredentials === 'stu') {

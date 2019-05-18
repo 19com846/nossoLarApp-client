@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class StaticAPIService {
-  
+export class APIService {
+
 
   API_URL = Constants.STATIC_URL;
 
@@ -24,27 +24,27 @@ export class StaticAPIService {
     return this.httpClient.get(`${this.API_URL}/students/`);
   }
 
-  getStudentsfromTurma(collaboratorID: String, turmaID: String) {
-    return this.httpClient.get(`${this.API_URL}/chamada/` + collaboratorID + '/' + turmaID)
+  getStudentsFromClassGroup(collaboratorID: String, classGroupId: String) {
+    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorID + '/' + classGroupId);
   }
 
-  getTurmasToAssessPresence(collaboratorID: String) {
-    return this.httpClient.get(`${this.API_URL}/chamada/` + collaboratorID);
+  getClassGroupAttendance(collaboratorID: String) {
+    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorID);
   }
-  getOpenTurmasOfCourse(turmaID: String) {
-    return this.httpClient.get(`${this.API_URL}/turmas/` + turmaID);
+  getClassGroupsFromCourse(classGroupId: String) {
+    return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
 
-  getOpenTurmas(studentID: String) {
-    return this.httpClient.get(`${this.API_URL}/matriculas/` + studentID);
+  getOpenClassGroups(studentID: String) {
+    return this.httpClient.get(`${this.API_URL}/enrollments/` + studentID);
   }
 
   getAllCoursesFromStudent(studentID: String) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentID + '/class-groups');
   }
 
-  getTurmaDetails(turmaID: String) {
-    return this.httpClient.get(`${this.API_URL}/class-groups/` + turmaID);
+  getClassGroupDetails(classGroupId: String) {
+    return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
 
   getAbsences(studentID: String) {

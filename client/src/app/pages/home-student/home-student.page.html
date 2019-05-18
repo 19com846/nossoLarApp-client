@@ -4,7 +4,7 @@
         <ion-menu-button></ion-menu-button>
         </ion-buttons>
     <div text-center>
-      <ion-title>Minhas turmas</ion-title>
+      <ion-title>Minhas Turmas</ion-title>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -14,12 +14,12 @@
         Cursos em aberto
       </ion-label>
     </ion-item>
-    <ion-card (click)="goToTurmaDetail(turma)" routerDirection="Forward" *ngFor='let turma of activeTurmas'>
+    <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of activeClassGroups'>
         <ion-card-content>
-          <h2>Dirigente: {{turma.teacher}} </h2>
-          <h3>Horario: {{turma.time}}</h3>
-          <h4>Semestre: {{turma.semester}}</h4>
-          <h4>Ano: {{turma.year}}</h4>
+          <h2>Dirigente: {{classGroup.teacher}} </h2>
+          <h3>Horario: {{classGroup.time}}</h3>
+          <h4>Semestre: {{classGroup.semester}}</h4>
+          <h4>Ano: {{classGroup.year}}</h4>
         </ion-card-content>
     </ion-card>  
     <ion-item>
@@ -27,12 +27,12 @@
           <h3>Cursos já realizados</h3>
       </ion-label>
     </ion-item>
-    <ion-card (click)="goToTurmaDetail(turma)" routerDirection="Forward" *ngFor='let turma of inactiveTurmas'>
+    <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of inactiveClassGroups'>
       <ion-card-content>
-        <h2>Dirigente: {{turma.teacher}} </h2>
-        <h3>Horario: {{turma.time}}</h3>
-        <h4>Semestre: {{turma.semester}}</h4>
-        <h4>Ano: {{turma.year}}</h4>
+        <h2>Dirigente: {{classGroup.teacher}} </h2>
+        <h3>Horario: {{classGroup.time}}</h3>
+        <h4>Semestre: {{classGroup.semester}}</h4>
+        <h4>Ano: {{classGroup.year}}</h4>
       </ion-card-content>
     </ion-card>
     <ion-item>
@@ -40,19 +40,13 @@
         Cursos aguardando aprovação
       </ion-label>
     </ion-item>
-    <ion-card *ngFor='let turmas of turma'>
-      <div *ngIf="turmas.status == 'waiting';'nao há nenhum curso'">
-        <ion-list>
-          <ion-item>
-            <ion-icon name="radio-button-on" style="color:darkorange;font:bold;"></ion-icon>
-            <h3>{{turmas.name}}</h3>
-          </ion-item>
-        </ion-list>
-        <ion-card-content>
-          <h1>Dirigente: {{turmas?.collaborators[0].name}} </h1>
-          <h2>Horario: {{turmas?.startTime}} ~ {{turmas.endTime}}</h2>
-        </ion-card-content>
-      </div>
+    <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of pendinClassGroups'>
+      <ion-card-content>
+        <h2>Dirigente: {{classGroup.teacher}} </h2>
+        <h3>Horario: {{classGroup.time}}</h3>
+        <h4>Semestre: {{classGroup.semester}}</h4>
+        <h4>Ano: {{classGroup.year}}</h4>
+      </ion-card-content>
     </ion-card>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="newEnrollment()" routerDirection="Forward">
         <ion-fab-button>

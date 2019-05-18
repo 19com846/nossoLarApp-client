@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { StaticAPIService } from 'src/app/services/static-api.service';
+import { Router } from '@angular/router';
+import { APIService } from 'src/app/services/api.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -9,10 +9,10 @@ import * as _ from 'lodash';
   styleUrls: ['./my-class-group.page.scss'],
 })
 export class MyClassGroupPage implements OnInit {
-  public turma: any;
+  public classGroups: any;
   public collaborators: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) { }
+  constructor(private router: Router, private api: APIService) { }
 
   goToMyAbsences() {
     this.router.navigate(['absences']);
@@ -21,23 +21,23 @@ export class MyClassGroupPage implements OnInit {
     this.router.navigate(['transfer-class-group']);
   }
 
-  getTurma(id: String) {
-    this.api.getTurmaDetails(id).subscribe((data: Array<object>) => {
-      this.turma = data;
-      this.getCollaborators(this.turma);
-      console.log(this.turma);
+  getClassGroupDetails(id: String) {
+    this.api.getClassGroupDetails(id).subscribe((data: Array<object>) => {
+      this.classGroups = data;
+      this.getCollaborators(this.classGroups);
+      console.log(this.classGroups);
     });
   }
 
-  getCollaborators(turma: any) {
-    this.collaborators = _.get(turma, '[0].collaborators');
+  getCollaborators(classGroups: any) {
+    this.collaborators = _.get(classGroups, '[0].collaborators');
     console.log(this.collaborators);
   }
 
   ngOnInit() {
     // const id = this.route.snapshot.params.id;
     const id = '1';
-    this.getTurma(id);
+    this.getClassGroupDetails(id);
   }
 
 }

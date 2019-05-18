@@ -34,6 +34,13 @@ class Semester(Enum):
         FIRST = 'Primeiro Semestre'
         SECOND = 'Segundo Semestre'
 
+    def get_semester(self):
+        if self is 'f':
+            return Semester.FIRST
+        if self is 's':
+            return Semester.SECOND
+        return None
+
 
 class Course(models.Model):
     """

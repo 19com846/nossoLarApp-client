@@ -1,20 +1,16 @@
 import coreapi
 import coreschema
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.handlers.modwsgi import groups_for_user
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from rest_framework import generics, status, permissions, schemas
 from rest_framework.decorators import renderer_classes, api_view
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.schemas import SchemaGenerator, ManualSchema
-from rest_framework.views import APIView
+from rest_framework.schemas import ManualSchema
 from rest_framework_jwt.settings import api_settings
 from rest_framework_swagger import renderers
 
 from .serializers import *
-from .models import ClassGroup, Course, Person
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
@@ -50,6 +46,25 @@ class CourseApi(generics.ListCreateAPIView):
 class ClassGroupApi(generics.ListCreateAPIView):
     queryset = ClassGroup.objects.all()
     serializer_class = ClassGroupSerializer
+
+    def post(self, request, *args, **kwargs):
+        title = request.data.get("title", "")
+        classroom = request.data.get("classroom", "")
+        time = request.data.get("time", "")
+        semester = Semester.get_semester(request.data.get("semester", ""))
+        year = request.data.get("year", "")
+        teacher = Person.objects.get(pk=request.data.get("teacher_id", ""))
+        course = Course.objects.get(id=request.data.get("course_id", ""))
+        print(course)
+        if not (title and classroom and time and semester and year and course and teacher):
+            return Response(data={
+                "message": "Fill all required fields"
+            }, status=status.HTTP_400_BAD_REQUEST)
+        class_group = ClassGroup.objects.create(
+            title=title, classroom=classroom, time=time, year=year,
+            semester=semester, course=course, teacher=teacher)
+        return Response(data=ClassGroupSerializer(class_group).data,
+                        status=status.HTTP_201_CREATED)
 
 
 class ClassGroupDetailApi(generics.RetrieveAPIView):
@@ -102,6 +117,7 @@ class ConfirmTransferRequestApi(generics.UpdateAPIView):
 
 
 class CreateLessonApi(generics.CreateAPIView):
+
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 

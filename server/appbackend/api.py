@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from rest_framework import generics, status, permissions, schemas
-from rest_framework.decorators import renderer_classes, api_view
+from rest_framework.decorators import renderer_classes, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.schemas import ManualSchema
 from rest_framework_jwt.settings import api_settings
@@ -18,6 +18,7 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 @api_view(['GET'])
 @renderer_classes([renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer])
+@permission_classes((permissions.AllowAny,))
 def schema_view(request):
     generator = schemas.SchemaGenerator(title='NossoLar API')
     return Response(generator.get_schema(request))
@@ -117,12 +118,18 @@ class ConfirmTransferRequestApi(generics.UpdateAPIView):
 
 
 class CreateLessonApi(generics.CreateAPIView):
-
+    schema = ManualSchema(fields=[coreapi.Field(
+        "id",
+        required=True,
+        description="The class group id for which the lesson will be created",
+        location="path",
+        schema=coreschema.String()
+    )], encoding="application/json")
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
     def post(self, request, *args, **kwargs):
-        class_group = ClassGroup.objects.filter(pk=kwargs["pk"])[:1].get()
+        class_group = ClassGroup.objects.get(pk=kwargs["pk"])
         lesson = Lesson.objects.create(
             class_group=class_group
         )
@@ -167,7 +174,7 @@ class LoginApi(generics.CreateAPIView):
             schema=coreschema.Integer()
         )
     ], encoding='application/json')
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = []
     serializer_class = PersonSerializer
 
     queryset = Person.objects.all()
@@ -177,6 +184,48 @@ class LoginApi(generics.CreateAPIView):
         group = request.data.get("group", "")
         try:
             user = Person.objects.get(email=email, groups__in=[group])
+        except Person.DoesNotExist:
+            return Response(
+                data={"message": "User not valid"},
+                status=status.HTTP_401_UNAUTHORIZED)
+        if group is 1:
+            login(request, user)
+            serializer = TokenSerializer(data={
+                "token": jwt_encode_handler(
+                    jwt_payload_handler(user)
+                )})
+            serializer.is_valid()
+            return Response(data=serializer.data,
+                            status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class LoginByPhoneApi(generics.CreateAPIView):
+    schema = schema = ManualSchema(fields=[
+        coreapi.Field(
+            "phone",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "group",
+            required=True,
+            location="form",
+            schema=coreschema.Integer()
+        )
+    ], encoding='application/json')
+
+    permission_classes = []
+    serializer_class = PersonSerializer
+
+    queryset = Person.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        phone = request.data.get("phone", "")
+        group = request.data.get("group", "")
+        try:
+            user = Person.objects.get(email=phone, groups__in=[group])
         except Person.DoesNotExist:
             return Response(
                 data={"message": "User not valid"},
@@ -215,7 +264,7 @@ class AuthenticateCollaboratorApi(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         email = request.data.get("email", "")
         password = request.data.get("password", "")
-        user = authenticate(username=email,password=password)
+        user = authenticate(username=email, password=password)
         if user is None:
             return Response(
                 data={"message": "Incorrect password"},
@@ -231,6 +280,45 @@ class AuthenticateCollaboratorApi(generics.CreateAPIView):
 
 
 class RegisterApi(generics.CreateAPIView):
+    schema = ManualSchema(fields=[
+        coreapi.Field(
+            "email",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "password",
+            required=False,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "first_name",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "last_name",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "phone",
+            required=False,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "group",
+            required=True,
+            location="form",
+            schema=coreschema.Integer()
+        )
+    ], encoding='application/json')
+
     permission_classes = (permissions.AllowAny,)
     serializer_class = PersonSerializer
     queryset = Person.objects.all()
@@ -254,6 +342,69 @@ class RegisterApi(generics.CreateAPIView):
         new_user = Person.objects.create(
             email=email, password=password, phone=phone, first_name=first_name, last_name=last_name,
             username=email
+        )
+        new_user.groups.add(group)
+        return Response(
+            data=PersonSerializer(new_user).data,
+            status=status.HTTP_201_CREATED
+        )
+
+
+class RegisterByPhoneApi(generics.CreateAPIView):
+    schema = ManualSchema(fields=[
+        coreapi.Field(
+            "password",
+            required=False,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "first_name",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "last_name",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "phone",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "group",
+            required=True,
+            location="form",
+            schema=coreschema.Integer()
+        )
+    ], encoding='application/json')
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = PersonSerializer
+    queryset = Person.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        password = make_password(request.data.get("password", ""))
+        phone = request.data.get("phone", "")
+        first_name = request.data.get("first_name", "")
+        last_name = request.data.get("last_name", "")
+        group = Group.objects.get(pk=request.data.get("group", ""))
+        if group is 1:
+            password = make_password('student-default-pass')
+        if not phone or not password or not first_name or not last_name or not group:
+            return Response(
+                data={
+                    "message": "fill all required fields."
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        new_user = Person.objects.create(
+            password=password, phone=phone, first_name=first_name, last_name=last_name,
+            username=phone, email=phone
         )
         new_user.groups.add(group)
         return Response(

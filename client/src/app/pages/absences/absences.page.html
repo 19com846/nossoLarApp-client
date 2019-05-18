@@ -14,17 +14,17 @@
     </ion-label>	
   </ion-item>	
   <ion-list>	
-      <ion-card *ngFor='let abscence of abscences'>	
+      <ion-card *ngFor='let absence of absences'>	
         <ion-card-header>	
           <ion-card-subtitle>	
-            {{abscence.lesson.turma.course}} - {{abscence.lesson.turma.title}}	
+            {{absence.lesson.turma.course}} - {{absence.lesson.turma.title}}	
           </ion-card-subtitle>	
           <ion-card-title>	
-            {{abscence.lesson.date}}	
+            {{absence.lesson.date}}	
           </ion-card-title>	
         </ion-card-header>	
         <ion-card-content>	
-          Semestre {{abscence.lesson.turma.semester}} de {{abscence.lesson.turma.year}}	
+          Semestre {{absence.lesson.turma.semester}} de {{absence.lesson.turma.year}}	
         </ion-card-content>	
       </ion-card>	
   </ion-list>

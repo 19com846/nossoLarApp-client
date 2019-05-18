@@ -3,25 +3,25 @@ import { ActivatedRoute } from '@angular/router';
 import { StaticAPIService } from 'src/app/services/static-api.service';
 
 @Component({
-  selector: 'app-abscences',
-  templateUrl: './abscences.page.html',
-  styleUrls: ['./abscences.page.scss'],
+  selector: 'app-absences',
+  templateUrl: './absences.page.html',
+  styleUrls: ['./absences.page.scss'],
 })
-export class AbscencesPage implements OnInit {
+export class AbsencesPage implements OnInit {
 
-  public abscences: any;
+  public absences: any;
 
   constructor(private route: ActivatedRoute, private api: StaticAPIService) { }
 
   ngOnInit() {
     // const id = this.route.snapshot.params.id;
     const id = '1';
-    this.getAbscences(id);
+    this.getAbsences(id);
   }
 
-  getAbscences(id: String) {
-    this.api.getAbscences(id).subscribe((data: Array<object>) => {
-      this.abscences = data;
+  getAbsences(id: String) {
+    this.api.getAbsences(id).subscribe((data: Array<object>) => {
+      this.absences = data;
       console.log(data);
     });
   }

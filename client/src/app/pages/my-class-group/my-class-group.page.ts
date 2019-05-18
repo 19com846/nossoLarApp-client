@@ -14,8 +14,8 @@ export class MyClassGroupPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private api: StaticAPIService) { }
 
-  goToMyAbscences() {
-    this.router.navigate(['abscences']);
+  goToMyAbsences() {
+    this.router.navigate(['absences']);
   }
   tranferClassGroup() {
     this.router.navigate(['transfer-class-group']);

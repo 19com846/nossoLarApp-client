@@ -47,8 +47,8 @@ export class StaticAPIService {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + turmaID);
   }
 
-  getAbscences(studentID: String) {
-    return this.httpClient.get(`${this.API_URL}/abscences/` + studentID);
+  getAbsences(studentID: String) {
+    return this.httpClient.get(`${this.API_URL}/absences/` + studentID);
   }
 
   getTransferClassGroups(studentID: String, courseID: String) {

@@ -1,15 +1,30 @@
+import coreapi
+import coreschema
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.handlers.modwsgi import groups_for_user
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, schemas
+from rest_framework.decorators import renderer_classes, api_view
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.schemas import SchemaGenerator, ManualSchema
+from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
+from rest_framework_swagger import renderers
 
 from .serializers import *
 from .models import ClassGroup, Course, Person
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+
+@api_view(['GET'])
+@renderer_classes([renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer])
+def schema_view(request):
+    generator = schemas.SchemaGenerator(title='NossoLar API')
+    return Response(generator.get_schema(request))
 
 
 class StudentApi(generics.ListAPIView):
@@ -27,12 +42,12 @@ class StudentDetailApi(generics.RetrieveAPIView):
     queryset = Person.objects.all()
 
 
-class CourseApi(generics.ListAPIView):
+class CourseApi(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
 
-class ClassGroupApi(generics.ListAPIView):
+class ClassGroupApi(generics.ListCreateAPIView):
     queryset = ClassGroup.objects.all()
     serializer_class = ClassGroupSerializer
 
@@ -122,37 +137,98 @@ class CreateAttendanceApi(generics.CreateAPIView):
 
 
 class LoginApi(generics.CreateAPIView):
+    schema = ManualSchema(fields=[
+        coreapi.Field(
+            "email",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "group",
+            required=True,
+            location="form",
+            schema=coreschema.Integer()
+        )
+    ], encoding='application/json')
     permission_classes = (permissions.AllowAny,)
+    serializer_class = PersonSerializer
 
     queryset = Person.objects.all()
 
     def post(self, request, *args, **kwargs):
         email = request.data.get("email", "")
-        password = request.data.get("password", "")
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
+        group = request.data.get("group", "")
+        try:
+            user = Person.objects.get(email=email, groups__in=[group])
+        except Person.DoesNotExist:
+            return Response(
+                data={"message": "User not valid"},
+                status=status.HTTP_401_UNAUTHORIZED)
+        if group is 1:
             login(request, user)
             serializer = TokenSerializer(data={
                 "token": jwt_encode_handler(
                     jwt_payload_handler(user)
                 )})
             serializer.is_valid()
-            return Response(serializer.data)
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response(data=serializer.data,
+                            status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class AuthenticateCollaboratorApi(generics.CreateAPIView):
+    schema = ManualSchema(fields=[
+        coreapi.Field(
+            "email",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "password",
+            required=True,
+            location="form",
+            schema=coreschema.String()
+        )
+    ], encoding='application/json')
+
+    serializer_class = PersonSerializer
+    queryset = Person.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        email = request.data.get("email", "")
+        password = request.data.get("password", "")
+        user = authenticate(username=email,password=password)
+        if user is None:
+            return Response(
+                data={"message": "Incorrect password"},
+                status=status.HTTP_401_UNAUTHORIZED)
+        login(request, user)
+        serializer = TokenSerializer(data={
+            "token": jwt_encode_handler(
+                jwt_payload_handler(user)
+            )})
+        serializer.is_valid()
+        return Response(data=serializer.data,
+                        status=status.HTTP_200_OK)
 
 
 class RegisterApi(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
+    serializer_class = PersonSerializer
+    queryset = Person.objects.all()
 
     def post(self, request, *args, **kwargs):
-        username = request.data.get("username", "")
         email = request.data.get("email", "")
         password = make_password(request.data.get("password", ""))
         phone = request.data.get("phone", "")
         first_name = request.data.get("first_name", "")
         last_name = request.data.get("last_name", "")
         group = Group.objects.get(pk=request.data.get("group", ""))
-        if not username or not email or not password or not first_name or not last_name or not group:
+        if group is 1:
+            password = make_password('student-default-pass')
+        if not email or not password or not first_name or not last_name or not group:
             return Response(
                 data={
                     "message": "fill all required fields."
@@ -161,7 +237,7 @@ class RegisterApi(generics.CreateAPIView):
             )
         new_user = Person.objects.create(
             email=email, password=password, phone=phone, first_name=first_name, last_name=last_name,
-            username=username
+            username=email
         )
         new_user.groups.add(group)
         return Response(

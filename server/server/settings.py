@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appbackend',
     'rest_framework',
-    'enumfields'
+    'enumfields',
+    'rest_framework_swagger'
     # 'appbackend.apps.UsersConfig'
 ]
 
@@ -52,9 +53,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ],
+    """
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    """
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+    ],
 }
 
 MIDDLEWARE = [

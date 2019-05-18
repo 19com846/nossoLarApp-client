@@ -7,10 +7,12 @@ from datetime import date
 class TransferStatus(Enum):
     PENDING = 'p'
     ACCEPTED = 'a'
+    REJECTED = 'r'
 
     class Labels:
         PENDING = 'Pendente'
         ACCEPTED = 'Aceita'
+        REJECTED = 'Rejeitada'
 
 
 class EnrollmentStatus(Enum):
@@ -24,11 +26,19 @@ class EnrollmentStatus(Enum):
         REJECTED = 'Rejeitada'
 
 
+class Semester(Enum):
+    FIRST = 'f'
+    SECOND = 's'
+
+    class Labels:
+        FIRST = 'Primeiro Semestre'
+        SECOND = 'Segundo Semestre'
+
+
 class Course(models.Model):
     """
     Defines model for courses.
     """
-
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -39,7 +49,6 @@ class Person(AbstractUser):
     """
     Defines model for Persons; can have student or collaborator permissions.
     """
-    pass
     phone = models.CharField(max_length=15)
 
     def __str__(self):
@@ -55,8 +64,8 @@ class ClassGroup(models.Model):
     teacher = models.ForeignKey(Person, related_name="teacher", on_delete=models.PROTECT)
     collaborators = models.ManyToManyField(Person)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    time = models.CharField(max_length=20, null=False)
-    semester = models.IntegerField(null=False, blank=False)
+    time = models.CharField(max_length=100, null=False)
+    semester = EnumField(Semester, max_length=1)
     year = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
@@ -67,10 +76,10 @@ class Enrollment(models.Model):
     """
     Defines relationship between Person and ClassGroup.
     """
-    student = models.ForeignKey(Person, on_delete=models.CASCADE)
+    student = models.ForeignKey(Person, related_name="student", on_delete=models.CASCADE)
     class_group = models.ForeignKey(ClassGroup, related_name="class_group", on_delete=models.CASCADE)
     active = models.BooleanField(default=True, null=False, )
-    status = models.CharField(max_length=50, null=False)
+    status = EnumField(EnrollmentStatus, max_length=1)
     finalGrade = models.CharField(default=None, max_length=5, null=True)
     graduated = models.BooleanField(default=True, null=False)
 
@@ -95,6 +104,7 @@ class Attendance(models.Model):
     """
     student = models.ForeignKey(Person, on_delete=models.CASCADE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    was_present = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return "Presença de {} na {}:".format(self.student, self.lesson)

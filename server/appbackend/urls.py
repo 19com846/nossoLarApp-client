@@ -1,8 +1,12 @@
 from django.conf.urls import *
 from django.urls import path
 from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
 from .api import *
+
 urlpatterns = [
+    path('swagger/', schema_view, name='swagger-view'),
+    path('courses/', CourseApi.as_view(), name='course-list'),
     path('class-groups/', ClassGroupApi.as_view(), name='class-group-list'),
     path('class-groups/<int:pk>/', ClassGroupDetailApi.as_view(), name='class-group-detail'),
     path('students/', StudentApi.as_view(), name='student-list'),
@@ -14,7 +18,8 @@ urlpatterns = [
     path('lessons/<int:pk>/roll-call/', CreateAttendanceApi.as_view(), name='take-attendance'),
     path('login/', LoginApi.as_view(), name='user-login'),
     path('register/', RegisterApi.as_view(), name='register-user'),
-    path('students/<int:s_pk>/class-groups/<int:cg_pk>/')
+    path('login/collaborator/', AuthenticateCollaboratorApi.as_view(), name='authenticate-collaborator'),
+ #   path('students/<int:s_pk>/class-groups/<int:cg_pk>/')
     # url('courses', CourseApi.as_view()),
     # url(r'^', include(router.urls))
 ]

@@ -69,7 +69,7 @@ class AttendanceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TokenSerializer(serializers.ModelSerializer):
+class TokenSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255)
 
 

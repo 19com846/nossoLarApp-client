@@ -16,8 +16,8 @@ class TransferStatus(Enum):
 
 
 class EnrollmentStatus(Enum):
-    PENDING = 'p',
-    ACCEPTED = 'a',
+    PENDING = 'p'
+    ACCEPTED = 'a'
     REJECTED = 'r'
 
     class Labels:
@@ -85,7 +85,7 @@ class Enrollment(models.Model):
     """
     student = models.ForeignKey(Person, related_name="student", on_delete=models.CASCADE)
     class_group = models.ForeignKey(ClassGroup, related_name="class_group", on_delete=models.CASCADE)
-    active = models.BooleanField(default=True, null=False, )
+    active = models.BooleanField(default=True, null=False)
     status = EnumField(EnrollmentStatus, max_length=1)
     finalGrade = models.CharField(default=None, max_length=5, null=True)
     graduated = models.BooleanField(default=True, null=False)

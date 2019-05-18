@@ -30,6 +30,8 @@ class CollaboratorSerializer(serializers.ModelSerializer):
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(source='status.name')
+
     class Meta:
         model = Enrollment
         fields = '__all__'
@@ -46,6 +48,7 @@ class ClassGroupSerializer(serializers.ModelSerializer):
     teacher = serializers.ReadOnlyField(source='teacher.first_name')
     collaborators = CollaboratorSerializer(many=True, read_only=True)
     course = serializers.ReadOnlyField(source='course.name')
+    semester = serializers.CharField(source='semester.name')
 
     class Meta:
         model = ClassGroup

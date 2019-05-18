@@ -17,8 +17,10 @@ urlpatterns = [
     path('class-groups/<int:pk>/lessons/', CreateLessonApi.as_view(), name='create-lesson'),
     path('lessons/<int:pk>/roll-call/', CreateAttendanceApi.as_view(), name='take-attendance'),
     path('login/', LoginApi.as_view(), name='user-login'),
+    path('login/phone', LoginByPhoneApi.as_view(), name='user-login-by-phone'),
     path('accounts/login/', LoginApi.as_view(), name='swagger-login'),
     path('register/', RegisterApi.as_view(), name='register-user'),
+    path('register/phone/', RegisterByPhoneApi.as_view(), name='register-user-by-phone'),
     path('login/collaborator/', AuthenticateCollaboratorApi.as_view(), name='authenticate-collaborator'),
  #   path('students/<int:s_pk>/class-groups/<int:cg_pk>/')
     # url('courses', CourseApi.as_view()),

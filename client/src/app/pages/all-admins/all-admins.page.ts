@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaticAPIService } from 'src/app/services/static-api.service';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-all-admins',
@@ -10,7 +10,7 @@ export class AllAdminsPage implements OnInit {
 
   administrators: any;
 
-  constructor(private api: StaticAPIService) { }
+  constructor(private api: APIService) { }
 
   ngOnInit() {
     this.getAllAdministrators();

@@ -2,25 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-todas-as-turmas',
-  templateUrl: './todas-as-turmas.page.html',
-  styleUrls: ['./todas-as-turmas.page.scss'],
+  selector: 'app-all-class-groups',
+  templateUrl: './all-class-groups.page.html',
+  styleUrls: ['./all-class-groups.page.scss'],
 })
-export class TodasAsTurmasPage implements OnInit {
+export class AllClassGroupsPage implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  Ciclos(){
-    
-    this.router.navigate(['todos-ciclos']);
+  Ciclos() {
+    this.router.navigate(['all-courses']);
   }
-  cursosLivres(){
-    
+  cursosLivres() {
   }
-  criarNovaTurma(){
-    
+  criarNovaTurma() {
   }
 }

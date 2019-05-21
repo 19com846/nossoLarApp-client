@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/services/api.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-my-class-group',
@@ -7,44 +9,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-class-group.page.scss'],
 })
 export class MyClassGroupPage implements OnInit {
-  public turma: Array<Object> =[];
+  public classGroups: any;
+  public collaborators: any;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private api: APIService) { }
 
-    /*
-      receber por parametro o id da turma
-       get api/turmas/id
-    */
-    this.turma = [{ 
-      "id": "456",
-       "name": "Ciclo 02",
-        "typeOfClass": "Ciclo 02",
-         "location": "Sala 7/8",
-        "weekday": "segunda-feira",
-         "startingWeek": "20",
-         "endingWeek": "46",
-          "startTime": "13:00",
-          "endTime": "15:30",
-          "collaborators": [ 
-               { "id": "123124",
-                   "name": "Joaozin",
-                    "email": "fulano.tal@gmail.com",
-                    "phone": "19999091120" },
-              { "id": "897987",
-                  "name": "Sicrano",
-                  "email": "sicrano.silva@hotmail.com",
-                  "phone": "null"
-                 } ] }]
+  goToMyAbsences() {
+    this.router.navigate(['absences']);
+  }
+  tranferClassGroup() {
+    this.router.navigate(['transfer-class-group']);
   }
 
-  faltas() {
-    this.router.navigate(['faltas']);
+  getClassGroupDetails(id: String) {
+    this.api.getClassGroupDetails(id).subscribe((data: Array<object>) => {
+      this.classGroups = data;
+      this.getCollaborators(this.classGroups);
+      console.log(this.classGroups);
+    });
   }
 
-  transferencia() {
-    this.router.navigate(['transferencia-student']);
+  getCollaborators(classGroups: any) {
+    this.collaborators = _.get(classGroups, '[0].collaborators');
+    console.log(this.collaborators);
   }
+
   ngOnInit() {
+    // const id = this.route.snapshot.params.id;
+    const id = '1';
+    this.getClassGroupDetails(id);
   }
 
 }

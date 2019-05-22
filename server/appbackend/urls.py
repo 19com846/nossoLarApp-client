@@ -1,11 +1,20 @@
-from django.conf.urls import *
 from django.urls import path
-from rest_framework import routers
-from rest_framework_swagger.views import get_swagger_view
+from drf_yasg.views import get_schema_view
+
 from .api import *
 
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Nosso Lar API",
+      default_version='v1',
+      description="API da aplicação de gerenciamento de turmas e cursos do Nosso Lar",
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
 urlpatterns = [
-    path('swagger/', schema_view, name='swagger-view'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-view'),
     path('courses/', CourseApi.as_view(), name='course-list'),
     path('class-groups/', ClassGroupApi.as_view(), name='class-group-list'),
     path('class-groups/<int:pk>/', ClassGroupDetailApi.as_view(), name='class-group-detail'),
@@ -15,16 +24,14 @@ urlpatterns = [
     path('transfer-requests/', RequestTransferApi.as_view(), name='request-student-transfer'),
     path('transfer-requests/<int:pk>/confirm/', ConfirmTransferRequestApi.as_view(), name='confirm-student-transfer'),
     path('class-groups/<int:pk>/lessons/', CreateLessonApi.as_view(), name='create-lesson'),
-    path('lessons/<int:pk>/roll-call/', CreateAttendanceApi.as_view(), name='take-attendance'),
+    path('lessons/<int:pk>/roll-call/', CreateAttendancesApi.as_view(), name='take-attendance'),
     path('login/', LoginApi.as_view(), name='user-login'),
     path('login/phone', LoginByPhoneApi.as_view(), name='user-login-by-phone'),
     path('accounts/login/', LoginApi.as_view(), name='swagger-login'),
     path('register/', RegisterApi.as_view(), name='register-user'),
     path('register/phone/', RegisterByPhoneApi.as_view(), name='register-user-by-phone'),
     path('login/collaborator/', AuthenticateCollaboratorApi.as_view(), name='authenticate-collaborator'),
- #   path('students/<int:s_pk>/class-groups/<int:cg_pk>/')
-    # url('courses', CourseApi.as_view()),
-    # url(r'^', include(router.urls))
 ]
+
 
 

@@ -3,6 +3,21 @@ from rest_framework import serializers
 from .models import *
 
 
+class RollCallSerializer(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    was_present = serializers.BooleanField()
+
+    class Meta:
+        fields = '__all__'
+
+
+class RollCallListSerializer(serializers.Serializer):
+    roll_call = RollCallSerializer(many=True)
+
+    class Meta:
+        fields = '__all__'
+
+
 class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -29,15 +44,6 @@ class CollaboratorSerializer(serializers.ModelSerializer):
         fields = ('first_name', 'last_name', 'phone', 'email')
 
 
-class EnrollmentSerializer(serializers.ModelSerializer):
-    status = serializers.CharField(source='status.name')
-
-    class Meta:
-        model = Enrollment
-        fields = '__all__'
-        # fields = ('id', 'active', 'status', 'finalGrade', 'graduated')
-
-
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
@@ -53,6 +59,30 @@ class ClassGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassGroup
         fields = '__all__'
+
+
+class ClassGroupRequest(serializers.Serializer):
+    teacher_id = serializers.IntegerField()
+    course_id = serializers.IntegerField()
+    title = serializers.CharField()
+    classroom = serializers.CharField()
+    time = serializers.CharField()
+    semester = serializers.ChoiceField(choices=[Semester.choices()])
+    year = serializers.IntegerField()
+
+    class Meta:
+        fields = '__all__'
+
+
+class EnrollmentSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(source='status.name')
+    student = StudentSerializer()
+    class_group = ClassGroupSerializer()
+
+    class Meta:
+        model = Enrollment
+        fields = '__all__'
+        # fields = ('id', 'active', 'status', 'finalGrade', 'graduated')
 
 
 class LessonSerializer(serializers.ModelSerializer):

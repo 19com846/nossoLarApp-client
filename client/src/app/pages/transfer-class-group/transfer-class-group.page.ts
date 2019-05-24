@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-transfer-class-group',
@@ -7,101 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransferClassGroupPage implements OnInit {
 
-  public turma: Array<Object> =[];
+  public classGroups: any;
 
-  constructor(public alertController: AlertController, private router: Router) { 
+  constructor(public alertController: AlertController, private router: Router, private api: APIService) { }
 
-
-    
-  this.turma = [
-    {
-      "id": "123",
-      "name": "Ciclo 02",
-      "turma": "Turma 1",
-      "typeOfClass": "Ciclo",
-      "location": "Sala 7/8",
-      "weekday": "Segunda-feira",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "startTime": "22:00",
-      "status": "off",
-      "endTime": "23:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Fulano de Tal",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        },
-        {
-          "id": "897987",
-          "name": "Sicrano",
-          "email": "sicrano.silva@hotmail.com",
-          "phone": "null"
-        }
-      ]
-    },
-    {
-      "id": "456",
-      "name": "Ciclo 02",
-      "turma": "Turma 2",
-      "typeOfClass": "Ciclo",
-      "location": "Sala SSP",
-      "weekday": "Sábado",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "status": "on",
-      "startTime": "13:00",
-      "endTime": "15:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Joaozin",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        },
-        {
-          "id": "897987",
-          "name": "Sicrano",
-          "email": "sicrano.silva@hotmail.com",
-          "phone": "null"
-        }
-      ]
-    }, {
-      "id": "789",
-      "name": "Ciclo 02",
-      "turma": "Turma 3",
-      "typeOfClass": "Ciclo",
-      "location": "Sala SSP",
-      "weekday": "Domingo",
-      "startingWeek": "20",
-      "endingWeek": "46",
-      "status": "waiting",
-      "startTime": "08:00",
-      "endTime": "10:30",
-      "collaborators": [
-        {
-          "id": "123124",
-          "name": "Joaozin",
-          "email": "fulano.tal@gmail.com",
-          "phone": "19999091120"
-        }
-      ]
-    },
-   ]
-  }
-
-  cardClicked(turmas) {
-    
+  cardClicked(classGroup) {
     this.router.navigateByUrl('/menu/menu/home-student');
   }
+
   ngOnInit() {
+    // const id = this.route.snapshot.params.id;
+    const studentId = '1';
+    const courseId = '2';
+    this.getTransferClassGroups(studentId, courseId);
   }
 
-  async presentAlertConfirm(turmas) {
+  getTransferClassGroups(studentId: String, courseId: String) {
+    this.api.getTransferClassGroups(studentId, courseId).subscribe((data: Array<object>) => {
+      this.classGroups = data;
+      console.log(data);
+    });
+  }
+
+  async presentAlertConfirm(classGroup) {
     const alert = await this.alertController.create({
       header: 'Atenção!',
-      message: "Você deseja mesmo transferir sua turma para a "+turmas.turma+" ?",
+      message: 'Você deseja mesmo transferir sua turma para a ' + classGroup.title + ' ?',
       buttons: [
         {
           text: 'Não',
@@ -114,7 +48,7 @@ export class TransferClassGroupPage implements OnInit {
           text: 'SIM !',
           handler: () => {
             console.log('Confirm Okay');
-            this.cardClicked(turmas);
+            this.cardClicked(classGroup);
           }
         }
       ]

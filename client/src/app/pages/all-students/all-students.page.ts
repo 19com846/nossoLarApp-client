@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { StaticAPIService } from 'src/app/services/static-api.service';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-all-students',
@@ -11,7 +10,7 @@ export class AllStudentsPage implements OnInit {
 
   students: any;
 
-  constructor(private api: StaticAPIService) { }
+  constructor(private api: APIService) { }
 
   ngOnInit() {
     this.getAllStudents();

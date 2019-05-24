@@ -1,26 +1,22 @@
 <ion-header>
     <div text-center>
     <ion-toolbar>
-        
-         <ion-buttons slot="start">
-            <ion-back-button defaultHref="home"></ion-back-button>
-           
-            <ion-title>Entrar</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+        <ion-title>Entrar</ion-title>
     </ion-buttons>
-    
     </ion-toolbar>
   </div>
   </ion-header>
-  
   <ion-content>
-          <ion-item>
-
-              <ion-input [(ngModel)]="inputEmail" placeholder="EMAIL ou TELEFONE" required="true"clearInput></ion-input>
-          </ion-item>
-            <ion-row center>  
-                <ion-col text-center>   
-                 <ion-button color="primary" size="big" (click)="login()" >Entrar</ion-button>  
-                </ion-col> 
-               </ion-row>
-               <ion-button (click)="goToRegister()" expand="full" fill="clear">Ou crie sua conta aqui!</ion-button>
+    <ion-item>
+      <ion-input [(ngModel)]="inputCredentials" placeholder="E-mail ou Telefone" required="true" clearInput></ion-input>
+    </ion-item>
+      <ion-row center>  
+        <ion-col text-center>   
+          <ion-button color="primary" size="big" (click)="login()" >Entrar</ion-button>  
+        </ion-col> 
+      </ion-row>
+      <ion-button (click)="goToRegister()" expand="full" fill="clear">Ou crie sua conta aqui!</ion-button>
   </ion-content>
+  

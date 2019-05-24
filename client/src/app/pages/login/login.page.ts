@@ -25,7 +25,23 @@ export class LoginPage implements OnInit {
 
    }
 
-  login() {
+
+  ngOnInit() {
+  }
+
+
+    login() {
+      if (this.inputCredentials === 'stu') {
+        this.router.navigate(['home-student']);
+        // alert('student');
+      } else if (this.inputCredentials === 'collab') {
+      this.router.navigate(['home-collaborator']);
+      }
+    }
+
+    goToRegister(){
+      this.router.navigate(['register']);
+    }
     /*manda para api this.inputEmail e this.inputPhone. Se retornar 200
     get all datas from this person
     id
@@ -36,11 +52,7 @@ export class LoginPage implements OnInit {
     */
 
     //TO DO - FAZER ISSO FUNCIONAR
-    // if (this.inputCredentials === 'stu') {
-    //   this.router.navigate(['home-student']);
-    //   // alert('student');
-    // } else if (this.inputCredentials === 'collab') {
-    // this.router.navigate(['home-collaborator']);
+    
 
     // if(this.inputEmail ==="stu")
     // {
@@ -55,13 +67,4 @@ export class LoginPage implements OnInit {
     //   else {
     //     alert("put on email: stu/adm/col");
     //   }
-    }
-
-  // goToRegister(){
-  //   this.router.navigate(['register']);
-  //   }
-  // }
-  ngOnInit() {
-
   }
-}

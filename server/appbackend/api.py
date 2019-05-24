@@ -162,7 +162,6 @@ class LoginApi(generics.CreateAPIView):
 
     @swagger_auto_schema(request_body=LoginRequest)
     def post(self, request, *args, **kwargs):
-        PersonSerializer(data=request.data).is_valid(raise_exception=True)
         email = request.data.get("email", "")
         group = request.data.get("group", "")
         try:

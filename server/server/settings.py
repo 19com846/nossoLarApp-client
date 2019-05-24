@@ -61,6 +61,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.JSONParser',
     ],
+    'EXCEPTION_HANDLER': 'appbackend.middleware.custom_exception_handler'
 }
 
 SWAGGER_SETTINGS = {

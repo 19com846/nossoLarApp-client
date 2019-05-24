@@ -148,11 +148,6 @@ class CreateAttendancesApi(generics.CreateAPIView):
 
 class LoginApi(generics.CreateAPIView):
 
-    permission_classes = []
-    serializer_class = PersonSerializer
-
-    queryset = Person.objects.all()
-
     class LoginRequest(serializers.Serializer):
         email = serializers.CharField()
         group = serializers.IntegerField()
@@ -160,8 +155,14 @@ class LoginApi(generics.CreateAPIView):
         class Meta:
             fields = '__all__'
 
+    permission_classes = []
+    serializer_class = LoginRequest
+
+    queryset = Person.objects.all()
+
     @swagger_auto_schema(request_body=LoginRequest)
     def post(self, request, *args, **kwargs):
+        PersonSerializer(data=request.data).is_valid(raise_exception=True)
         email = request.data.get("email", "")
         group = request.data.get("group", "")
         try:

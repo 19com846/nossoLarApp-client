@@ -32,3 +32,6 @@ urlpatterns = [
     path('register/phone/', RegisterByPhoneApi.as_view(), name='register-user-by-phone'),
     path('login/collaborator/', AuthenticateCollaboratorApi.as_view(), name='authenticate-collaborator'),
 ]
+
+
+

@@ -160,7 +160,6 @@ class LoginApi(generics.CreateAPIView):
 
     queryset = Person.objects.all()
 
-    @swagger_auto_schema(request_body=LoginRequest)
     def post(self, request, *args, **kwargs):
         email = request.data.get("email", "")
         group = request.data.get("group", "")

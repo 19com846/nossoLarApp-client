@@ -3,6 +3,7 @@ import json
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
+from django.db.models import Q
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status, permissions
@@ -155,7 +156,6 @@ class LoginApi(generics.CreateAPIView):
 
     class LoginRequest(serializers.Serializer):
         email = serializers.CharField()
-        group = serializers.IntegerField()
 
         class Meta:
             fields = '__all__'
@@ -163,14 +163,13 @@ class LoginApi(generics.CreateAPIView):
     @swagger_auto_schema(request_body=LoginRequest)
     def post(self, request, *args, **kwargs):
         email = request.data.get("email", "")
-        group = request.data.get("group", "")
         try:
-            user = Person.objects.get(email=email, groups__in=[group])
+            user = Person.objects.get(email=email)
         except Person.DoesNotExist:
             return Response(
                 data={"message": "User not valid"},
                 status=status.HTTP_401_UNAUTHORIZED)
-        if group is 1:
+        if user.groups.filter(pk=1):
             login(request, user)
             serializer = TokenSerializer(data={
                 "token": jwt_encode_handler(
@@ -203,7 +202,6 @@ class LoginByPhoneApi(generics.CreateAPIView):
 
     class LoginByPhoneRequest(serializers.Serializer):
         phone = serializers.CharField()
-        group = serializers.IntegerField()
 
         class Meta:
             fields = '__all__'
@@ -216,14 +214,13 @@ class LoginByPhoneApi(generics.CreateAPIView):
     @swagger_auto_schema(request_body=LoginByPhoneRequest)
     def post(self, request, *args, **kwargs):
         phone = request.data.get("phone", "")
-        group = request.data.get("group", "")
         try:
-            user = Person.objects.get(email=phone, groups__in=[group])
+            user = Person.objects.get(email=phone)
         except Person.DoesNotExist:
             return Response(
                 data={"message": "User not valid"},
                 status=status.HTTP_401_UNAUTHORIZED)
-        if group is 1:
+        if user.groups.filter(pk=1):
             login(request, user)
             serializer = TokenSerializer(data={
                 "token": jwt_encode_handler(

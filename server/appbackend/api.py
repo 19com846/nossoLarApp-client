@@ -170,10 +170,11 @@ class LoginApi(generics.CreateAPIView):
                 status=status.HTTP_401_UNAUTHORIZED)
         if user.groups.filter(pk=1):
             login(request, user)
-            serializer = TokenSerializer(data={
+            serializer = LoginResponseSerializer(data={
                 "token": jwt_encode_handler(
                     jwt_payload_handler(user)
-                )})
+                ),
+                "user_id": user.id})
             serializer.is_valid()
             return Response(data=serializer.data,
                             status=status.HTTP_200_OK)
@@ -221,10 +222,11 @@ class LoginByPhoneApi(generics.CreateAPIView):
                 status=status.HTTP_401_UNAUTHORIZED)
         if user.groups.filter(pk=1):
             login(request, user)
-            serializer = TokenSerializer(data={
+            serializer = LoginResponseSerializer(data={
                 "token": jwt_encode_handler(
                     jwt_payload_handler(user)
-                )})
+                ),
+                "user_id": user.id})
             serializer.is_valid()
             return Response(data=serializer.data,
                             status=status.HTTP_200_OK)
@@ -253,10 +255,11 @@ class AuthenticateCollaboratorApi(generics.CreateAPIView):
                 data={"message": "Incorrect password"},
                 status=status.HTTP_401_UNAUTHORIZED)
         login(request, user)
-        serializer = TokenSerializer(data={
+        serializer = LoginResponseSerializer(data={
             "token": jwt_encode_handler(
                 jwt_payload_handler(user)
-            )})
+            ),
+            "user_id": user.id})
         serializer.is_valid()
         return Response(data=serializer.data,
                         status=status.HTTP_200_OK)

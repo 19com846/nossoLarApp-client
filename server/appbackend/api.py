@@ -369,9 +369,6 @@ class StudentEnrollmentsApi(generics.ListCreateAPIView):
         EnrollmentRequestSerializer(data=request.data).is_valid(raise_exception=True)
         class_group = ClassGroup.objects.get(pk=request.data.get("class_group_id", ""))
         enrollment_status = EnrollmentStatus(request.data.get("enrollment_status", ""))
-            # raise GenericException(code=status.HTTP_400_BAD_REQUEST,
-            #                        detail="'{}' is not a valid enrollment status value"
-            #                        .format(enrollment_status))
         active = True if enrollment_status is EnrollmentStatus.ACCEPTED else False
         enrollment = Enrollment.objects.create(student=student, class_group=class_group,
                                                graduated=False, finalGrade=None, active=active,

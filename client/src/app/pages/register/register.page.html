@@ -1,43 +1,43 @@
 <ion-header>
-  <div text-center>
   <ion-toolbar>
-      
-       <ion-buttons slot="start">
-          <ion-back-button defaultHref="home"></ion-back-button>
-         
-          <ion-title>Cadastro</ion-title>
-  </ion-buttons>
-  
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+        <ion-title>Cadastro</ion-title>
+    </ion-buttons>
   </ion-toolbar>
-</div>
 </ion-header>
-
 <ion-content>
-      <ion-item>
-          <ion-label text-wrap>
+    <ion-item>
+        <ion-label text-wrap>
               Você está criando uma conta de aluno, 
               para mudar as permissões de sua conta, 
               consulte um administrador do Nosso Lar!
-          </ion-label>
-        </ion-item>
-
+        </ion-label>
+    </ion-item>
+    <form (ngSubmit)="registerPerson()">
         <ion-item>
             <ion-label color="primary" position="floating">Nome</ion-label>
-            <ion-input [(ngModel)]="inputName" required="true"clearInput></ion-input>
+            <ion-input [(ngModel)]="user.first_name"  name="firstName" ngModel required clearInput></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="floating">Sobrenome</ion-label>
+            <ion-input [(ngModel)]="user.last_name"  name="lastName" ngModel required clearInput></ion-input>
         </ion-item>
         <ion-item>
             <ion-label color="primary" position="floating">Email</ion-label>
-            <ion-input [(ngModel)]="inputEmail" type="email" required="true" clearInput></ion-input>
+            <ion-input [(ngModel)]="user.email" type="email" name="email" ngModel required clearInput></ion-input>
         </ion-item>
         <ion-item>
             <ion-label color="primary" position="floating">Telefone</ion-label>
-            <ion-input [(ngModel)]="inputPhone" type="tel" required="true"clearInput></ion-input>
-          </ion-item>
-
-          <ion-row center>  
-              <ion-col text-center>   
-               <ion-button color="primary" size="big" (click)="registerPerson()" >Cadastrar</ion-button>  
-              </ion-col> 
-             </ion-row>
+            <ion-input [(ngModel)]="user.phone" type="tel" name="phone" ngModel required clearInput></ion-input>
+        </ion-item>
+        <ion-row center>  
+            <ion-col text-center>   
+                <ion-button color="primary" size="big" type="submit">
+                    Cadastrar</ion-button>  
+            </ion-col> 
+        </ion-row>
+    </form>
+    
 </ion-content>
 

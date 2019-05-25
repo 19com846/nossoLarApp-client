@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'transfer-class-group', loadChildren: './pages/transfer-class-group/transfer-class-group.module#TransferClassGroupPageModule' },
   { path: 'class-group-students', loadChildren: './pages/class-group-students/class-group-students.module#ClassGroupStudentsPageModule' },
   { path: 'all-students', loadChildren: './pages/all-students/all-students.module#AllStudentsPageModule' },
+  { path: 'login-password', loadChildren: './pages/login-password/login-password.module#LoginPasswordPageModule' },
 
 ];
 

@@ -85,6 +85,20 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         # fields = ('id', 'active', 'status', 'finalGrade', 'graduated')
 
 
+class StudentEnrollmentSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(source='status.name')
+    class_group = ClassGroupSerializer()
+
+    class Meta:
+        model = Enrollment
+        fields = ('id', 'active', 'status', 'class_group', 'finalGrade', 'graduated')
+
+
+class EnrollmentRequestSerializer(serializers.Serializer):
+    class_group_id = serializers.IntegerField()
+    enrollment_status = serializers.CharField()
+
+
 class LessonSerializer(serializers.ModelSerializer):
     class_group = ClassGroupSerializer(read_only=True)
 

@@ -31,6 +31,7 @@ urlpatterns = [
     path('register/', RegisterApi.as_view(), name='register-user'),
     path('register/phone/', RegisterByPhoneApi.as_view(), name='register-user-by-phone'),
     path('login/collaborator/', AuthenticateCollaboratorApi.as_view(), name='authenticate-collaborator'),
+    path('students/<int:pk>/enrollments/', StudentEnrollmentsApi.as_view(), name='see-enrolled-classes')
 ]
 
 

@@ -352,3 +352,21 @@ class RegisterByPhoneApi(generics.CreateAPIView):
             data=PersonSerializer(new_user).data,
             status=status.HTTP_201_CREATED
         )
+
+
+class StudentAttendancesApi(generics.ListAPIView):
+    serializer_class = StudentAttendanceSerializer
+    queryset = Attendance.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
+        if student is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Student of requested id does not exist")
+        class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
+        if class_group is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Class group of requested id does not exist")
+        attendances = list(Attendance.objects.filter(student=student, lesson__class_group=class_group))
+        return Response(data=StudentAttendanceSerializer(attendances, many=True).data,
+                        status=status.HTTP_200_OK)

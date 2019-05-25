@@ -31,6 +31,7 @@ urlpatterns = [
     path('register/', RegisterApi.as_view(), name='register-user'),
     path('register/phone/', RegisterByPhoneApi.as_view(), name='register-user-by-phone'),
     path('login/collaborator/', AuthenticateCollaboratorApi.as_view(), name='authenticate-collaborator'),
+    path('students/<int:pk>/class-groups/<int:group_id>/transfer-targets/', TransferTargetsApi.as_view(), name='list-transfer-targets')
 ]
 
 

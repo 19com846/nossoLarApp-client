@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'appbackend',
     'rest_framework',
     'enumfields',
-    'drf_yasg'
+    'drf_yasg',
+    'corsheaders'
     # 'appbackend.apps.UsersConfig'
 ]
 

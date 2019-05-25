@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class APIService {
 
 
-  API_URL = Constants.STATIC_URL;
+  API_URL = Constants.API_URL;
 
   constructor(private httpClient: HttpClient) { }
 

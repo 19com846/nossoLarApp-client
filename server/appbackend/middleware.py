@@ -1,3 +1,6 @@
+import sys
+import traceback
+
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
@@ -29,6 +32,7 @@ def custom_exception_handler(exception, context):
     :param context: the context
     :return: the error response
     """
+    traceback.print_exception(*sys.exc_info())
     response = exception_handler(exception, context)
 
     if isinstance(exception, GenericException):

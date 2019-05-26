@@ -11,6 +11,7 @@ import { APIService } from 'src/app/services/api.service';
 export class TransferClassGroupPage implements OnInit {
 
   public classGroups: any;
+  private 
 
   constructor(public alertController: AlertController, private router: Router, private api: APIService) { }
 

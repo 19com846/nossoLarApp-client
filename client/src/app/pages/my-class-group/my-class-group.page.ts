@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from 'src/app/services/api.service';
 import * as _ from 'lodash';
 import { ClassGroup } from 'src/app/interfaces/class-group';
+import { Collaborator } from '../all-collabs/collaborator';
 
 @Component({
   selector: 'app-my-class-group',
@@ -10,36 +11,39 @@ import { ClassGroup } from 'src/app/interfaces/class-group';
   styleUrls: ['./my-class-group.page.scss'],
 })
 export class MyClassGroupPage implements OnInit {
-  public classGroups: Array<ClassGroup>;
+  public classGroup: ClassGroup;
   public collaborators: any;
-
+  private classGroupId: Number;
   constructor(private router: Router, 
               private route: ActivatedRoute,
-              private api: APIService) { }
+              private api: APIService) {
+                
+               }
 
   goToMyAbsences() {
     this.router.navigate(['absences']);
   }
+
   tranferClassGroup() {
-    this.router.navigate(['transfer-class-group']);
+    const id = this.classGroupId;
+    this.router.navigate(['transfer-class-group', id]);
   }
 
-  getClassGroupDetails(id: Number) {
-    this.api.getClassGroupDetails(id).subscribe((data: Array<ClassGroup>) => {
-      this.classGroups = data;
-      this.getCollaborators(this.classGroups);
-      console.log(this.classGroups);
+  getClassGroupDetails(classGroupId: Number) {
+    this.api.getClassGroupDetails(classGroupId).subscribe((data: ClassGroup) => {
+      this.classGroup = data;
+      this.getCollaborators(this.classGroup);
+      console.log(this.classGroup);
     });
   }
 
-  getCollaborators(classGroups: any) {
-    this.collaborators = _.get(classGroups, '[0].collaborators');
-    console.log(this.collaborators);
+  getCollaborators(classGroup: ClassGroup): Array<Collaborator> {
+    return this.collaborators = this.classGroup.collaborators
   }
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.getClassGroupDetails(id);
+    this.classGroupId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getClassGroupDetails(this.classGroupId);
   }
 
 }

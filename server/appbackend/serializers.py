@@ -116,6 +116,15 @@ class AttendanceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class StudentAttendanceSerializer(serializers.ModelSerializer):
+    lesson_id = serializers.IntegerField(source="lesson.id")
+    lesson_date = serializers.DateField(source="lesson.date")
+
+    class Meta:
+        model = Attendance
+        fields = ('id', 'lesson_id', 'lesson_date', 'was_present')
+
+
 class LoginResponseSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255)
     user_id = serializers.IntegerField()

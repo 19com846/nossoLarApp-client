@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class AllStudentsPage implements OnInit {
 
-  student: Array<Student>;
   items: Array<Student>;
+  students: Array<Student>;
 
   constructor(private api: APIService,  private router: Router) { }
 
@@ -22,12 +22,12 @@ export class AllStudentsPage implements OnInit {
   getAllStudents() {
     this.api.getAllStudents().subscribe((data: Array<Student>) => {
       this.items = data;
-      this.student = data;
+      this.students = data;
     });
   }
 
   initializeItems() {
-    this.items = this.student;
+    this.items = this.students;
   }
 
   clickCard(studentId){

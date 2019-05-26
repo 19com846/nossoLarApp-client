@@ -33,12 +33,21 @@ export class MyClassGroupsPage implements OnInit {
     this.getClassGroups(id);
   }
   getClassGroups(id: Number) {
+<<<<<<< HEAD
     // this.api.getAllCoursesFromStudent(4).subscribe((data: Array<object>) => {
     //   this.classGroups = data;
       // this.getActiveCourses(this.classGroups);
       // this.getInactiveCourses(this.classGroups);
       // this.getPendingCourses(this.classGroups);
     // });
+=======
+    this.api.getAllCoursesFromStudent(4).subscribe((data: Array<object>) => {
+      this.classGroups = data;
+      // this.getActiveCourses(this.classGroups);
+      // this.getInactiveCourses(this.classGroups);
+      // this.getPendingCourses(this.classGroups);
+    });
+>>>>>>> Prepar Front-end to connect with back-end
   }
 
   // getActiveCourses(classGroups: ClassGroup) {

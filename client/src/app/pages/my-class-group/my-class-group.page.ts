@@ -3,7 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from 'src/app/services/api.service';
 import * as _ from 'lodash';
 import { ClassGroup } from 'src/app/interfaces/class-group';
+<<<<<<< HEAD
 import { Collaborator } from '../all-collabs/collaborator';
+=======
+>>>>>>> Prepar Front-end to connect with back-end
 
 @Component({
   selector: 'app-my-class-group',
@@ -11,6 +14,7 @@ import { Collaborator } from '../all-collabs/collaborator';
   styleUrls: ['./my-class-group.page.scss'],
 })
 export class MyClassGroupPage implements OnInit {
+<<<<<<< HEAD
   public classGroup: ClassGroup;
   public collaborators: Array<Collaborator>;
   private classGroupId: Number;
@@ -20,6 +24,14 @@ export class MyClassGroupPage implements OnInit {
               private api: APIService) {
                 
                }
+=======
+  public classGroups: Array<ClassGroup>;
+  public collaborators: any;
+
+  constructor(private router: Router, 
+              private route: ActivatedRoute,
+              private api: APIService) { }
+>>>>>>> Prepar Front-end to connect with back-end
 
   goToMyAbsences() {
     this.router.navigate(['absences', this.classGroupId]);

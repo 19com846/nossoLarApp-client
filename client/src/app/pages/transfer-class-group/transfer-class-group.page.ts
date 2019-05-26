@@ -20,12 +20,12 @@ export class TransferClassGroupPage implements OnInit {
 
   ngOnInit() {
     // const id = this.route.snapshot.params.id;
-    const studentId = '1';
-    const courseId = '2';
+    const studentId = 1;
+    const courseId = 2;
     this.getTransferClassGroups(studentId, courseId);
   }
 
-  getTransferClassGroups(studentId: String, courseId: String) {
+  getTransferClassGroups(studentId: Number, courseId: Number) {
     this.api.getTransferClassGroups(studentId, courseId).subscribe((data: Array<object>) => {
       this.classGroups = data;
       console.log(data);

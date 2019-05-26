@@ -15,11 +15,11 @@ export class AbsencesPage implements OnInit {
 
   ngOnInit() {
     // const id = this.route.snapshot.params.id;
-    const id = '1';
+    const id = 1;
     this.getAbsences(id);
   }
 
-  getAbsences(id: String) {
+  getAbsences(id: Number) {
     this.api.getAbsences(id).subscribe((data: Array<object>) => {
       this.absences = data;
       console.log(data);

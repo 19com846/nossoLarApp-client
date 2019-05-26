@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/services/api.service';
+import { Administrator } from './administrator';
 
 @Component({
   selector: 'app-all-admins',
@@ -8,7 +9,7 @@ import { APIService } from 'src/app/services/api.service';
 })
 export class AllAdminsPage implements OnInit {
 
-  administrators: any;
+  administrators: Array<Administrator>;
 
   constructor(private api: APIService) { }
 
@@ -17,7 +18,7 @@ export class AllAdminsPage implements OnInit {
   }
 
   getAllAdministrators() {
-    this.api.getAllAdministrators().subscribe((data: Array<object>) => {
+    this.api.getAllAdministrators().subscribe((data: Array<Administrator>) => {
       this.administrators = data;
     });
   }

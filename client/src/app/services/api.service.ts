@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class APIService {
-
-
+  
   API_URL = Constants.API_URL;
 
   constructor(private httpClient: HttpClient) { }
+
+  getAllCourses() {
+    return this.httpClient.get(`${this.API_URL}/courses/`)
+  }
 
   getAllAdministrators() {
     return this.httpClient.get(`${this.API_URL}/administrators/`);
@@ -24,34 +27,37 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/students/`);
   }
 
-  getStudentsFromClassGroup(collaboratorID: String, classGroupId: String) {
-    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorID + '/' + classGroupId);
+  getStudentsFromClassGroup(collaboratorId: Number, classGroupId: Number) {
+    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorId + '/' + classGroupId);
   }
 
-  getClassGroupAttendance(collaboratorID: String) {
-    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorID);
+  getClassGroupAttendance(collaboratorId: Number) {
+    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorId);
   }
-  getClassGroupsFromCourse(classGroupId: String) {
+  getClassGroupsFromCourse(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
 
-  getOpenClassGroups(studentID: String) {
-    return this.httpClient.get(`${this.API_URL}/enrollments/` + studentID);
+  getOpenClassGroups(studentId: Number) {
+    return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
   }
 
-  getAllCoursesFromStudent(studentID: String) {
-    return this.httpClient.get(`${this.API_URL}/students/` + studentID + '/class-groups');
+  getAllCoursesFromStudent(studentId: Number) {
+    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups', {
+      headers: new HttpHeaders()
+                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkI…9tIn0.vrafKM-NPyvVkGv0d9PRE4bE9MlUV1xfkQMEfY5wai4')
+    });
   }
 
-  getClassGroupDetails(classGroupId: String) {
+  getClassGroupDetails(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
 
-  getAbsences(studentID: String) {
-    return this.httpClient.get(`${this.API_URL}/absences/` + studentID);
+  getAbsences(studentId: Number) {
+    return this.httpClient.get(`${this.API_URL}/absences/` + studentId);
   }
 
-  getTransferClassGroups(studentID: String, courseID: String) {
-    return this.httpClient.get(`${this.API_URL}/students/` + studentID + '/courses/' + courseID + '/turmas');
+  getTransferClassGroups(studentId: Number, courseId: Number) {
+    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/courses/' + courseId + '/turmas');
   }
 }

@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { APIService } from '../../services/api.service';
-import * as _ from 'lodash';
+import { APIService } from 'src/app/services/api.service';
 import { ClassGroup } from 'src/app/interfaces/class-group';
+import { Router, ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-home-student',
-  templateUrl: './home-student.page.html',
-  styleUrls: ['./home-student.page.scss'],
+  selector: 'app-my-class-groups',
+  templateUrl: './my-class-groups.page.html',
+  styleUrls: ['./my-class-groups.page.scss'],
 })
-export class HomeStudentPage implements OnInit {
+export class MyClassGroupsPage implements OnInit {
 
-  public classGroups: Array<ClassGroup>;
-  public activeClassGroups: Array<ClassGroup>;
-  public inactiveClassGroups: Array<ClassGroup>;
-  public pendingClassGroups: Array<ClassGroup>;
+  private classGroups: Array<ClassGroup>;
+  private activeClassGroups: Array<ClassGroup>;
+  private inactiveClassGroups: Array<ClassGroup>;
 
-  constructor(private router: Router, private api: APIService) { }
+  constructor(private api: APIService,
+              private router: Router,
+              private route: ActivatedRoute) { }
+
 
   goToClassGroupDetails() {
     this.router.navigate(['my-class-group']);
@@ -26,17 +28,16 @@ export class HomeStudentPage implements OnInit {
   }
 
   ngOnInit() {
-    // const id = this.route.snapshot.params.id;
-    const id = 1;
+    // const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = 4;
     this.getClassGroups(id);
   }
-
   getClassGroups(id: Number) {
-    this.api.getAllCoursesFromStudent(id).subscribe((data: Array<object>) => {
+    this.api.getAllCoursesFromStudent(4).subscribe((data: Array<object>) => {
       this.classGroups = data;
       // this.getActiveCourses(this.classGroups);
       // this.getInactiveCourses(this.classGroups);
-      this.getPendingCourses(this.classGroups);
+      // this.getPendingCourses(this.classGroups);
     });
   }
 

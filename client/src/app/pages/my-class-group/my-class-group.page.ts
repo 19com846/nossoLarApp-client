@@ -4,9 +4,13 @@ import { APIService } from 'src/app/services/api.service';
 import * as _ from 'lodash';
 import { ClassGroup } from 'src/app/interfaces/class-group';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Collaborator } from '../all-collabs/collaborator';
 =======
 >>>>>>> Prepar Front-end to connect with back-end
+=======
+import { Collaborator } from '../all-collabs/collaborator';
+>>>>>>> Working Home-Student and ClassDetails
 
 @Component({
   selector: 'app-my-class-group',
@@ -14,6 +18,7 @@ import { Collaborator } from '../all-collabs/collaborator';
   styleUrls: ['./my-class-group.page.scss'],
 })
 export class MyClassGroupPage implements OnInit {
+<<<<<<< HEAD
 <<<<<<< HEAD
   public classGroup: ClassGroup;
   public collaborators: Array<Collaborator>;
@@ -26,12 +31,21 @@ export class MyClassGroupPage implements OnInit {
                }
 =======
   public classGroups: Array<ClassGroup>;
+=======
+  public classGroup: ClassGroup;
+>>>>>>> Working Home-Student and ClassDetails
   public collaborators: any;
-
+  private classGroupId: Number;
   constructor(private router: Router, 
               private route: ActivatedRoute,
+<<<<<<< HEAD
               private api: APIService) { }
 >>>>>>> Prepar Front-end to connect with back-end
+=======
+              private api: APIService) {
+                
+               }
+>>>>>>> Working Home-Student and ClassDetails
 
   goToMyAbsences() {
     this.router.navigate(['absences', this.classGroupId]);
@@ -55,7 +69,11 @@ export class MyClassGroupPage implements OnInit {
   }
 
   ngOnInit() {
+<<<<<<< HEAD
     this.classGroupId = Number(this.route.snapshot.paramMap.get('classGroupId'));
+=======
+    this.classGroupId = Number(this.route.snapshot.paramMap.get('id'));
+>>>>>>> Working Home-Student and ClassDetails
     this.getClassGroupDetails(this.classGroupId);
   }
 

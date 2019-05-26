@@ -3,6 +3,7 @@ import json
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
+from django.db.models import Q
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status, permissions
@@ -378,3 +379,27 @@ class StudentEnrollmentsApi(generics.ListCreateAPIView):
                                                status=enrollment_status)
         return Response(data=EnrollmentSerializer(enrollment).data,
                         status=status.HTTP_201_CREATED)
+
+
+class TransferTargetsApi(generics.ListAPIView):
+    queryset = ClassGroup.objects.all()
+    serializer_class = ClassGroupSerializer
+
+    def get(self, request, *args, **kwargs):
+        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
+        if student is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Student of requested id does not exist")
+        class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
+        if class_group is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Class group of requested id does not exist")
+        student_enrollments = list(Enrollment.objects.filter(student=student))
+        student_class_group_ids = list()
+        for enrollment in student_enrollments:
+            student_class_group_ids.append(enrollment.class_group.id)
+        targets = list(ClassGroup.objects.filter(Q(course=class_group.course)
+                                                 & ~Q(pk=class_group.pk)
+                                                 & ~Q(pk__in=student_class_group_ids)))
+        return Response(data=ClassGroupSerializer(targets, many=True).data,
+                        status=status.HTTP_200_OK)

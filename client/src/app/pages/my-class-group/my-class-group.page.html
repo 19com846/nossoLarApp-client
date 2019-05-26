@@ -6,24 +6,23 @@
     <ion-title>Minha Turma</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content padding>
-    <ion-list *ngFor= "let classGroup of classGroups">
+    <ion-list>
         <ion-item>
-          <h2>Turma: {{classGroup.title}}</h2>
+          <h2>Turma: {{classGroup?.title}}</h2>
         </ion-item>
         <ion-item>
-          <h2>Sala: {{classGroup.classroom}}</h2>
+          <h2>Sala: {{classGroup?.classroom}}</h2>
         </ion-item>
         <ion-item>
-          <h2>Horário: {{classGroup.title}}</h2>
+          <h2>Horário: {{classGroup?.time}}</h2>
         </ion-item>
         <ion-list>
           <ion-list-header>
             <h2>Colaboradores</h2>
           </ion-list-header>
           <ion-item *ngFor="let collaborator of collaborators">
-            <h3>{{collaborator.name}}</h3>
+            <h3>{{collaborator.first_name}} {{collaborator.last_name}}</h3>
           </ion-item>
         </ion-list>
   </ion-list>

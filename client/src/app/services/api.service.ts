@@ -42,11 +42,12 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
   }
 
-  getAllCoursesFromStudent(studentId: Number) {
-    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups', {
-      headers: new HttpHeaders()
-                .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkI…9tIn0.vrafKM-NPyvVkGv0d9PRE4bE9MlUV1xfkQMEfY5wai4')
-    });
+  getEnrollments(studentId: Number) {
+    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/enrollments/');
+    // return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups', {
+    //   headers: new HttpHeaders()
+    //             .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkI…9tIn0.vrafKM-NPyvVkGv0d9PRE4bE9MlUV1xfkQMEfY5wai4')
+    // });
   }
 
   getClassGroupDetails(classGroupId: Number) {

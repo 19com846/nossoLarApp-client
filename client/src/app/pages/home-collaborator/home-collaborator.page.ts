@@ -13,12 +13,24 @@ export class HomeCollaboratorPage implements OnInit {
   ngOnInit() {
   }
 
-  selectTurma() {
-    this.router.navigate(['selecionar-turma-para-chamada']);
+  rollCall() {
+    this.router.navigate(['class-group-attendance']);
   }
 
-  goToAllUser() {
-    this.router.navigate(['pessoas-cadastradas']);
+  goToAllUsers() {
+    this.router.navigate(['all-users']);
+  }
+
+  goToAllClassGroups() {
+    this.router.navigate(['all-class-groups']);
+  }
+
+  goToPendingTransfers() {
+    this.router.navigate(['pending-transfers']);
+  }
+
+  goToMyClassGroups() {
+    this.router.navigate(['my-class-groups']);
   }
 
 }

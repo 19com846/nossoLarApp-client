@@ -111,8 +111,12 @@ class StudentAttendanceSerializer(serializers.ModelSerializer):
         fields = ('id', 'lesson_id', 'lesson_date', 'was_present')
 
 
-class TokenSerializer(serializers.Serializer):
+class LoginResponseSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255)
+    user_id = serializers.IntegerField()
+
+    class Meta:
+        fields = '__all__'
 
 
 class TransferRequestSerializer(serializers.ModelSerializer):

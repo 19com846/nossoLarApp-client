@@ -148,34 +148,32 @@ class CreateAttendancesApi(generics.CreateAPIView):
 
 class LoginApi(generics.CreateAPIView):
 
-    permission_classes = []
-    serializer_class = PersonSerializer
-
-    queryset = Person.objects.all()
-
     class LoginRequest(serializers.Serializer):
         email = serializers.CharField()
-        group = serializers.IntegerField()
 
         class Meta:
             fields = '__all__'
 
-    @swagger_auto_schema(request_body=LoginRequest)
+    permission_classes = []
+    serializer_class = LoginRequest
+
+    queryset = Person.objects.all()
+
     def post(self, request, *args, **kwargs):
         email = request.data.get("email", "")
-        group = request.data.get("group", "")
         try:
-            user = Person.objects.get(email=email, groups__in=[group])
+            user = Person.objects.get(email=email)
         except Person.DoesNotExist:
             return Response(
                 data={"message": "User not valid"},
                 status=status.HTTP_401_UNAUTHORIZED)
-        if group is 1:
+        if user.groups.filter(pk=1):
             login(request, user)
-            serializer = TokenSerializer(data={
+            serializer = LoginResponseSerializer(data={
                 "token": jwt_encode_handler(
                     jwt_payload_handler(user)
-                )})
+                ),
+                "user_id": user.id})
             serializer.is_valid()
             return Response(data=serializer.data,
                             status=status.HTTP_200_OK)
@@ -203,7 +201,6 @@ class LoginByPhoneApi(generics.CreateAPIView):
 
     class LoginByPhoneRequest(serializers.Serializer):
         phone = serializers.CharField()
-        group = serializers.IntegerField()
 
         class Meta:
             fields = '__all__'
@@ -216,19 +213,19 @@ class LoginByPhoneApi(generics.CreateAPIView):
     @swagger_auto_schema(request_body=LoginByPhoneRequest)
     def post(self, request, *args, **kwargs):
         phone = request.data.get("phone", "")
-        group = request.data.get("group", "")
         try:
-            user = Person.objects.get(email=phone, groups__in=[group])
+            user = Person.objects.get(email=phone)
         except Person.DoesNotExist:
             return Response(
                 data={"message": "User not valid"},
                 status=status.HTTP_401_UNAUTHORIZED)
-        if group is 1:
+        if user.groups.filter(pk=1):
             login(request, user)
-            serializer = TokenSerializer(data={
+            serializer = LoginResponseSerializer(data={
                 "token": jwt_encode_handler(
                     jwt_payload_handler(user)
-                )})
+                ),
+                "user_id": user.id})
             serializer.is_valid()
             return Response(data=serializer.data,
                             status=status.HTTP_200_OK)
@@ -257,10 +254,11 @@ class AuthenticateCollaboratorApi(generics.CreateAPIView):
                 data={"message": "Incorrect password"},
                 status=status.HTTP_401_UNAUTHORIZED)
         login(request, user)
-        serializer = TokenSerializer(data={
+        serializer = LoginResponseSerializer(data={
             "token": jwt_encode_handler(
                 jwt_payload_handler(user)
-            )})
+            ),
+            "user_id": user.id})
         serializer.is_valid()
         return Response(data=serializer.data,
                         status=status.HTTP_200_OK)

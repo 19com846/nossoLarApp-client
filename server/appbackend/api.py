@@ -88,7 +88,7 @@ class StudentClassGroupsApi(generics.ListAPIView):
                         status=status.HTTP_200_OK)
 
 
-class RequestTransferApi(generics.CreateAPIView):
+class RequestTransferApi(generics.ListCreateAPIView):
     class RequestTransferRequest(serializers.Serializer):
         student_id = serializers.IntegerField()
         class_group_id = serializers.IntegerField()

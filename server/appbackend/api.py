@@ -3,6 +3,7 @@ import json
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
+from django.db.models import Q
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status, permissions
@@ -10,6 +11,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
 
+from appbackend.exceptions import GenericException
 from .serializers import *
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -87,7 +89,6 @@ class StudentClassGroupsApi(generics.ListAPIView):
 
 
 class RequestTransferApi(generics.CreateAPIView):
-
     class RequestTransferRequest(serializers.Serializer):
         enrollment_id = serializers.IntegerField()
         target_group_id = serializers.IntegerField()
@@ -129,7 +130,6 @@ class ConfirmTransferRequestApi(generics.UpdateAPIView):
 
 
 class CreateAttendancesApi(generics.CreateAPIView):
-
     queryset = Attendance.objects.all()
     serializer_class = RollCallListSerializer
 
@@ -147,7 +147,6 @@ class CreateAttendancesApi(generics.CreateAPIView):
 
 
 class LoginApi(generics.CreateAPIView):
-
     class LoginRequest(serializers.Serializer):
         email = serializers.CharField()
 
@@ -181,7 +180,6 @@ class LoginApi(generics.CreateAPIView):
 
 
 class CreateLessonApi(generics.CreateAPIView):
-
     queryset = Lesson.objects.all()
     serializer_class = []
 
@@ -198,7 +196,6 @@ class CreateLessonApi(generics.CreateAPIView):
 
 
 class LoginByPhoneApi(generics.CreateAPIView):
-
     class LoginByPhoneRequest(serializers.Serializer):
         phone = serializers.CharField()
 
@@ -233,7 +230,6 @@ class LoginByPhoneApi(generics.CreateAPIView):
 
 
 class AuthenticateCollaboratorApi(generics.CreateAPIView):
-
     class AuthCollaboratorRequest(serializers.Serializer):
         email = serializers.CharField()
         password = serializers.CharField()
@@ -265,7 +261,6 @@ class AuthenticateCollaboratorApi(generics.CreateAPIView):
 
 
 class RegisterApi(generics.CreateAPIView):
-
     class RegisterRequest(serializers.Serializer):
         email = serializers.CharField()
         password = serializers.CharField()
@@ -310,7 +305,6 @@ class RegisterApi(generics.CreateAPIView):
 
 
 class RegisterByPhoneApi(generics.CreateAPIView):
-
     class RegisterByPhoneRequest(serializers.Serializer):
         phone = serializers.CharField()
         password = serializers.CharField()
@@ -350,6 +344,65 @@ class RegisterByPhoneApi(generics.CreateAPIView):
             data=PersonSerializer(new_user).data,
             status=status.HTTP_201_CREATED
         )
+
+
+class StudentEnrollmentsApi(generics.ListCreateAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentRequestSerializer
+
+    @swagger_auto_schema(responses={200: StudentEnrollmentSerializer})
+    def get(self, request, *args, **kwargs):
+        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
+        if student is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Student of requested id does not exist")
+        student_enrollments = list(Enrollment.objects.filter(student_id=student.id))
+        serializer = StudentEnrollmentSerializer(student_enrollments, many=True)
+        return Response(data=serializer.data,
+                        status=status.HTTP_200_OK)
+
+    @swagger_auto_schema(request_body=EnrollmentRequestSerializer, responses={201: EnrollmentSerializer})
+    def post(self, request, *args, **kwargs):
+        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
+        if student is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Student of requested id does not exist")
+        EnrollmentRequestSerializer(data=request.data).is_valid(raise_exception=True)
+        class_group = ClassGroup.objects.get(pk=request.data.get("class_group_id", ""))
+        enrollment_status = EnrollmentStatus(request.data.get("enrollment_status", ""))
+        active = True if enrollment_status is EnrollmentStatus.ACCEPTED else False
+        if Enrollment.objects.filter(student=student, class_group=class_group)[:1].get():
+            raise GenericException(code=status.HTTP_400_BAD_REQUEST,
+                                   detail="'{}' is already enrolled in '{}'".format(student.first_name, class_group))
+        enrollment = Enrollment.objects.create(student=student, class_group=class_group,
+                                               graduated=False, finalGrade=None, active=active,
+                                               status=enrollment_status)
+        return Response(data=EnrollmentSerializer(enrollment).data,
+                        status=status.HTTP_201_CREATED)
+
+
+class TransferTargetsApi(generics.ListAPIView):
+    queryset = ClassGroup.objects.all()
+    serializer_class = ClassGroupSerializer
+
+    def get(self, request, *args, **kwargs):
+        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
+        if student is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Student of requested id does not exist")
+        class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
+        if class_group is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Class group of requested id does not exist")
+        student_enrollments = list(Enrollment.objects.filter(student=student))
+        student_class_group_ids = list()
+        for enrollment in student_enrollments:
+            student_class_group_ids.append(enrollment.class_group.id)
+        targets = list(ClassGroup.objects.filter(Q(course=class_group.course)
+                                                 & ~Q(pk=class_group.pk)
+                                                 & ~Q(pk__in=student_class_group_ids)))
+        return Response(data=ClassGroupSerializer(targets, many=True).data,
+                        status=status.HTTP_200_OK)
 
 
 class StudentAttendancesApi(generics.ListAPIView):

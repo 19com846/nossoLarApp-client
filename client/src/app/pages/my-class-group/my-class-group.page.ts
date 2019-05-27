@@ -12,8 +12,9 @@ import { Collaborator } from '../all-collabs/collaborator';
 })
 export class MyClassGroupPage implements OnInit {
   public classGroup: ClassGroup;
-  public collaborators: any;
+  public collaborators: Array<Collaborator>;
   private classGroupId: Number;
+
   constructor(private router: Router, 
               private route: ActivatedRoute,
               private api: APIService) {
@@ -21,7 +22,7 @@ export class MyClassGroupPage implements OnInit {
                }
 
   goToMyAbsences() {
-    this.router.navigate(['absences']);
+    this.router.navigate(['absences', this.classGroupId]);
   }
 
   tranferClassGroup() {
@@ -42,7 +43,7 @@ export class MyClassGroupPage implements OnInit {
   }
 
   ngOnInit() {
-    this.classGroupId = Number(this.route.snapshot.paramMap.get('id'));
+    this.classGroupId = Number(this.route.snapshot.paramMap.get('classGroupId'));
     this.getClassGroupDetails(this.classGroupId);
   }
 

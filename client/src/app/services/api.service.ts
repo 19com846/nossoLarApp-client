@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class APIService {
   
-  API_URL = Constants.API_URL;
+  API_URL = Constants.STATIC_URL;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -54,11 +54,11 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
 
-  getAbsences(studentId: Number) {
-    return this.httpClient.get(`${this.API_URL}/absences/` + studentId);
+  getAbsences(studentId: Number, classGroupId: Number) {
+    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/attendances');
   }
 
-  getTransferClassGroups(studentId: Number, courseId: Number) {
-    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/courses/' + courseId + '/turmas');
+  getTransferClassGroups(studentId: Number, classGroupId: Number) {
+    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/transfer-targets');
   }
 }

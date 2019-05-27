@@ -33,9 +33,14 @@ export class MyClassGroupPage implements OnInit {
   public classGroups: Array<ClassGroup>;
 =======
   public classGroup: ClassGroup;
+<<<<<<< HEAD
 >>>>>>> Working Home-Student and ClassDetails
   public collaborators: any;
+=======
+  public collaborators: Array<Collaborator>;
+>>>>>>> Almost Done Basic Flow
   private classGroupId: Number;
+
   constructor(private router: Router, 
               private route: ActivatedRoute,
 <<<<<<< HEAD
@@ -70,10 +75,14 @@ export class MyClassGroupPage implements OnInit {
 
   ngOnInit() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     this.classGroupId = Number(this.route.snapshot.paramMap.get('classGroupId'));
 =======
     this.classGroupId = Number(this.route.snapshot.paramMap.get('id'));
 >>>>>>> Working Home-Student and ClassDetails
+=======
+    this.classGroupId = Number(this.route.snapshot.paramMap.get('classGroupId'));
+>>>>>>> Almost Done Basic Flow
     this.getClassGroupDetails(this.classGroupId);
   }
 

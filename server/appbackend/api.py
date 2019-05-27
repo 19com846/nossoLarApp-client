@@ -430,3 +430,22 @@ class StudentAttendancesApi(generics.ListAPIView):
         attendances = list(Attendance.objects.filter(student=student, lesson__class_group=class_group))
         return Response(data=StudentAttendanceSerializer(attendances, many=True).data,
                         status=status.HTTP_200_OK)
+
+
+class CourseStudents(generics.ListAPIView):
+    queryset = Person.objects.all()
+    serializer_class = StudentSerializer
+
+    def get(self, request, *args, **kwargs):
+        course = Course.objects.filter(pk=self.kwargs['pk'])[:1].get()
+        if course is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Course of requested id does not exist")
+        enrollments = list(Enrollment.objects.filter(class_group__course_id=self.kwargs['pk']))
+        students = list()
+        for enrollment in enrollments:
+            if enrollment.student in students:
+                continue
+            students.append(enrollment.student)
+        return Response(data=StudentSerializer(students, many=True).data,
+                        status=status.HTTP_200_OK)

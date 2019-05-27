@@ -20,8 +20,8 @@ export class HomeStudentPage implements OnInit {
 
   goToClassGroupDetails(enrollment: Enrollment) {
     console.log(enrollment);
-    const id = enrollment.class_group.id;
-    this.router.navigate(['my-class-group', id]);
+    const classGroupId = enrollment.class_group.id;
+    this.router.navigate(['my-class-group', classGroupId]);
   }
   newEnrollment() {
     this.router.navigate(['enroll-in-course']);

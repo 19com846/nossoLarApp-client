@@ -46,6 +46,10 @@ export class MyClassGroupsPage implements OnInit {
     this.activeClassGroups = _.filter(classGroups , function(o) {
       // return o.active;
     });
+      // this.getActiveCourses(this.classGroups);
+      // this.getInactiveCourses(this.classGroups);
+      // this.getPendingCourses(this.classGroups);
+    // });
   }
 
   getInactiveCourses(classGroups: Array<ClassGroup>) {

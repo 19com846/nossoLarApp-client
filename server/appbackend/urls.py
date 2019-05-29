@@ -34,7 +34,8 @@ urlpatterns = [
     path('students/<int:pk>/enrollments/', StudentEnrollmentsApi.as_view(), name='see-enrolled-classes'),
     path('students/<int:pk>/class-groups/<int:group_id>/transfer-targets/', TransferTargetsApi.as_view(), name='list-transfer-targets'),
     path('students/<int:pk>/class-groups/<int:group_id>/attendances', StudentAttendancesApi.as_view(), name='see-attendances'),
-    path('lessons/<int:pk>/attendances/', LessonAttendances.as_view(), name='see-lesson-attendances')
+    path('lessons/<int:pk>/attendances/', LessonAttendances.as_view(), name='see-lesson-attendances'),
+    path('collaborators/<int:pk>/class-groups/', ManagedClassGroups.as_view(), name='see-managed-classes')
 ]
 
 

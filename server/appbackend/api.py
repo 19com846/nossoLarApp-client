@@ -440,3 +440,22 @@ class LessonAttendances(generics.ListAPIView):
         attendances = list(Attendance.objects.filter(lesson=lesson))
         return Response(data=LessonAttendanceSerializer(attendances, many=True).data,
                         status=status.HTTP_200_OK)
+
+
+class ManagedClassGroups(generics.ListAPIView):
+    serializer_class = ClassGroupSerializer
+    queryset = ClassGroup.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        try:
+            user = Person.objects.get(pk=self.kwargs['pk'])
+        except Person.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="User of requested id does not exist")
+        if not user.groups.filter(pk__in=[2, 3]):
+            raise GenericException(code=status.HTTP_403_FORBIDDEN,
+                                   detail="User does not have the required permissions to perform this action")
+
+        class_groups = list(ClassGroup.objects.filter(Q(teacher=user) | Q(collaborators__in=[user])))
+        return Response(data=ClassGroupSerializer(class_groups, many=True).data,
+                        status=status.HTTP_200_OK)

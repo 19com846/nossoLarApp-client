@@ -421,3 +421,17 @@ class StudentAttendancesApi(generics.ListAPIView):
         attendances = list(Attendance.objects.filter(student=student, lesson__class_group=class_group))
         return Response(data=StudentAttendanceSerializer(attendances, many=True).data,
                         status=status.HTTP_200_OK)
+
+
+class LessonAttendances(generics.ListAPIView):
+    serializer_class = AttendanceSerializer
+    queryset = Attendance.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        lesson = Lesson.objects.filter(pk=self.kwargs['pk'])[:1].get()
+        if lesson is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Lesson of requested id does not exist")
+        attendances = list(Attendance.objects.filter(lesson=lesson))
+        return Response(data=LessonAttendanceSerializer(attendances, many=True).data,
+                        status=status.HTTP_200_OK)

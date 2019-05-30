@@ -14,6 +14,7 @@ export class TransferClassGroupPage implements OnInit {
   public classGroups: Array<ClassGroup>;
   private classGroupId: Number;
   private studentId: Number;
+  private transferRequest: any;
 
   constructor(public alertController: AlertController, 
               private router: Router, 
@@ -56,6 +57,10 @@ export class TransferClassGroupPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             // this.cardClicked(classGroup);
+            this.transferRequest = {
+              "enrollment_id": this.studentId,
+              "target_group_id": this.classGroupId
+            }
             this.router.navigate(['home-student']);
           }
         }

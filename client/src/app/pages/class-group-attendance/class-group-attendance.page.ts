@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { APIService } from '../../services/api.service';
+import { ClassGroup } from '../../interfaces/class-group';
+import { Course } from '../../interfaces/course';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-class-group-attendance',
@@ -7,69 +11,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./class-group-attendance.page.scss'],
 })
 export class ClassGroupAttendancePage implements OnInit {
-  public turma: Array < Object > = [];
+  
+  public classGroup: Array<ClassGroup>;
+  public course: Array<Course>;
 
-  constructor( private router: Router) {
+  constructor( private router: Router, private api: APIService) {}
 
-    this.turma = [
-      {
-        "id": "123",
-        "name": "Ciclo 01",
-        "typeOfClass": "Ciclo",
-        "location": "Sala 7/8",
-        "weekday": "segunda-feira",
-        "startingWeek": "20",
-        "endingWeek": "46",
-        "startTime": "22:00",
-        "status": "on",
-        "endTime": "23:30",
-        "collaborators": [
-          {
-            "id": "123124",
-            "name": "Fulano de Tal",
-            "email": "fulano.tal@gmail.com",
-            "phone": "19999091120"
-          },
-          {
-            "id": "897987",
-            "name": "Sicrano",
-            "email": "sicrano.silva@hotmail.com",
-            "phone": "null"
-          }
-        ]
-      },
-      {
-        "id": "456",
-        "name": "Ciclo 02",
-        "typeOfClass": "Turma Livre",
-        "location": "Sala SSP",
-        "weekday": "sabado",
-        "startingWeek": "20",
-        "endingWeek": "46",
-        "status": "on",
-        "startTime": "13:00",
-        "endTime": "15:30",
-        "collaborators": [
-          {
-            "id": "123124",
-            "name": "Joaozin",
-            "email": "fulano.tal@gmail.com",
-            "phone": "19999091120"
-          },
-          {
-            "id": "897987",
-            "name": "Sicrano",
-            "email": "sicrano.silva@hotmail.com",
-            "phone": "null"
-          }
-        ]
-      }
-     ]
+  
+  clickCard(classId, courseId){
+      this.router.navigate(['attendance',classId,courseId]);
     }
 
-    clickCard(turma){
-      this.router.navigate(['chamada']);
-    }
+  ngOnInit() {
+    this.getAllCourses();
+    this.getAllClassGroup();
+  }
 
-  ngOnInit() {}
+  getAllCourses() {
+    this.api.getAllCourses().subscribe((data: Array<Course>)=> {
+      this.course = data;
+      console.log(this.course)
+    });  
+  }
+
+  getAllClassGroup(){
+      this.api.getAllClassGroups().subscribe((dataClass: Array<ClassGroup>) => {
+        this.classGroup = dataClass;
+        console.log(this.classGroup);
+      })
+  }
 }

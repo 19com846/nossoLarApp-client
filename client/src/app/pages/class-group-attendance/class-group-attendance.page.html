@@ -8,21 +8,33 @@
   <ion-item text-center>
     <ion-title text-wrap>Selecione a turma</ion-title>
   </ion-item>
-  <ion-searchbar></ion-searchbar>
 
+<div *ngFor="let courses of course">
+    <ion-item>
+        <ion-label text-wrap>
+          Curso: {{courses.name}}
+        </ion-label>
+      </ion-item>
 
-  <ion-card (click)="clickCard(turmas.id)" *ngFor='let turmas of turma'> 
-      <div *ngIf="turmas.status == 'on';">
-          <ion-list>
-              <ion-item>
-              <ion-icon name="contact"></ion-icon>
-                  <h3>{{turmas.name}}</h3>
-              </ion-item>
-              </ion-list>
+    <div *ngFor="let classGroups of classGroup">
 
-        <ion-card-content>
-        <h2>Horario: {{turmas.startTime}} ~ {{turmas.endTime}}</h2>
-      </ion-card-content>
-        </div>
-  </ion-card>
+      <div *ngIf="courses.name == classGroups.course">
+  <ion-card (click)="clickCard(classGroups.id, courses.id)"> 
+      
+    <ion-list>
+        <ion-item>
+        <ion-icon name="contact"></ion-icon>
+            <h3>{{classGroups.title}}</h3>
+        </ion-item>
+        </ion-list>
+
+  <ion-card-content>
+  <h2>Horario: {{classGroups.time}}</h2>
+</ion-card-content>
+  
+</ion-card>
+</div>
+</div>
+</div>
+
 </ion-content>

@@ -33,7 +33,7 @@ export class HomeStudentPage implements OnInit {
     this.getEnrollments(id);
   }
 
-  getEnrollments(id: Number) {
+  getEnrollments(id) {
     this.api.getEnrollments(id).subscribe((data: Array<Enrollment>) => {
       this.enrollments = data;
       console.log(this.enrollments);
@@ -44,21 +44,21 @@ export class HomeStudentPage implements OnInit {
   }
 
   getActiveEnrollments(enrollments: Array<Enrollment>) {
-    this.activeEnrollments = _.filter(enrollments , (o) => {
-      return o.active && o.status === "ACCEPTED" && !o.graduated;
-    });
+    //this.activeEnrollments = _.filter(enrollments , (o) => {
+//return o.active && o.status === "ACCEPTED" && !o.graduated;
+    //});
   }
 
   getInactiveEnrollments(enrollments: Array<Enrollment>) {
-    this.inactiveEnrollments = _.filter(enrollments , (o) => {
-      return !o.active && o.status === "ACCEPTED" && o.graduated;
-    });
+    //this.inactiveEnrollments = _.filter(enrollments , (o) => {
+     // return !o.active && o.status === "ACCEPTED" && o.graduated;
+   // });
   }
 
   getPendingEnrollments(enrollments: Array<Enrollment>) {
-    this.pendingEnrollments = _.filter(enrollments , (o) =>  {
-      return o.status === "PENDING" && o.active;
-    });
+   //this.pendingEnrollments = _.filter(enrollments , (o) =>  {
+      //return o.status === "PENDING" && o.active;
+   // });
   }
 
 }

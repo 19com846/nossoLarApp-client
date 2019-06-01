@@ -33,6 +33,8 @@ const routes: Routes = [
   { path: 'class-group-students', loadChildren: './pages/class-group-students/class-group-students.module#ClassGroupStudentsPageModule' },
   { path: 'login-password', loadChildren: './pages/login-password/login-password.module#LoginPasswordPageModule' },
   { path: 'my-class-groups', loadChildren: './pages/my-class-groups/my-class-groups.module#MyClassGroupsPageModule' },
+  { path: 'see-student-info/:studentId', loadChildren: './pages/see-student-info/see-student-info.module#SeeStudentInfoPageModule' },
+
 
 ];
 

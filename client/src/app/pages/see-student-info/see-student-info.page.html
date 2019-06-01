@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+      <div text-center>
+    <ion-title>Informações do aluno</ion-title>
+      </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+    <ion-item>
+        Algumas informações pessoais:
+      </ion-item>
+  <ion-card>
+    <ion-item>Nome completo: {{student.first_name}} {{student.last_name}}</ion-item>
+    <ion-item>Telefone: {{student?.phone}}</ion-item>
+    <ion-item>Email: {{student?.email}}</ion-item>
+  </ion-card>
+  <ion-item>
+    Cursos em que {{student.first_name}} está cadastrado:
+  </ion-item>
+    <div *ngFor="let enrollments of enrollment">
+      <ion-card>
+      <ion-item>Nome do curso: {{enrollments.class_group.course}}</ion-item>
+    <ion-item> Formado? {{enrollments.graduated}}</ion-item>
+      <div *ngIf="enrollments.graduated == true; else other_content">
+        <ion-item> Nota: {{enrollments.finalGrade}}</ion-item>
+      </div>
+    </ion-card>
+      <ng-template #other_content> 
+          <ion-item>
+              Turma que esta cursando:
+            </ion-item>
+            <ion-card>
+              <ion-item>Título: {{enrollments.class_group.title}}</ion-item>
+              <ion-item>Horário: {{enrollments.class_group.time}}</ion-item>
+            </ion-card>
+      </ng-template>
+    
+    
+    </div>
+  
+</ion-content>

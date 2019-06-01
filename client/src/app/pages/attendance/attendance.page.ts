@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { APIService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-attendance',
@@ -7,47 +8,22 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./attendance.page.scss'],
 })
 export class AttendancePage implements OnInit {
-
+  private classGroupId: Number;
+  private courseId: Number;
   public turma: any;
   public selectedArray: any = [];
 
-  constructor(private navCtrl: NavController) { this.turma = [
-    {
-      "id": "1",
-      "name": "Joao",
-      attendance1 : false,
-      "attendance2": "false",
-    },{
-      "id": "2",
-      "name": "Guilherme",
-      attendance1: false,
-      "attendance2": "false", 
-    },{
-      "id": "3",
-      "name": "Jorge",
-      attendance1: false,
-      "attendance2": "false", 
-    },{
-      "id": "4",
-      "name": "Ariel",
-      attendance1: false,
-      "attendance2": "false", 
-    },{
-      "id": "5",
-      "name": "Salmo",
-      attendance1: false,
-      "attendance2": "false", 
-    },{
-      "id": "6",
-      "name": "Savio",
-      attendance1: false,
-      "attendance2": "false", 
-    }
-  ]
-
-}
+  constructor(private router: Router, 
+    private route: ActivatedRoute,
+    private api: APIService) {
+      
+     }
 
 ngOnInit() {
+  this.classGroupId = Number(this.route.snapshot.paramMap.get('classId'));
+  this.courseId = Number(this.route.snapshot.paramMap.get('courseId'));
+  console.log(this.classGroupId);
+  console.log(this.courseId);
 }
 
 selectMember(data) {
@@ -63,7 +39,7 @@ selectMember(data) {
 
  finalizar() {
   console.log(this.selectedArray)
-   this.navCtrl.pop();
+   //this.navCtrl.pop();
  }
 
 }

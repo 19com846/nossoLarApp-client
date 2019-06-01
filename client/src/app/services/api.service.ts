@@ -38,6 +38,10 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
 
+  getAllClassGroups() {
+    return this.httpClient.get(`${this.API_URL}/class-groups/`)
+  }
+
   getOpenClassGroups(studentId: Number) {
     return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
   }

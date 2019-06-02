@@ -361,8 +361,9 @@ class StudentEnrollmentsApi(generics.ListCreateAPIView):
 
     @swagger_auto_schema(responses={200: StudentEnrollmentSerializer})
     def get(self, request, *args, **kwargs):
-        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
-        if student is None:
+        try:
+            student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
+        except Person.DoesNotExist:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Student of requested id does not exist")
         student_enrollments = list(Enrollment.objects.filter(student_id=student.id))
@@ -372,15 +373,16 @@ class StudentEnrollmentsApi(generics.ListCreateAPIView):
 
     @swagger_auto_schema(request_body=EnrollmentRequestSerializer, responses={201: EnrollmentSerializer})
     def post(self, request, *args, **kwargs):
-        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
-        if student is None:
+        try:
+            student = Person.objects.get(pk=self.kwargs['pk'], groups__in=[1])
+        except Person.DoesNotExist:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Student of requested id does not exist")
         EnrollmentRequestSerializer(data=request.data).is_valid(raise_exception=True)
         class_group = ClassGroup.objects.get(pk=request.data.get("class_group_id", ""))
         enrollment_status = EnrollmentStatus(request.data.get("enrollment_status", ""))
         active = True if enrollment_status is EnrollmentStatus.ACCEPTED else False
-        if Enrollment.objects.filter(student=student, class_group=class_group)[:1].get():
+        if Enrollment.objects.filter(student=student, class_group=class_group).count() > 0:
             raise GenericException(code=status.HTTP_400_BAD_REQUEST,
                                    detail="'{}' is already enrolled in '{}'".format(student.first_name, class_group))
         enrollment = Enrollment.objects.create(student=student, class_group=class_group,
@@ -395,12 +397,13 @@ class TransferTargetsApi(generics.ListAPIView):
     serializer_class = ClassGroupSerializer
 
     def get(self, request, *args, **kwargs):
-        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
-        if student is None:
+        try:
+            student = Person.objects.get(pk=self.kwargs['pk'], groups__in=[1])
+            class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
+        except Person.DoesNotExist:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Student of requested id does not exist")
-        class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
-        if class_group is None:
+        except ClassGroup.DoesNotExist:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Class group of requested id does not exist")
         student_enrollments = list(Enrollment.objects.filter(student=student))
@@ -419,8 +422,9 @@ class StudentAttendancesApi(generics.ListAPIView):
     queryset = Attendance.objects.all()
 
     def get(self, request, *args, **kwargs):
-        student = Person.objects.filter(pk=self.kwargs['pk'], groups__in=[1])[:1].get()
-        if student is None:
+        try:
+            student = Person.objects.get(pk=self.kwargs['pk'], groups__in=[1])
+        except Person.DoesNotExist:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Student of requested id does not exist")
         class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
@@ -448,4 +452,38 @@ class CourseStudents(generics.ListAPIView):
                 continue
             students.append(enrollment.student)
         return Response(data=StudentSerializer(students, many=True).data,
+                        status=status.HTTP_200_OK)
+
+
+class LessonAttendances(generics.ListAPIView):
+    serializer_class = AttendanceSerializer
+    queryset = Attendance.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        try:
+            lesson = Lesson.objects.get(pk=self.kwargs['pk'])
+        except Lesson.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Lesson of requested id does not exist")
+        attendances = list(Attendance.objects.filter(lesson=lesson))
+        return Response(data=LessonAttendanceSerializer(attendances, many=True).data,
+                        status=status.HTTP_200_OK)
+
+
+class ManagedClassGroups(generics.ListAPIView):
+    serializer_class = ClassGroupSerializer
+    queryset = ClassGroup.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        try:
+            user = Person.objects.get(pk=self.kwargs['pk'])
+        except Person.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="User of requested id does not exist")
+        if not user.groups.filter(pk__in=[2, 3]):
+            raise GenericException(code=status.HTTP_403_FORBIDDEN,
+                                   detail="User does not have the required permissions to perform this action")
+
+        class_groups = list(ClassGroup.objects.filter(Q(teacher=user) | Q(collaborators__in=[user])))
+        return Response(data=ClassGroupSerializer(class_groups, many=True).data,
                         status=status.HTTP_200_OK)

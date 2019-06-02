@@ -3,10 +3,7 @@ import { Headers, Http, RequestOptions  } from '@angular/http';
 import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-<<<<<<< HEAD
 import { NewEnrollment } from '../interfaces/new-enrollment';
-=======
->>>>>>> create class
 import { resolve } from 'url';
 
 @Injectable({
@@ -59,6 +56,12 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/class-groups/`)
   }
 
+  getOpenClassGroups(studentId: Number) {
+    return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
+  }
+
+  
+
   getEnrollments(studentId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/enrollments/');
     // return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups', {
@@ -92,10 +95,6 @@ export class APIService {
      }, error => {
       console.log(error);
     });
-  }
-  
-  getOpenClassGroups(studentId: Number) {
-    return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
   }
   
   getClassGroupDetails(classGroupId: Number) {

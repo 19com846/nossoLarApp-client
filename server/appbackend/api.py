@@ -373,7 +373,7 @@ class StudentEnrollmentsApi(generics.ListCreateAPIView):
         class_group = ClassGroup.objects.get(pk=request.data.get("class_group_id", ""))
         enrollment_status = EnrollmentStatus(request.data.get("enrollment_status", ""))
         active = True if enrollment_status is EnrollmentStatus.ACCEPTED else False
-        if Enrollment.objects.filter(student=student, class_group=class_group)[:1].get():
+        if Enrollment.objects.filter(student=student, class_group=class_group).count() > 0:
             raise GenericException(code=status.HTTP_400_BAD_REQUEST,
                                    detail="'{}' is already enrolled in '{}'".format(student.first_name, class_group))
         enrollment = Enrollment.objects.create(student=student, class_group=class_group,

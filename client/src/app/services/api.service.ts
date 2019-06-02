@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NewEnrollment } from '../interfaces/new-enrollment';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class APIService {
   
   API_URL = Constants.API_URL;
@@ -13,6 +15,11 @@ export class APIService {
 
   getAllCourses() {
     return this.httpClient.get(`${this.API_URL}/courses/`)
+  }
+
+  getAvailableClassGroups(studentId: Number) {
+      //ENDPOINT NAME AND BACKEND IMPLEMENTATION NOT FINAL
+    return this.httpClient.get(`${this.API_URL}/student/` + studentId + '/available-class-groups')
   }
 
   getAllAdministrators() {
@@ -60,5 +67,9 @@ export class APIService {
 
   getTransferClassGroups(studentId: Number, classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/transfer-targets');
+  }
+
+  enrollInNewClassGroup(newEnrollment: NewEnrollment) {
+    return this.httpClient.post(`${this.API_URL}/enrollments/`, newEnrollment);
   }
 }

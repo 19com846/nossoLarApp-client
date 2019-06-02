@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Novo curso</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-item>
+      <ion-label text-wrap>
+          Cursos em aberto
+      </ion-label>
+    </ion-item>
+    <ion-card (click)="presentAlertConfirm(classGroups)" *ngFor='let classGroup of classGroups'>             
+      <ion-list>
+        <ion-item>
+          <ion-icon name="radio-button-on" style="color:green;font:bold;"></ion-icon>
+          <h3>{{classGroup.title}}</h3>
+        </ion-item>
+      </ion-list>
+      <ion-card-content>
+        <h1>{{classGroup.course}}</h1>
+        <h2>{{classGroup.time}}</h2>
+        <h2>Semestre: {{classGroup.semester}} {{classGroup.year}}</h2>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

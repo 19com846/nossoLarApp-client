@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
-import { APIService } from 'src/app/services/api.service';
-import { ClassGroup } from 'src/app/interfaces/class-group';
-import { TransferRequest } from 'src/app/interfaces/transfer-request';
+import { APIService } from '../../services/api.service';
+import { ClassGroup } from '../../interfaces/class-group';
+import { TransferRequest } from '../../interfaces/transfer-request';
 
 @Component({
   selector: 'app-transfer-class-group',
@@ -68,9 +68,6 @@ export class TransferClassGroupPage implements OnInit {
             this.transferRequest.class_group_id = this.classGroupId;
             this.transferRequest.student_id = this.studentId;
             this.transferRequest.target_group_id = classGroup.id;
-            console.log(this.transferRequest.class_group_id);
-            console.log(this.transferRequest.student_id);
-            console.log(this.transferRequest.target_group_id);
             this.requestClassGroupTransfer(this.transferRequest);
             this.router.navigate(['home-student']);
           }

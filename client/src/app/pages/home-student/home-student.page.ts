@@ -24,7 +24,7 @@ export class HomeStudentPage implements OnInit {
     this.router.navigate(['my-class-group', classGroupId]);
   }
   newEnrollment() {
-    this.router.navigate(['enroll-in-course']);
+    this.router.navigate(['enroll-in-class-group']);
   }
 
   ngOnInit() {

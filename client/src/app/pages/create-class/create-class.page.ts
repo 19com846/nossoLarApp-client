@@ -24,18 +24,22 @@ export class CreateClassPage implements OnInit {
   constructor(private navCtrl:NavController, private router: Router, private api: APIService) { }
 
   createClass(){
+    const getCourse = this.course.filter(c=> {
+      return c.name == this.selectedCourse;
+    });
+
     var headers = new Headers();
     headers.append("Accept", 'application/json');
     headers.append('Content-Type', 'application/json' );
     const requestOptions = new RequestOptions({ headers: headers });
     let body = {
       "teacher_id": 4,
-      "course_id": 1,
-     "title": "JOAAAAO",
-     "classroom": "oi",
-     "time": "123213",
+      "course_id": getCourse[0].id,
+     "title": this.title,
+     "classroom": this.classroom,
+     "time": this.time,
      "semester": "s",
-     "year": 1000
+     "year": this.year,
     }
     this.api.postClassGroup(body,requestOptions);
   }

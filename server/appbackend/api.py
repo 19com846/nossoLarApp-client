@@ -88,9 +88,10 @@ class StudentClassGroupsApi(generics.ListAPIView):
                         status=status.HTTP_200_OK)
 
 
-class RequestTransferApi(generics.CreateAPIView):
+class RequestTransferApi(generics.ListCreateAPIView):
     class RequestTransferRequest(serializers.Serializer):
-        enrollment_id = serializers.IntegerField()
+        student_id = serializers.IntegerField()
+        class_group_id = serializers.IntegerField()
         target_group_id = serializers.IntegerField()
 
         class Meta:
@@ -101,11 +102,19 @@ class RequestTransferApi(generics.CreateAPIView):
 
     @swagger_auto_schema(request_body=RequestTransferRequest)
     def post(self, request, *args, **kwargs):
-        enrollment_from_id = Enrollment.objects.filter(id=request.data["enrollment_id"])[:1].get()
-        target_group_from_id = ClassGroup.objects.filter(id=request.data["target_group_id"])[:1].get()
+        origin_group = ClassGroup.objects.get(pk=request.data.get("class_group_id", ""))
+        requester_student = Person.objects.get(Q(pk=request.data.get("student_id", ""))
+                                               & Q(groups__in=[Group.objects.get(pk=1)]))
+        enrollment = Enrollment.objects.get(Q(class_group=origin_group) & Q(student=requester_student))
+        target_group = ClassGroup.objects.get(Q(id=request.data.get("target_group_id", ""))
+                                              & Q(course=origin_group.course))
+
+        if Enrollment.objects.filter(Q(class_group=target_group) & Q(student=requester_student)):
+            raise GenericException(code=status.HTTP_400_BAD_REQUEST,
+                                   detail="'{}' is already enrolled in '{}.'".format(requester_student, target_group))
         transfer_request = TransferRequest.objects.create(
-            enrollment=enrollment_from_id,
-            target_group=target_group_from_id,
+            enrollment=enrollment,
+            target_group=target_group,
             status=TransferStatus.PENDING
         )
         return Response(
@@ -424,6 +433,25 @@ class StudentAttendancesApi(generics.ListAPIView):
                                    detail="Class group of requested id does not exist")
         attendances = list(Attendance.objects.filter(student=student, lesson__class_group=class_group))
         return Response(data=StudentAttendanceSerializer(attendances, many=True).data,
+                        status=status.HTTP_200_OK)
+
+
+class CourseStudents(generics.ListAPIView):
+    queryset = Person.objects.all()
+    serializer_class = StudentSerializer
+
+    def get(self, request, *args, **kwargs):
+        course = Course.objects.filter(pk=self.kwargs['pk'])[:1].get()
+        if course is None:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Course of requested id does not exist")
+        enrollments = list(Enrollment.objects.filter(class_group__course_id=self.kwargs['pk']))
+        students = list()
+        for enrollment in enrollments:
+            if enrollment.student in students:
+                continue
+            students.append(enrollment.student)
+        return Response(data=StudentSerializer(students, many=True).data,
                         status=status.HTTP_200_OK)
 
 

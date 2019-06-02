@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/services/api.service';
+import { Student } from './student';
 
 @Component({
   selector: 'app-all-students',
@@ -8,7 +9,7 @@ import { APIService } from 'src/app/services/api.service';
 })
 export class AllStudentsPage implements OnInit {
 
-  students: any;
+  students: Array<Student>;
 
   constructor(private api: APIService) { }
 
@@ -17,7 +18,7 @@ export class AllStudentsPage implements OnInit {
   }
 
   getAllStudents() {
-    this.api.getAllStudents().subscribe((data: Array<object>) => {
+    this.api.getAllStudents().subscribe((data: Array<Student>) => {
       this.students = data;
     });
   }

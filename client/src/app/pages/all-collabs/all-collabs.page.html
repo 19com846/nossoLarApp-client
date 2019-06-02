@@ -6,7 +6,7 @@
 <ion-content>
     <ion-list>
         <ion-item *ngFor="let collaborator of collaborators">
-          <ion-label>{{collaborator.name}}</ion-label>
+          <ion-label>{{collaborator.first_name}} {{collaborator.last_name}}</ion-label>
           <ion-label>Telefone: {{collaborator.phone}}</ion-label>
           <ion-label>E-mail: {{collaborator.email}}</ion-label>
         </ion-item>

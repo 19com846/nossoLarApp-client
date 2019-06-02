@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/services/api.service';
+import { Collaborator } from './collaborator';
 
 @Component({
   selector: 'app-all-collabs',
@@ -8,7 +9,7 @@ import { APIService } from 'src/app/services/api.service';
 })
 export class AllCollabsPage implements OnInit {
 
-  collaborators: any;
+  collaborators: Array<Collaborator>;
 
   constructor(private api: APIService) { }
 
@@ -17,7 +18,7 @@ export class AllCollabsPage implements OnInit {
   }
 
   getAllCollaborators() {
-    this.api.getAllCollaborators().subscribe((data: Array<object>) => {
+    this.api.getAllCollaborators().subscribe((data: Array<Collaborator>) => {
       this.collaborators = data;
     });
   }

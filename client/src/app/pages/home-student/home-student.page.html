@@ -14,25 +14,27 @@
         Cursos em aberto
       </ion-label>
     </ion-item>
-    <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of activeClassGroups'>
+    <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of activeEnrollments'>
         <ion-card-content>
-          <h2>Dirigente: {{classGroup.teacher}} </h2>
-          <h3>Horario: {{classGroup.time}}</h3>
-          <h4>Semestre: {{classGroup.semester}}</h4>
-          <h4>Ano: {{classGroup.year}}</h4>
+          <h1>Turma: {{enrollment.class_group.title}} </h1>
+          <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
+          <h3>Horario: {{enrollment.class_group.time}}</h3>
+          <h4>Semestre: {{enrollment.class_group.semester}}</h4>
+          <h4>Ano: {{enrollment.class_group.year}}</h4>
         </ion-card-content>
     </ion-card>  
     <ion-item>
       <ion-label>
-          <h3>Cursos já realizados</h3>
+        Cursos já realizados
       </ion-label>
     </ion-item>
-    <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of inactiveClassGroups'>
+    <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of inactiveEnrollments'>
       <ion-card-content>
-        <h2>Dirigente: {{classGroup.teacher}} </h2>
-        <h3>Horario: {{classGroup.time}}</h3>
-        <h4>Semestre: {{classGroup.semester}}</h4>
-        <h4>Ano: {{classGroup.year}}</h4>
+        <h1>Turma: {{enrollment.class_group.title}} </h1>
+        <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
+        <h3>Horario: {{enrollment.class_group.time}}</h3>
+        <h4>Semestre: {{enrollment.class_group.semester}}</h4>
+        <h4>Ano: {{enrollment.class_group.year}}</h4>
       </ion-card-content>
     </ion-card>
     <ion-item>
@@ -40,12 +42,13 @@
         Cursos aguardando aprovação
       </ion-label>
     </ion-item>
-    <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of pendinClassGroups'>
+    <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of pendingEnrollments'>
       <ion-card-content>
-        <h2>Dirigente: {{classGroup.teacher}} </h2>
-        <h3>Horario: {{classGroup.time}}</h3>
-        <h4>Semestre: {{classGroup.semester}}</h4>
-        <h4>Ano: {{classGroup.year}}</h4>
+        <h1>Turma: {{enrollment.class_group.title}} </h1>
+        <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
+        <h3>Horario: {{enrollment.class_group.time}}</h3>
+        <h4>Semestre: {{enrollment.class_group.semester}}</h4>
+        <h4>Ano: {{enrollment.class_group.year}}</h4>
       </ion-card-content>
     </ion-card>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="newEnrollment()" routerDirection="Forward">

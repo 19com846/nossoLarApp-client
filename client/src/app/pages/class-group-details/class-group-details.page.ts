@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from 'src/app/services/api.service';
 
 @Component({
@@ -16,18 +16,18 @@ export class ClassGroupDetailsPage implements OnInit {
 
   constructor(public alertController: AlertController,
               private router: Router,
-              private api: APIService) { }
+              private api: APIService,
+              private route: ActivatedRoute) { }
 
 
   ngOnInit() {
-    // const id = this.route.snapshot.params.id;
-    const id = '1';
-    this.getClassGroupDetails(id);
-    this.getAllStudents();
+    const classGroupId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getClassGroupDetails(classGroupId);
+    // this.getAllStudents();
   }
 
 
-  getClassGroupDetails(id: String) {
+  getClassGroupDetails(id: Number) {
     this.api.getClassGroupDetails(id).subscribe((data: Array<object>) => {
       this.classGroup = data;
       console.log("data" + this.classGroup);

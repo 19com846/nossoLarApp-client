@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { APIService } from '../../services/api.service';
 import * as _ from 'lodash';
+import { Enrollment } from 'src/app/interfaces/enrollment';
 
 @Component({
   selector: 'app-home-student',
@@ -10,15 +11,17 @@ import * as _ from 'lodash';
 })
 export class HomeStudentPage implements OnInit {
 
-  public classGroups: any;
-  public activeClassGroups: any;
-  public inactiveClassGroups: any;
-  public pendingClassGroups: any;
+  public enrollments: Array<Enrollment>;
+  public activeEnrollments: Array<Enrollment>;
+  public inactiveEnrollments: Array<Enrollment>;
+  public pendingEnrollments: Array<Enrollment>;
 
   constructor(private router: Router, private api: APIService) { }
 
-  goToClassGroupDetails() {
-    this.router.navigate(['my-class-group']);
+  goToClassGroupDetails(enrollment: Enrollment) {
+    console.log(enrollment);
+    const classGroupId = enrollment.class_group.id;
+    this.router.navigate(['my-class-group', classGroupId]);
   }
   newEnrollment() {
     this.router.navigate(['enroll-in-course']);
@@ -26,33 +29,36 @@ export class HomeStudentPage implements OnInit {
 
   ngOnInit() {
     // const id = this.route.snapshot.params.id;
-    const id = '1';
-    this.getClassGroups(id);
+    const id = 4;
+    this.getEnrollments(id);
   }
 
-  getClassGroups(id: String) {
-    this.api.getAllCoursesFromStudent(id).subscribe((data: Array<object>) => {
-      this.classGroups = data;
-      this.getActiveCourses(this.classGroups);
-      this.getInactiveCourses(this.classGroups);
-      this.getPendingCourses(this.classGroups);
+  getEnrollments(id: Number) {
+    this.api.getEnrollments(id).subscribe((data: Array<Enrollment>) => {
+      this.enrollments = data;
+      console.log(this.enrollments);
+      this.getActiveEnrollments(this.enrollments);
+      this.getInactiveEnrollments(this.enrollments);
+      this.getPendingEnrollments(this.enrollments);
     });
   }
 
-  getActiveCourses(classGroups: any) {
-    this.activeClassGroups = _.filter(classGroups , function(o) {
-      return o.active;
+  getActiveEnrollments(enrollments: Array<Enrollment>) {
+    this.activeEnrollments = _.filter(enrollments , (o) => {
+      return o.active && o.status === "ACCEPTED" && !o.graduated;
     });
   }
 
-  getInactiveCourses(classGroups: any) {
-    this.inactiveClassGroups = _.filter(classGroups , function(o) {
-      return !o.active;
+  getInactiveEnrollments(enrollments: Array<Enrollment>) {
+    this.inactiveEnrollments = _.filter(enrollments , (o) => {
+      return !o.active && o.status === "ACCEPTED" && o.graduated;
     });
   }
 
-  getPendingCourses(classGroups: any) {
-    // TO DO FILTER
+  getPendingEnrollments(enrollments: Array<Enrollment>) {
+    this.pendingEnrollments = _.filter(enrollments , (o) =>  {
+      return o.status === "PENDING" && o.active;
+    });
   }
 
 }

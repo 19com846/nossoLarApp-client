@@ -13,11 +13,14 @@ export class AllClassGroupsPage implements OnInit {
   ngOnInit() {
   }
 
-  Ciclos() {
+  goToAllCourses() {
     this.router.navigate(['all-courses']);
   }
+
   cursosLivres() {
+
   }
   criarNovaTurma() {
+    
   }
 }

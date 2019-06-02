@@ -6,7 +6,7 @@
 <ion-content>
   <ion-list>
       <ion-item *ngFor="let administrator of administrators">
-        <ion-label>{{administrator.name}}</ion-label>
+        <ion-label>{{administrator.first_name}} {{administrator.last_name}}</ion-label>
         <ion-label>Telefone: {{administrator.phone}}</ion-label>
         <ion-label>E-mail: {{administrator.email}}</ion-label>
       </ion-item>

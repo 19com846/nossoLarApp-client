@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { AuthResponse } from 'src/app/auth/auth-response';
+import { LoginCredentials } from 'src/app/auth/login-credentials';
 
 @Component({
   selector: 'app-login',
@@ -8,63 +11,24 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  public dataLogin: Array<Object> = [];
+  private credentials: LoginCredentials = {
+    email: "",
+    group: 1
+  }
   public inputCredentials: String;
 
-  constructor(private router: Router) {
-    this.dataLogin = [
-      {
-        "id": "123",
-        "name:" : "Joao",
-        "email": "a@a.com",
-        "phone": "111111111",
-        "permission" : "student",
-        //collaborators,student,administrators
-      }
-    ]
-
-   }
-
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
+  
   }
 
+  login() {
+    this.auth.login(this.credentials).subscribe((data: AuthResponse) => {});
+  }
 
-    login() {
-      if (this.inputCredentials === 'stu') {
-        this.router.navigate(['home-student']);
-        // alert('student');
-      } else if (this.inputCredentials === 'collab') {
-      this.router.navigate(['home-collaborator']);
-      }
-    }
-
-    goToRegister(){
-      this.router.navigate(['register']);
-    }
-    /*manda para api this.inputEmail e this.inputPhone. Se retornar 200
-    get all datas from this person
-    id
-    name
-    email
-    phone
-    permission
-    */
-
-    //TO DO - FAZER ISSO FUNCIONAR
+  goToRegister(){
+    this.router.navigate(['register']);
+  }
     
-
-    // if(this.inputEmail ==="stu")
-    // {
-    //   this.router.navigateByUrl('/menu/menu/home-student');
-    // } else if (this.inputEmail ==="col") {
-    //   this.router.navigate(['home-administrador']);
-     
-    // } else if (this.inputEmail ==="adm") {
-     
-    // this.router.navigate(['home-administrador']);
-    // }
-    //   else {
-    //     alert("put on email: stu/adm/col");
-    //   }
   }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from 'src/app/services/api.service';
+import { ClassGroup } from 'src/app/interfaces/class-group';
 
 @Component({
   selector: 'app-transfer-class-group',
@@ -10,29 +11,36 @@ import { APIService } from 'src/app/services/api.service';
 })
 export class TransferClassGroupPage implements OnInit {
 
-  public classGroups: any;
+  public classGroups: Array<ClassGroup>;
+  private classGroupId: Number;
+  private studentId: Number;
+  private transferRequest: any;
 
-  constructor(public alertController: AlertController, private router: Router, private api: APIService) { }
+  constructor(public alertController: AlertController, 
+              private router: Router, 
+              private api: APIService,
+              private route: ActivatedRoute) { }
 
   cardClicked(classGroup) {
     this.router.navigateByUrl('/menu/menu/home-student');
   }
 
   ngOnInit() {
-    // const id = this.route.snapshot.params.id;
-    const studentId = '1';
-    const courseId = '2';
-    this.getTransferClassGroups(studentId, courseId);
+    this.classGroupId = Number(this.route.snapshot.paramMap.get('classGroupId'));
+    // this.studentId = Number(this.route.snapshot.paramMap.get('studentId'));
+    this.studentId = 4;
+    this.getTransferClassGroups(this.studentId, this.classGroupId);
+    
   }
 
-  getTransferClassGroups(studentId: String, courseId: String) {
-    this.api.getTransferClassGroups(studentId, courseId).subscribe((data: Array<object>) => {
+  getTransferClassGroups(studentId: Number, classGroupId: Number) {
+    this.api.getTransferClassGroups(studentId, classGroupId).subscribe((data: Array<ClassGroup>) => {
       this.classGroups = data;
       console.log(data);
     });
   }
 
-  async presentAlertConfirm(classGroup) {
+  async presentAlertConfirm(classGroup: ClassGroup) {
     const alert = await this.alertController.create({
       header: 'Atenção!',
       message: 'Você deseja mesmo transferir sua turma para a ' + classGroup.title + ' ?',
@@ -48,12 +56,16 @@ export class TransferClassGroupPage implements OnInit {
           text: 'SIM !',
           handler: () => {
             console.log('Confirm Okay');
-            this.cardClicked(classGroup);
+            // this.cardClicked(classGroup);
+            this.transferRequest = {
+              "enrollment_id": this.studentId,
+              "target_group_id": this.classGroupId
+            }
+            this.router.navigate(['home-student']);
           }
         }
       ]
     });
-
     await alert.present();
   }
 }

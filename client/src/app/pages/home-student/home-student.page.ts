@@ -60,5 +60,5 @@ export class HomeStudentPage implements OnInit {
       //return o.status === "PENDING" && o.active;
    // });
   }
-
+//teste
 }

@@ -1,78 +1,47 @@
+import { Transfer } from './../../interfaces/transfer';
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { APIService } from '../../services/api.service';
 import { Router } from '@angular/router';
-
+import { Headers, Http, RequestOptions  } from '@angular/http';
 @Component({
   selector: 'app-pending-transfers',
   templateUrl: './pending-transfers.page.html',
   styleUrls: ['./pending-transfers.page.scss'],
 })
 export class PendingTransfersPage implements OnInit {
-  public turma: Array<Object> =[];
-  public selectedArray :any = [];
-  constructor(private router: Router) { 
+  public transfer: Array<Transfer>;
+  public selectedArray: any = [];
+
+  constructor(private navCtrl:NavController, private router: Router, private api: APIService) { 
     
-    this.turma = [{
-      "id": "1",
-      "name": "Joaozin",
-      "pTurma": "Turma 3",
-      "nTurma": "Turma 2",
-      "typeOfClass": "Ciclo 2",
-      "status": "waiting",
-      check: false,
-    }, {
-      "id": "2",
-      "name": "Guilherme",
-      "pTurma": "Turma 1",
-      "nTurma": "Turma 2",
-      "typeOfClass": "Ciclo 1",
-      "status": "waiting",
-      check: false,
-    },{
-      "id": "3",
-      "name": "Maria",
-      "pTurma": "Turma 3",
-      "nTurma": "Turma 1",
-      "typeOfClass": "Ciclo 2",
-      "status": "waiting",
-      check: false,
-    },{
-      "id": "4",
-      "name": "Ana",
-      "pTurma": "Turma 3",
-      "nTurma": "Turma 2",
-      "typeOfClass": "Ciclo 3",
-      "status": "waiting",
-      check: false,
-    }
-  ]
+    
   }
 
-  selectMember(data){
-   
-    if (data.check === false) {
-       this.selectedArray.push(data);
-     } else {
-       
-      let names = this.selectedArray.filter(j=> j.id !== data.id);
-      this.selectedArray = names;
-      
-    }
-    
-   }
-   
-   finalizar() {
-    console.log(this.selectedArray)
-    alert("Tem certeza que deseja transferir esses alunos?")
-     
-     this.router.navigate(['home-administrador']);
-   }
+
    newTransfer(){
     this.router.navigate(['new-transfer']);
      
    }
    
+   accept(id) {
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json' );
+    const requestOptions = new RequestOptions({ headers: headers });
+    const body = '';
+    this.api.patchTransferRequest(id,body,requestOptions);
+    this.ngOnInit();
+   }
 
   ngOnInit() {
+    this.getAllTransferRequests();
   }
 
+  getAllTransferRequests(){
+    this.api.getTransferRequest().subscribe((data: Array<Transfer>)=> {
+      this.transfer = data;
+    });  
+  };   
+  
 }

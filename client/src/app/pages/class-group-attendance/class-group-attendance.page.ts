@@ -68,7 +68,7 @@ export class ClassGroupAttendancePage implements OnInit {
     }
 
     clickCard(turma){
-      this.router.navigate(['chamada']);
+      this.router.navigate(['attendance']);
     }
 
   ngOnInit() {}

@@ -21,8 +21,8 @@ export class HomeCollaboratorPage implements OnInit {
     this.router.navigate(['all-users']);
   }
 
-  goToAllClassGroups() {
-    this.router.navigate(['all-class-groups']);
+  goToAllCourses() {
+    this.router.navigate(['all-courses']);
   }
 
   goToPendingTransfers() {

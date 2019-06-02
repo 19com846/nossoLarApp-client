@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: 'search-student', loadChildren: './pages/search-student/search-student.module#SearchStudentPageModule' },
   { path: 'attendance', loadChildren: './pages/attendance/attendance.module#AttendancePageModule' },
   { path: 'absences/:classGroupId', loadChildren: './pages/absences/absences.module#AbsencesPageModule' },
-  { path: 'home-administrator', loadChildren: './pages/home-administrator/home-administrator.module#HomeAdministratorPageModule' },
   { path: 'home-collaborator', loadChildren: './pages/home-collaborator/home-collaborator.module#HomeCollaboratorPageModule' },
   { path: 'class-group-details/:id', loadChildren: './pages/class-group-details/class-group-details.module#ClassGroupDetailsPageModule' },
   { path: 'enrollments', loadChildren: './pages/enrollments/enrollments.module#EnrollmentsPageModule' },

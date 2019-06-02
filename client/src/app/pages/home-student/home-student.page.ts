@@ -11,54 +11,54 @@ import { Enrollment } from 'src/app/interfaces/enrollment';
 })
 export class HomeStudentPage implements OnInit {
 
-  public enrollments: Array<Enrollment>;
-  public activeEnrollments: Array<Enrollment>;
-  public inactiveEnrollments: Array<Enrollment>;
-  public pendingEnrollments: Array<Enrollment>;
+  // public enrollments: Array<Enrollment>;
+  // public activeEnrollments: Array<Enrollment>;
+  // public inactiveEnrollments: Array<Enrollment>;
+  // public pendingEnrollments: Array<Enrollment>;
 
   constructor(private router: Router, private api: APIService) { }
 
-  goToClassGroupDetails(enrollment: Enrollment) {
-    console.log(enrollment);
-    const classGroupId = enrollment.class_group.id;
-    this.router.navigate(['my-class-group', classGroupId]);
-  }
-  newEnrollment() {
-    this.router.navigate(['enroll-in-course']);
-  }
+  // goToClassGroupDetails(enrollment: Enrollment) {
+  //   console.log(enrollment);
+  //   const classGroupId = enrollment.class_group.id;
+  //   this.router.navigate(['my-class-group', classGroupId]);
+  // }
+  // newEnrollment() {
+  //   this.router.navigate(['enroll-in-course']);
+  // }
 
   ngOnInit() {
-    // const id = this.route.snapshot.params.id;
-    const id = 4;
-    this.getEnrollments(id);
+    // // const id = this.route.snapshot.params.id;
+    // const id = 4;
+    // this.getEnrollments(id);
   }
 
-  getEnrollments(id: Number) {
-    this.api.getEnrollments(id).subscribe((data: Array<Enrollment>) => {
-      this.enrollments = data;
-      console.log(this.enrollments);
-      this.getActiveEnrollments(this.enrollments);
-      this.getInactiveEnrollments(this.enrollments);
-      this.getPendingEnrollments(this.enrollments);
-    });
-  }
+  // getEnrollments(id: Number) {
+  //   this.api.getEnrollments(id).subscribe((data: Array<Enrollment>) => {
+  //     this.enrollments = data;
+  //     console.log(this.enrollments);
+  //     this.getActiveEnrollments(this.enrollments);
+  //     this.getInactiveEnrollments(this.enrollments);
+  //     this.getPendingEnrollments(this.enrollments);
+  //   });
+  // }
 
-  getActiveEnrollments(enrollments: Array<Enrollment>) {
-    this.activeEnrollments = _.filter(enrollments , (o) => {
-      return o.active && o.status === "ACCEPTED" && !o.graduated;
-    });
-  }
+  // getActiveEnrollments(enrollments: Array<Enrollment>) {
+  //   this.activeEnrollments = _.filter(enrollments , (o) => {
+  //     return o.active && o.status === "ACCEPTED" && !o.graduated;
+  //   });
+  // }
 
-  getInactiveEnrollments(enrollments: Array<Enrollment>) {
-    this.inactiveEnrollments = _.filter(enrollments , (o) => {
-      return !o.active && o.status === "ACCEPTED" && o.graduated;
-    });
-  }
+  // getInactiveEnrollments(enrollments: Array<Enrollment>) {
+  //   this.inactiveEnrollments = _.filter(enrollments , (o) => {
+  //     return !o.active && o.status === "ACCEPTED" && o.graduated;
+  //   });
+  // }
 
-  getPendingEnrollments(enrollments: Array<Enrollment>) {
-    this.pendingEnrollments = _.filter(enrollments , (o) =>  {
-      return o.status === "PENDING" && o.active;
-    });
-  }
+  // getPendingEnrollments(enrollments: Array<Enrollment>) {
+  //   this.pendingEnrollments = _.filter(enrollments , (o) =>  {
+  //     return o.status === "PENDING" && o.active;
+  //   });
+  // }
 
 }

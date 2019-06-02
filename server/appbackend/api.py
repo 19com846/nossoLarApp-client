@@ -486,3 +486,15 @@ class ManagedClassGroups(generics.ListAPIView):
         class_groups = list(ClassGroup.objects.filter(Q(teacher=user) | Q(collaborators__in=[user])))
         return Response(data=ClassGroupSerializer(class_groups, many=True).data,
                         status=status.HTTP_200_OK)
+
+
+class ClassGroupEnrollments(generics.ListAPIView):
+    serializer_class = ClassGroupEnrollmentSerializer
+
+    def get_queryset(self):
+        try:
+            class_group = ClassGroup.objects.get(pk=self.kwargs['pk'])
+        except ClassGroup.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="ClassGroup of requested id does not exist")
+        return Enrollment.objects.filter(class_group=class_group)

@@ -9,27 +9,33 @@
 
 <ion-content>
   <ion-list>
-    <ion-item >Titulo</ion-item>
-    <ion-item >Sala</ion-item>
-    <ion-item >Periodo</ion-item>
-    <ion-item >Horario</ion-item>
+    <ion-item >
+     <ion-label stacked>Titulo: </ion-label> 
+    <ion-input type="text" [(ngModel)]="title" text-left id="input"></ion-input>
+  </ion-item>
+  <ion-item >
+      <ion-label stacked>Sala: </ion-label> 
+     <ion-input type="text" [(ngModel)]="classroom" text-left id="input"></ion-input>
+   </ion-item>
+   <ion-item >
+      <ion-label stacked>Horário: </ion-label> 
+     <ion-input type="text" [(ngModel)]="time" text-left id="input"></ion-input>
+   </ion-item>
+   <ion-item >
+      <ion-label stacked>Ano: </ion-label> 
+     <ion-input type="text" [(ngModel)]="year" text-left id="input"></ion-input>
+   </ion-item>
     <ion-item>
         <ion-label>Escolha o tipo de curso</ion-label>
-        <ion-select >
-          <ion-select-option>Ciclo</ion-select-option>
-          <ion-select-option>Ciclo Livre</ion-select-option>
-          <ion-select-option>Palestra</ion-select-option>
+        <ion-select [(ngModel)]="selectedCourse">
+          <ion-select-option *ngFor="let courses of course">{{courses.name}}</ion-select-option>
         </ion-select>
     </ion-item>
-    <ion-item>
-        <ion-label>Dirigente</ion-label>
-        <ion-select >
-          <ion-select-option>Joao</ion-select-option>
-          <ion-select-option>Ana</ion-select-option>
-          <ion-select-option>Maria</ion-select-option>
-        </ion-select>
-    </ion-item>
+    <ion-item >
+        <ion-label stacked>Professor: </ion-label> 
+       <ion-input type="number" [(ngModel)]="teacher_id" text-left id="input"></ion-input>
+     </ion-item>
   </ion-list>
-  <ion-button expand="block" (click)="pop()">Criar nova turma</ion-button>
+  <ion-button expand="block" (click)="createClass()">Criar nova turma</ion-button>
 
 </ion-content>

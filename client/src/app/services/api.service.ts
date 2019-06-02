@@ -1,7 +1,10 @@
+import { Headers, Http, RequestOptions  } from '@angular/http';
+
 import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NewEnrollment } from '../interfaces/new-enrollment';
+import { resolve } from 'url';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +68,17 @@ export class APIService {
     // });
   }
 
+  postClassGroup(body, requestOptions) {
+  
+    this.httpClient.post(`${this.API_URL}/class-groups/`, body, requestOptions)
+      .subscribe(data => {
+        console.log(data);
+       }, error => {
+        console.log(error);
+      });
+
+    //this.httpClient.post(`${this.API_URL}/class-groups/`, postData, headers);
+  }
   getClassGroupDetails(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }

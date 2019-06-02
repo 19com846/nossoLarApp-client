@@ -109,7 +109,7 @@ class RequestTransferApi(generics.ListCreateAPIView):
         target_group = ClassGroup.objects.get(Q(id=request.data.get("target_group_id", ""))
                                               & Q(course=origin_group.course))
 
-        if Enrollment.objects.filter(Q(class_group=target_group) & Q(student=requester_student)):
+        if Enrollment.objects.filter(Q(class_group=target_group) & Q(student=requester_student)).count() > 0:
             raise GenericException(code=status.HTTP_400_BAD_REQUEST,
                                    detail="'{}' is already enrolled in '{}.'".format(requester_student, target_group))
         transfer_request = TransferRequest.objects.create(
@@ -424,11 +424,11 @@ class StudentAttendancesApi(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         try:
             student = Person.objects.get(pk=self.kwargs['pk'], groups__in=[1])
+            class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
         except Person.DoesNotExist:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Student of requested id does not exist")
-        class_group = ClassGroup.objects.filter(pk=self.kwargs['group_id'])[:1].get()
-        if class_group is None:
+        except ClassGroup.DoesNotExist:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Class group of requested id does not exist")
         attendances = list(Attendance.objects.filter(student=student, lesson__class_group=class_group))
@@ -441,8 +441,7 @@ class CourseStudents(generics.ListAPIView):
     serializer_class = StudentSerializer
 
     def get(self, request, *args, **kwargs):
-        course = Course.objects.filter(pk=self.kwargs['pk'])[:1].get()
-        if course is None:
+        if Course.objects.filter(pk=self.kwargs['pk']).count() == 0:
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="Course of requested id does not exist")
         enrollments = list(Enrollment.objects.filter(class_group__course_id=self.kwargs['pk']))

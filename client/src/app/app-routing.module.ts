@@ -36,6 +36,7 @@ const routes: Routes = [
   { path: 'see-student-info/:studentId', loadChildren: './pages/see-student-info/see-student-info.module#SeeStudentInfoPageModule' },
 
 
+
 ];
 
 

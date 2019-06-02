@@ -1,12 +1,9 @@
-import { Headers, Http, RequestOptions  } from '@angular/http';
-
 import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NewEnrollment } from '../interfaces/new-enrollment';
-import { resolve } from 'url';
-import { catchError, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { TransferRequest } from '../interfaces/transfer-request';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +21,8 @@ export class APIService {
   getAvailableClassGroups(studentId: Number) {
       //ENDPOINT NAME AND BACKEND IMPLEMENTATION NOT FINAL
     return this.httpClient.get(`${this.API_URL}/student/` + studentId + '/available-class-groups')
-
   }
-  
+
   getAllLesson(id) {
     return this.httpClient.get(`${this.API_URL}/class-groups/`+id+`lesson`)
   }
@@ -66,8 +62,6 @@ export class APIService {
   getOpenClassGroups(studentId: Number) {
     return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
   }
-
-  
 
   getEnrollments(studentId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/enrollments/');
@@ -148,4 +142,7 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/transfer-targets');
   }
 
+  requestClassGroupTransfer(transferRequest: TransferRequest) {
+    return this.httpClient.post(`${this.API_URL}/transfer-requests/`, transferRequest);
+  }
 }

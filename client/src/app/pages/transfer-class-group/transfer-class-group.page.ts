@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from 'src/app/services/api.service';
 import { ClassGroup } from 'src/app/interfaces/class-group';
+import { TransferRequest } from 'src/app/interfaces/transfer-request';
 
 @Component({
   selector: 'app-transfer-class-group',
@@ -14,16 +15,16 @@ export class TransferClassGroupPage implements OnInit {
   public classGroups: Array<ClassGroup>;
   private classGroupId: Number;
   private studentId: Number;
-  private transferRequest: any;
+  private transferRequest: TransferRequest = {
+    student_id: 0,
+    class_group_id: 0,
+    target_group_id: 0,
+  };
 
   constructor(public alertController: AlertController, 
               private router: Router, 
               private api: APIService,
               private route: ActivatedRoute) { }
-
-  cardClicked(classGroup) {
-    this.router.navigateByUrl('/menu/menu/home-student');
-  }
 
   ngOnInit() {
     this.classGroupId = Number(this.route.snapshot.paramMap.get('classGroupId'));
@@ -38,6 +39,13 @@ export class TransferClassGroupPage implements OnInit {
       this.classGroups = data;
       console.log(data);
     });
+  }
+
+  requestClassGroupTransfer(transferRequest: TransferRequest) {
+    this.api.requestClassGroupTransfer(transferRequest).subscribe((data) => {
+      console.log("Transfer Request Successfull");
+      console.log(data);
+    })
   }
 
   async presentAlertConfirm(classGroup: ClassGroup) {
@@ -57,10 +65,13 @@ export class TransferClassGroupPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             // this.cardClicked(classGroup);
-            this.transferRequest = {
-              "enrollment_id": this.studentId,
-              "target_group_id": this.classGroupId
-            }
+            this.transferRequest.class_group_id = this.classGroupId;
+            this.transferRequest.student_id = this.studentId;
+            this.transferRequest.target_group_id = classGroup.id;
+            console.log(this.transferRequest.class_group_id);
+            console.log(this.transferRequest.student_id);
+            console.log(this.transferRequest.target_group_id);
+            this.requestClassGroupTransfer(this.transferRequest);
             this.router.navigate(['home-student']);
           }
         }

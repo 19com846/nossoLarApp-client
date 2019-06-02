@@ -53,6 +53,8 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
   }
 
+  
+
   getEnrollments(studentId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/enrollments/');
     // return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups', {
@@ -62,16 +64,32 @@ export class APIService {
   }
 
   postClassGroup(body, requestOptions) {
-  
     this.httpClient.post(`${this.API_URL}/class-groups/`, body, requestOptions)
       .subscribe(data => {
         console.log(data);
        }, error => {
         console.log(error);
       });
-
-    //this.httpClient.post(`${this.API_URL}/class-groups/`, postData, headers);
   }
+
+  postClassGroupLesson(id,body, requestOptions) {
+    this.httpClient.post(`${this.API_URL}/class-groups/`+id+'/lessons/', body, requestOptions)
+      .subscribe(data => {
+        console.log(data);
+       }, error => {
+        console.log(error);
+      });
+  }
+
+  patchTransferRequest(id,body,requestOptions) {
+    this.httpClient.patch(`${this.API_URL}/transfer-requests/`+id+`/confirm/`,body,requestOptions)
+    .subscribe(data => {
+      console.log(data);
+     }, error => {
+      console.log(error);
+    });
+  }
+  
   getClassGroupDetails(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
@@ -80,6 +98,9 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/attendances');
   }
 
+  getTransferRequest() {
+    return this.httpClient.get(`${this.API_URL}/transfer-requests/`);
+  }
   getTransferClassGroups(studentId: Number, classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/transfer-targets');
   }

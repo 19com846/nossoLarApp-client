@@ -55,23 +55,6 @@ export class NewTransferPage implements OnInit {
   await modal.present();
   }
 
-
-  transferConfirm(data){
-    console.log(data)
-    console.log(this.selectItem)
-    
-    var headers = new Headers();
-    headers.append("Accept", 'application/json');
-    headers.append('Content-Type', 'application/json' );
-    const requestOptions = new RequestOptions({ headers: headers });
-    let body = {
-      "student_id": data.id,
-      //"class_group_id": getCourse[0].id,
-      // "target_group_id": this.title,
-    }
-    //this.api.postClassGroup(body,requestOptions);
-  }
-
   initializeItems() {
     this.items = this.student;
   }

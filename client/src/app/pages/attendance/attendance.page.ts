@@ -41,5 +41,6 @@ selectMember(data) {
   console.log(this.selectedArray)
    //this.navCtrl.pop();
  }
+ 
 
 }

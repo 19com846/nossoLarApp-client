@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button color="primary"></ion-back-button>
     </ion-buttons>
       <div text-center>
         <ion-title>Minhas Turmas</ion-title>
@@ -11,7 +11,7 @@
   <ion-content >
       <ion-item>
         <ion-label text-wrap>
-          Cursos em aberto
+          <h2>Cursos em aberto</h2>
         </ion-label>
       </ion-item>
       <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of activeClassGroups'>
@@ -24,7 +24,7 @@
       </ion-card>  
       <ion-item>
         <ion-label>
-          Cursos já realizados
+          <h2>Cursos já realizados</h2>
         </ion-label>
       </ion-item>
       <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of inactiveClassGroups'>
@@ -37,7 +37,7 @@
       </ion-card>
       <ion-item>
         <ion-label text-wrap>
-          Cursos aguardando aprovação
+          <h2>Cursos aguardando aprovação</h2>
         </ion-label>
       </ion-item>
       <ion-card (click)="goToClassGroupDetails(classGroup)" routerDirection="Forward" *ngFor='let classGroup of pendinClassGroups'>
@@ -49,7 +49,7 @@
         </ion-card-content>
       </ion-card>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="newEnrollment()" routerDirection="Forward">
-          <ion-fab-button>
+          <ion-fab-button color="secondary">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
         </ion-fab>

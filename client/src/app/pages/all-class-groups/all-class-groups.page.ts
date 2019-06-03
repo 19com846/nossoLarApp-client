@@ -35,6 +35,9 @@ export class AllClassGroupsPage implements OnInit {
         console.log(this.classGroup);
       })
   }
+  rollCall() {
+
+  }
 
   newClassGroup(){
     this.router.navigate(['create-class']);

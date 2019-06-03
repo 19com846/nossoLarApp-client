@@ -38,7 +38,8 @@ urlpatterns = [
     path('courses/<int:pk>/students/', CourseStudents.as_view(), name='list-course-students'),
     path('lessons/<int:pk>/attendances/', LessonAttendances.as_view(), name='see-lesson-attendances'),
     path('collaborators/<int:pk>/class-groups/', ManagedClassGroups.as_view(), name='see-managed-classes'),
-    path('class-groups/<int:pk>/enrollments/', ClassGroupEnrollments.as_view(), name='see-class-group-enrollments')
+    path('class-groups/<int:pk>/enrollments/', ClassGroupEnrollments.as_view(), name='see-class-group-enrollments'),
+    path('students/<int:pk>/available-class-groups/', AvailableClassGroups.as_view(), name='see-available-class-groups')
 ]
 
 

@@ -90,6 +90,15 @@ export class APIService {
     });
   }
   
+  postTransferRequest(body,requestOptions) {
+    this.httpClient.post(`${this.API_URL}/transfer-requests/`,body,requestOptions)
+    .subscribe(data => {
+      console.log(data);
+     }, error => {
+      console.log(error);
+    });
+  }
+
   getClassGroupDetails(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }

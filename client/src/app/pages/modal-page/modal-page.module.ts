@@ -1,28 +1,26 @@
-import { ModalPagePage } from './../modal-page/modal-page.page';
-import { ComponentsModule } from './../../components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
-import { NewTransferPage } from './new-transfer.page';
+
+import { ModalPagePage } from './modal-page.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: NewTransferPage
+    component: ModalPagePage
   }
 ];
 
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     FormsModule,
     IonicModule,
-    ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [NewTransferPage, ModalPagePage],
-  entryComponents: [ModalPagePage]
+  declarations: [ModalPagePage]
 })
-export class NewTransferPageModule {}
+export class ModalPagePageModule {}

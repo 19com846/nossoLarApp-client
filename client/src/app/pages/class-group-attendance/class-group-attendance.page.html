@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title text-center>Selecionar Turma Para Chamada</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-title >Selecionar Turma</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item text-center>
-    <ion-title text-wrap>Selecione a turma</ion-title>
-  </ion-item>
 
 <div *ngFor="let courses of course">
     <ion-item>

@@ -138,6 +138,21 @@ class ConfirmTransferRequestApi(generics.UpdateAPIView):
         return None
 
 
+class RejectTransferRequestApi(generics.DestroyAPIView):
+    queryset = TransferRequest.objects.all()
+    serializer_class = []
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            transfer_request = TransferRequest.objects.get(pk=kwargs["pk"])
+        except TransferRequest.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Transfer Request of requested id does not exist")
+        transfer_request.status = TransferStatus.REJECTED
+        transfer_request.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class CreateAttendancesApi(generics.CreateAPIView):
     queryset = Attendance.objects.all()
     serializer_class = RollCallListSerializer

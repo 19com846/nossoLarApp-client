@@ -23,6 +23,7 @@ urlpatterns = [
     path('students/<int:pk>/class-groups/', StudentClassGroupsApi.as_view(), name='student-class-groups-list'),
     path('transfer-requests/', RequestTransferApi.as_view(), name='request-student-transfer'),
     path('transfer-requests/<int:pk>/confirm/', ConfirmTransferRequestApi.as_view(), name='confirm-student-transfer'),
+    path('transfer-requests/<int:pk>/reject/', RejectTransferRequestApi.as_view(), name='cancel-student-transfer'),
     path('class-groups/<int:pk>/lessons/', CreateLessonApi.as_view(), name='create-lesson'),
     path('lessons/<int:pk>/roll-call/', CreateAttendancesApi.as_view(), name='take-attendance'),
     path('login/', LoginApi.as_view(), name='user-login'),

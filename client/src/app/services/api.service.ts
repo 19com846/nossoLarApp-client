@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { resolve } from 'url';
+import { catchError, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -73,14 +75,16 @@ export class APIService {
   }
 
   postClassGroupLesson(id,body, requestOptions) {
-    this.httpClient.post(`${this.API_URL}/class-groups/`+id+'/lessons/', body, requestOptions)
-      .subscribe(data => {
-        console.log(data);
-       }, error => {
-        console.log(error);
-      });
+   return this.httpClient.post(`${this.API_URL}/class-groups/`+id+'/lessons/', body, requestOptions)
+   .pipe(take(1));
   }
-
+  postLessonRollCall(id,body, requestOptions) {
+    console.log(body);
+    console.log(id)
+    return this.httpClient.post(`${this.API_URL}/lessons/`+id+'/roll-call/', body, requestOptions)
+   .pipe(take(1));
+  }
+  
   patchTransferRequest(id,body,requestOptions) {
     this.httpClient.patch(`${this.API_URL}/transfer-requests/`+id+`/confirm/`,body,requestOptions)
     .subscribe(data => {
@@ -99,6 +103,9 @@ export class APIService {
     });
   }
 
+  getClassGroupEnrollment(id) {
+    return this.httpClient.get(`${this.API_URL}/class-groups/` + id+ `/enrollments/`);
+  }
   getClassGroupDetails(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }

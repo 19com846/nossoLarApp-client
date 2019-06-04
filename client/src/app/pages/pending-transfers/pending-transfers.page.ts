@@ -18,7 +18,7 @@ export class PendingTransfersPage implements OnInit {
     
   }
    newTransfer(){
-    this.router.navigate(['new-transfer-collab']);  
+    this.router.navigate(['new-transfer']);  
    }
    
    accept(id) {

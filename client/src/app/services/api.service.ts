@@ -101,6 +101,15 @@ export class APIService {
     });
   }
   
+  patchTransferRequestReject(id,body,requestOptions) {
+    this.httpClient.delete(`${this.API_URL}/transfer-requests/`+id+`/reject/`,body)
+    .subscribe(data => {
+      console.log(data);
+     }, error => {
+      console.log(error);
+    });
+  }
+
   postTransferRequest(body,requestOptions) {
     this.httpClient.post(`${this.API_URL}/transfer-requests/`,body,requestOptions)
     .subscribe(data => {

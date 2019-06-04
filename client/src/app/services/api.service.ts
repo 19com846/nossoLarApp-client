@@ -24,6 +24,11 @@ export class APIService {
   getAvailableClassGroups(studentId: Number) {
       //ENDPOINT NAME AND BACKEND IMPLEMENTATION NOT FINAL
     return this.httpClient.get(`${this.API_URL}/student/` + studentId + '/available-class-groups')
+
+  }
+  
+  getAllLesson(id) {
+    return this.httpClient.get(`${this.API_URL}/class-groups/`+id+`lesson`)
   }
 
   getAllAdministrators() {

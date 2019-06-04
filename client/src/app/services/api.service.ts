@@ -20,6 +20,10 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/courses/`)
   }
 
+  getAllLesson(id) {
+    return this.httpClient.get(`${this.API_URL}/class-groups/`+id+`lesson`)
+  }
+
   getAllAdministrators() {
     return this.httpClient.get(`${this.API_URL}/administrators/`);
   }

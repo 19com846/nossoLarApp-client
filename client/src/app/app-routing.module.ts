@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: 'my-class-groups', loadChildren: './pages/my-class-groups/my-class-groups.module#MyClassGroupsPageModule' },
   { path: 'see-student-info/:studentId', loadChildren: './pages/see-student-info/see-student-info.module#SeeStudentInfoPageModule' },  { path: 'modal-page', loadChildren: './pages/modal-page/modal-page.module#ModalPagePageModule' },
   { path: 'new-transfer-collab', loadChildren: './pages/new-transfer-collab/new-transfer-collab.module#NewTransferCollabPageModule' },
+  { path: 'modal1-page', loadChildren: './pages/modal1-page/modal1-page.module#Modal1PagePageModule' },
 
 
 

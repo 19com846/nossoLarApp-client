@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ModalPage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>Escolha a turma inicial</ion-label>
+        <ion-select (ionChange)="onChangeGroup($event)">
+          <ion-select-option *ngFor="let enrollments of enrollment, let i=index" [value]=enrollments>
+          {{enrollment[i].class_group.course}}
+          {{enrollment[i].class_group.title}}   
+          </ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Escolha a turma final</ion-label>
+        <ion-select (ionChange)="onChagenClass($event)">
+          <ion-select-option *ngFor="let class of classes" [value]=class>
+            {{class.course}} {{class.title}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+<ion-button (click)="dismiss()">Transferir</ion-button>
+</ion-content>

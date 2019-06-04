@@ -1,4 +1,4 @@
-import { ModalPagePage } from './../modal-page/modal-page.page';
+
 import { Enrollment } from './../../interfaces/enrollment';
 import { ClassGroup } from './../../interfaces/class-group';
 import { Student } from './../all-students/student';
@@ -45,13 +45,7 @@ export class NewTransferCollabPage implements OnInit {
     });
   }
 
-  async modal(id) {
-    const modal = await this.modalController.create({
-      component: ModalPagePage,
-      componentProps: {value: id}
-    });
-  await modal.present();
-  }
+ 
 
   initializeItems() {
     this.items = this.student;

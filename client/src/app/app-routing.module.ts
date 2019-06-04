@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
   { path: 'class-group-attendance', loadChildren: './pages/class-group-attendance/class-group-attendance.module#ClassGroupAttendancePageModule' },
   { path: 'all-class-groups', loadChildren: './pages/all-class-groups/all-class-groups.module#AllClassGroupsPageModule' },
+  { path: 'all-class-groups/:id', loadChildren: './pages/all-class-groups/all-class-groups.module#AllClassGroupsPageModule' },
   { path: 'all-courses', loadChildren: './pages/all-courses/all-courses.module#AllCoursesPageModule' },
   { path: 'all-users', loadChildren: './pages/all-users/all-users.module#AllUsersPageModule' },
   { path: 'all-students', loadChildren: './pages/all-students/all-students.module#AllStudentsPageModule' },
@@ -35,6 +36,15 @@ const routes: Routes = [
   { path: 'my-class-groups', loadChildren: './pages/my-class-groups/my-class-groups.module#MyClassGroupsPageModule' },
   { path: 'see-student-info/:studentId', loadChildren: './pages/see-student-info/see-student-info.module#SeeStudentInfoPageModule' },
   { path: 'modal-page', loadChildren: './pages/modal-page/modal-page.module#ModalPagePageModule' },
+  { path: 'new-transfer-collab', loadChildren: './pages/new-transfer-collab/new-transfer-collab.module#NewTransferCollabPageModule' },
+  { path: 'modal1-page', loadChildren: './pages/modal1-page/modal1-page.module#Modal1PagePageModule' },
+  { path: 'all-lesson/:idClass', loadChildren: './pages/all-lesson/all-lesson.module#AllLessonPageModule' },
+  { path: 'all-attendance-group/:idClass/:lessonId', loadChildren: './pages/all-attendance-group/all-attendance-group.module#AllAttendanceGroupPageModule' },
+
+
+
+
+
 
 ];
 

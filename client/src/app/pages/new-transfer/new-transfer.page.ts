@@ -27,50 +27,8 @@ export class NewTransferPage implements OnInit {
   constructor(private api: APIService,  private router: Router, public modalController: ModalController) { }
 
   ngOnInit() {
-   this.getAllStudents();
+   
  } 
 
- getAllStudents() {
-   this.api.getAllStudents().subscribe((data: Array<Student>) => {
-     this.student = data;
-     this.items = data;
-     console.log(this.student)
-     this.getAllClasses();
-   });
- }
-
- getAllClasses() {
-   this.api.getAllClassGroups().subscribe((data: Array<ClassGroup>) => {
-     this.classes = data;
-     console.log(this.classes)
-   });
- }
-
- async modal(id) {
-   const modal = await this.modalController.create({
-     component: ModalPagePage,
-     componentProps: {value: id}
-   });
- await modal.present();
- }
-
- initializeItems() {
-   this.items = this.student;
- }
-
- getItems(ev: any) {
-   // Reset items back to all of the items
-   this.initializeItems();
-
-   // set val to the value of the searchbar
-   const val = ev.target.value;
-
-   // if the value is an empty string don't filter the items
-   if (val && val.trim() != '') {
-     this.items = this.items.filter((item) => {
-       return (item.first_name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-     })
-   }
- }
 
 }

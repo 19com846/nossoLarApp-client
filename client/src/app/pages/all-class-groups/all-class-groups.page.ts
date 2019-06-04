@@ -36,7 +36,7 @@ export class AllClassGroupsPage implements OnInit {
       })
   }
   rollCall() {
-
+    
   }
 
   newClassGroup(){

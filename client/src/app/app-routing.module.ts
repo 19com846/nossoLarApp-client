@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'login-password', loadChildren: './pages/login-password/login-password.module#LoginPasswordPageModule' },
   { path: 'my-class-groups', loadChildren: './pages/my-class-groups/my-class-groups.module#MyClassGroupsPageModule' },
   { path: 'see-student-info/:studentId', loadChildren: './pages/see-student-info/see-student-info.module#SeeStudentInfoPageModule' },  { path: 'modal-page', loadChildren: './pages/modal-page/modal-page.module#ModalPagePageModule' },
+  { path: 'new-transfer-collab', loadChildren: './pages/new-transfer-collab/new-transfer-collab.module#NewTransferCollabPageModule' },
 
 
 

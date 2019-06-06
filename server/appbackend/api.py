@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from django.db.models import Q
+from django.forms import model_to_dict
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status, permissions
@@ -523,3 +524,39 @@ class ClassGroupEnrollments(generics.ListAPIView):
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="ClassGroup of requested id does not exist")
         return Enrollment.objects.filter(class_group=class_group)
+
+
+class LessonAttendanceApi(generics.UpdateAPIView):
+
+    serializer_class = AttendanceSerializer
+    queryset = Attendance.objects.all()
+
+    @swagger_auto_schema(request_body=CreateAttendanceRequest)
+    def put(self, request, *args, **kwargs):
+        try:
+            lesson = Lesson.objects.get(pk=kwargs['pk'])
+            attendance = Attendance.objects.get(pk=kwargs['att_pk'])
+        except Lesson.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Lesson of requested id does not exist")
+        except Attendance.DoesNotExist:
+            CreateAttendanceRequest(data=request.data).is_valid(raise_exception=True)
+            student = Person.objects.get(Q(pk=request.data.get("student_id", "")) & Q(groups__in=[1]))
+            attendance = Attendance.objects.create(pk=kwargs['att_pk'], lesson=lesson,
+                                                   student=student, was_present=request.data.get("was_present", ""))
+            return Response(data=AttendanceSerializer(attendance).data,
+                            status=status.HTTP_201_CREATED)
+
+        if attendance.lesson.id is not lesson.id:
+            raise GenericException(code=status.HTTP_400_BAD_REQUEST,
+                                   detail="Attendance of requested id is not from requested lesson")
+
+        attendance.was_present = not attendance.was_present
+        attendance.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @swagger_auto_schema(auto_schema=None)
+    def patch(self, request, *args, **kwargs):
+        return None
+
+

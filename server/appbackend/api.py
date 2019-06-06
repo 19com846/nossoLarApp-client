@@ -535,7 +535,7 @@ class AvailableClassGroups(generics.ListAPIView):
                 continue
             class_groups.append(enrollment.class_group.id)
 
-        transfer_requests = TransferRequest.objects.filter(Q(enrollment__student=student) & ~Q(status=TransferStatus.REJECTED))
+        transfer_requests = TransferRequest.objects.filter(Q(enrollment__student=student) & Q(status=TransferStatus.PENDING))
         for request in transfer_requests:
             if request.target_group.id in class_groups:
                 continue

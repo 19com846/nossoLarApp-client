@@ -203,7 +203,7 @@ class LoginApi(generics.CreateAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class CreateLessonApi(generics.CreateAPIView):
+class ClassGroupLessonApi(generics.ListCreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = []
 
@@ -217,6 +217,16 @@ class CreateLessonApi(generics.CreateAPIView):
             data=LessonSerializer(lesson).data,
             status=status.HTTP_201_CREATED
         )
+
+    def get(self, request, *args, **kwargs):
+        try:
+            class_group = ClassGroup.objects.get(pk=kwargs['pk'])
+        except ClassGroup.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Class group of requested id could not be found")
+        lessons = Lesson.objects.filter(class_group=class_group)
+        return Response(data=ClassGroupLessonSerializer(lessons, many=True).data,
+                        status=status.HTTP_200_OK)
 
 
 class LoginByPhoneApi(generics.CreateAPIView):
@@ -513,3 +523,32 @@ class ClassGroupEnrollments(generics.ListAPIView):
             raise GenericException(code=status.HTTP_404_NOT_FOUND,
                                    detail="ClassGroup of requested id does not exist")
         return Enrollment.objects.filter(class_group=class_group)
+
+
+class AvailableClassGroups(generics.ListAPIView):
+    serializer_class = ClassGroupSerializer
+
+    def get_queryset(self):
+        try:
+            student = Person.objects.get(pk=self.kwargs['pk'])
+        except Person.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Student of requested id does not exist")
+        if student.groups.filter(pk=1).count() == 0:
+            raise GenericException(code=status.HTTP_400_BAD_REQUEST,
+                                   detail="User of given id is not a student")
+
+        enrollments = Enrollment.objects.filter(student=student)
+        class_groups = list()
+        for enrollment in enrollments:
+            if enrollment.class_group.id in class_groups:
+                continue
+            class_groups.append(enrollment.class_group.id)
+
+        transfer_requests = TransferRequest.objects.filter(Q(enrollment__student=student) & Q(status=TransferStatus.PENDING))
+        for request in transfer_requests:
+            if request.target_group.id in class_groups:
+                continue
+            class_groups.append(request.target_group.id)
+        available_class_groups = ClassGroup.objects.exclude(pk__in=class_groups)
+        return available_class_groups

@@ -6,10 +6,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { resolve } from 'url';
 import { catchError, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { NewEnrollment } from '../interfaces/new-enrollment';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class APIService {
   
   API_URL = Constants.API_URL;
@@ -22,6 +24,11 @@ export class APIService {
 
   getAllLesson(id) {
     return this.httpClient.get(`${this.API_URL}/class-groups/`+id+`lesson`)
+  }
+  
+  getAvailableClassGroups(studentId: Number) {
+      //ENDPOINT NAME AND BACKEND IMPLEMENTATION NOT FINAL
+    return this.httpClient.get(`${this.API_URL}/student/` + studentId + '/available-class-groups')
   }
 
   getAllAdministrators() {
@@ -133,4 +140,9 @@ export class APIService {
   getTransferClassGroups(studentId: Number, classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/transfer-targets');
   }
-}
+
+  enrollInNewClassGroup(newEnrollment: NewEnrollment) {
+    return this.httpClient.post(`${this.API_URL}/enrollments/`, newEnrollment);
+  }
+  }
+

@@ -203,7 +203,7 @@ class LoginApi(generics.CreateAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class CreateLessonApi(generics.CreateAPIView):
+class ClassGroupLessonApi(generics.ListCreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = []
 
@@ -217,6 +217,16 @@ class CreateLessonApi(generics.CreateAPIView):
             data=LessonSerializer(lesson).data,
             status=status.HTTP_201_CREATED
         )
+
+    def get(self, request, *args, **kwargs):
+        try:
+            class_group = ClassGroup.objects.get(pk=kwargs['pk'])
+        except ClassGroup.DoesNotExist:
+            raise GenericException(code=status.HTTP_404_NOT_FOUND,
+                                   detail="Class group of requested id could not be found")
+        lessons = Lesson.objects.filter(class_group=class_group)
+        return Response(data=ClassGroupLessonSerializer(lessons, many=True).data,
+                        status=status.HTTP_200_OK)
 
 
 class LoginByPhoneApi(generics.CreateAPIView):

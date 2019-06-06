@@ -116,6 +116,14 @@ class LessonSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ClassGroupLessonSerializer(serializers.ModelSerializer):
+    date = serializers.DateField()
+
+    class Meta:
+        model = Lesson
+        fields = ('id', 'date')
+
+
 class AttendanceSerializer(serializers.ModelSerializer):
     lesson = LessonSerializer(read_only=True)
     student = StudentSerializer(read_only=True)

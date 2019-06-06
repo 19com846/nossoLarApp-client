@@ -43,7 +43,7 @@ export class TransferClassGroupPage implements OnInit {
 
   requestClassGroupTransfer(transferRequest: TransferRequest) {
     this.api.requestClassGroupTransfer(transferRequest).subscribe((data) => {
-      console.log("Transfer Request Successfull");
+      console.log("Transfer Request Successful");
       console.log(data);
     })
   }
@@ -64,7 +64,6 @@ export class TransferClassGroupPage implements OnInit {
           text: 'SIM !',
           handler: () => {
             console.log('Confirm Okay');
-            // this.cardClicked(classGroup);
             this.transferRequest.class_group_id = this.classGroupId;
             this.transferRequest.student_id = this.studentId;
             this.transferRequest.target_group_id = classGroup.id;

@@ -7,7 +7,6 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'home-student', loadChildren: './pages/home-student/home-student.module#HomeStudentPageModule' },
-  { path: 'enroll-in-course', loadChildren: './pages/enroll-in-course/enroll-in-course.module#EnrollInCoursePageModule' },
   { path: 'student-details', loadChildren: './pages/student-details/student-details.module#StudentDetailsPageModule' },
   { path: 'create-class', loadChildren: './pages/create-class/create-class.module#CreateClassPageModule' },
   { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' },
@@ -40,11 +39,7 @@ const routes: Routes = [
   { path: 'modal1-page', loadChildren: './pages/modal1-page/modal1-page.module#Modal1PagePageModule' },
   { path: 'all-lesson/:idClass', loadChildren: './pages/all-lesson/all-lesson.module#AllLessonPageModule' },
   { path: 'all-attendance-group/:idClass/:lessonId', loadChildren: './pages/all-attendance-group/all-attendance-group.module#AllAttendanceGroupPageModule' },
-
-
-
-
-
+  { path: 'enroll-in-class-group', loadChildren: './pages/enroll-in-class-group/enroll-in-class-group.module#EnrollInClassGroupPageModule' },
 
 ];
 

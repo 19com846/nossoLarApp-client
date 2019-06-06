@@ -534,5 +534,11 @@ class AvailableClassGroups(generics.ListAPIView):
             if enrollment.class_group.id in class_groups:
                 continue
             class_groups.append(enrollment.class_group.id)
+
+        transfer_requests = TransferRequest.objects.filter(Q(enrollment__student=student) & ~Q(status=TransferStatus.REJECTED))
+        for request in transfer_requests:
+            if request.target_group.id in class_groups:
+                continue
+            class_groups.append(request.target_group.id)
         available_class_groups = ClassGroup.objects.exclude(pk__in=class_groups)
         return available_class_groups

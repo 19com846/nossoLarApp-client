@@ -47,8 +47,8 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorId + '/' + classGroupId);
   }
 
-  getClassGroupAttendance(collaboratorId: Number) {
-    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorId);
+  getCollaboratorClassGroups(collaboratorId: Number) {
+    return this.httpClient.get(`${this.API_URL}/collaborators/` + collaboratorId + '/class-groups/');
   }
 
   getClassGroupsFromCourse(classGroupId: Number) {

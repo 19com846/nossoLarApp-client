@@ -10,11 +10,13 @@ import { Headers, Http, RequestOptions  } from '@angular/http';
   styleUrls: ['./attendance.page.scss'],
 })
 export class AttendancePage implements OnInit {
+
   private classGroupId: Number;
   private courseId: Number;
   public turma: any;
   public selectedArray: any = [];
   enrollment: Array<Enrollment>;
+
  public lesson: any;
 
   constructor(private router: Router, 
@@ -24,8 +26,7 @@ export class AttendancePage implements OnInit {
      }
 
 ngOnInit() {
-  this.classGroupId = Number(this.route.snapshot.paramMap.get('classId'));
-  this.courseId = Number(this.route.snapshot.paramMap.get('courseId'));
+  this.classGroupId = Number(this.route.snapshot.paramMap.get('classGroupId'));
   this.getEnrollment(this.classGroupId);
 }
 

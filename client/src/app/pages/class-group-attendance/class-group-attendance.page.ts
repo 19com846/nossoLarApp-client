@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { APIService } from '../../services/api.service';
 import { ClassGroup } from '../../interfaces/class-group';
-import { Course } from '../../interfaces/course';
 import * as _ from 'lodash';
 
 @Component({
@@ -10,34 +9,30 @@ import * as _ from 'lodash';
   templateUrl: './class-group-attendance.page.html',
   styleUrls: ['./class-group-attendance.page.scss'],
 })
+
 export class ClassGroupAttendancePage implements OnInit {
   
-  public classGroup: Array<ClassGroup>;
-  public course: Array<Course>;
+  private classGroups: Array<ClassGroup>;
+  private collaboratorId: Number;
 
-  constructor( private router: Router, private api: APIService) {}
-
-  
-  clickCard(classId, courseId){
-      this.router.navigate(['attendance',classId,courseId]);
-    }
+  constructor(private router: Router, private api: APIService) {}
 
   ngOnInit() {
-    this.getAllCourses();
-    this.getAllClassGroup();
+    // TO DO - Needs Auth to use this implementation
+    // this.collaboratorId = this.route.snapshot.paramMap.get('classGroupId')
+    this.collaboratorId = 4;
+    this.getCollaboratorClassGroups(this.collaboratorId);
+  }
+  
+  goToTakeAttendance(classGroup: ClassGroup){
+    this.router.navigate(['attendance', classGroup.id]);
   }
 
-  getAllCourses() {
-    this.api.getAllCourses().subscribe((data: Array<Course>)=> {
-      this.course = data;
-      console.log(this.course)
+  getCollaboratorClassGroups(collaboratorId: Number): Array<ClassGroup>{
+    this.api.getCollaboratorClassGroups(collaboratorId).subscribe((data: Array<ClassGroup>)=> {
+      this.classGroups = data;
+      console.log(data);
     });  
-  }
-
-  getAllClassGroup(){
-      this.api.getAllClassGroups().subscribe((dataClass: Array<ClassGroup>) => {
-        this.classGroup = dataClass;
-        console.log(this.classGroup);
-      })
+    return this.classGroups;
   }
 }

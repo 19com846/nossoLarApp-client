@@ -1,40 +1,22 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
     <ion-title text-center>Selecionar Turma Para Chamada</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-item text-center>
-    <ion-title text-wrap>Selecione a turma</ion-title>
-  </ion-item>
-
-<div *ngFor="let courses of course">
-    <ion-item>
-        <ion-label text-wrap>
-          Curso: {{courses.name}}
-        </ion-label>
-      </ion-item>
-
-    <div *ngFor="let classGroups of classGroup">
-
-      <div *ngIf="courses.name == classGroups.course">
-  <ion-card (click)="clickCard(classGroups.id, courses.id)"> 
-      
-    <ion-list>
-        <ion-item>
-        <ion-icon name="contact"></ion-icon>
-            <h3>{{classGroups.title}}</h3>
-        </ion-item>
-        </ion-list>
-
-  <ion-card-content>
-  <h2>Horario: {{classGroups.time}}</h2>
-</ion-card-content>
-  
-</ion-card>
-</div>
-</div>
-</div>
-
+  <ion-list>
+    <ion-card (click)="goToTakeAttendance(classGroup)" *ngFor="let classGroup of classGroups">
+      <ion-card-header>
+        <ion-card-subtitle>{{classGroup.course}}</ion-card-subtitle>
+        <ion-card-title>{{classGroup.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <p>Horario: {{classGroup.time}}</p>
+          <p>Professor: {{classGroup.teacher}}</p>
+      </ion-card-content>
+    </ion-card> 
+  </ion-list>
 </ion-content>

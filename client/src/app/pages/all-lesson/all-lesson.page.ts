@@ -1,3 +1,4 @@
+import { Lessons } from './../../interfaces/lessons';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from '../../services/api.service';
@@ -12,7 +13,7 @@ import * as _ from 'lodash';
 })
 export class AllLessonPage implements OnInit {
   idClass: number;
-  public lesson: any = [];
+  public lesson: Array <Lessons>;
 
   constructor(private router: Router, private api: APIService,private route: ActivatedRoute) { }
 
@@ -22,9 +23,8 @@ export class AllLessonPage implements OnInit {
   }
 
   getAllLessons(id) {
-    this.api.getAllLesson(id).subscribe((data: Array<Course>)=> {
+    this.api.getAllLesson(id).subscribe((data: Array<Lessons>)=> {
       this.lesson = data;
-      console.log(this.lesson)
     });  
   }
 

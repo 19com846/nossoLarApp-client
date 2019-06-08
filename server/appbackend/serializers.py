@@ -127,10 +127,16 @@ class ClassGroupLessonSerializer(serializers.ModelSerializer):
 class AttendanceSerializer(serializers.ModelSerializer):
     lesson = LessonSerializer(read_only=True)
     student = StudentSerializer(read_only=True)
+    was_present = serializers.BooleanField()
 
     class Meta:
         model = Attendance
         fields = '__all__'
+
+
+class CreateAttendanceRequest(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    was_present = serializers.BooleanField()
 
 
 class StudentAttendanceSerializer(serializers.ModelSerializer):

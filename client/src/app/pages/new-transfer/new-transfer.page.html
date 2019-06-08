@@ -1,31 +1,7 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button (click)="pop()"></ion-back-button>
-        </ion-buttons>
-    <ion-title>Nova transferencia</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-searchbar></ion-searchbar>
-  <ion-card *ngFor="let student of students" (click)="expandItem(student)">
-    <ion-card-header>
-        <h2><ion-icon name="contact"></ion-icon>
-        {{student.name}}</h2>
-    </ion-card-header>
-    <ion-card-content>
-      
-      <app-expandable expandHeight="100px" [expanded]="student.expanded">
-          <ion-item>
-              <ion-label>Escolha a turma</ion-label>
-              <ion-select (click)="stopPropagation($event)" >
-                <ion-select-option *ngFor="let turma of turmas">{{turma.name}}</ion-select-option>
-              </ion-select>
-          </ion-item>
-          <ion-button (click)="transferConfirm()" expand="block" >Confirmar transferencia</ion-button>
-      </app-expandable>
-    </ion-card-content>
-  </ion-card>
-
-</ion-content>
+  </ion-header>
+  
+  <ion-content>
+    
+  </ion-content>
+  

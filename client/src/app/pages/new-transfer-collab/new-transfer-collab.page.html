@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        </ion-buttons>
+    <ion-title>Nova transferencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-card *ngFor="let students of items" >
+    <ion-card-header (click)="modal(students.id)">
+        <h2><ion-icon name="contact"></ion-icon>
+        {{students.first_name}}</h2>
+    </ion-card-header>
+    
+  </ion-card>
+
+</ion-content>

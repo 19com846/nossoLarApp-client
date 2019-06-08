@@ -10,10 +10,13 @@ import { Collaborator } from '../all-collabs/collaborator';
   templateUrl: './my-class-group.page.html',
   styleUrls: ['./my-class-group.page.scss'],
 })
+
 export class MyClassGroupPage implements OnInit {
+
   public classGroup: ClassGroup;
   public collaborators: Array<Collaborator>;
   private classGroupId: Number;
+  public classGroups: Array<ClassGroup>;
 
   constructor(private router: Router, 
               private route: ActivatedRoute,

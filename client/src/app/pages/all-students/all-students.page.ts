@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/services/api.service';
 import { Student } from './student';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-students',
@@ -9,9 +10,10 @@ import { Student } from './student';
 })
 export class AllStudentsPage implements OnInit {
 
+  items: Array<Student>;
   students: Array<Student>;
 
-  constructor(private api: APIService) { }
+  constructor(private api: APIService,  private router: Router) { }
 
   ngOnInit() {
     this.getAllStudents();
@@ -19,8 +21,32 @@ export class AllStudentsPage implements OnInit {
 
   getAllStudents() {
     this.api.getAllStudents().subscribe((data: Array<Student>) => {
+      this.items = data;
       this.students = data;
     });
+  }
+
+  initializeItems() {
+    this.items = this.students;
+  }
+
+  clickCard(studentId){
+    this.router.navigate(['see-student-info',studentId]);
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (item.first_name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
 
 }

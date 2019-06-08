@@ -12,6 +12,7 @@ import * as _ from 'lodash';
 export class MyClassGroupsPage implements OnInit {
 
   private classGroups: Array<ClassGroup>;
+  private studentId: Number;
   private activeClassGroups: Array<ClassGroup>;
   private inactiveClassGroups: Array<ClassGroup>;
 
@@ -28,30 +29,34 @@ export class MyClassGroupsPage implements OnInit {
   }
 
   ngOnInit() {
-    // const id = Number(this.route.snapshot.paramMap.get('id'));
-    const id = 4;
-    this.getClassGroups(id);
+    // const id = Number(this.route.snapshot.paramMap.get('studentId'));
+    this.studentId  = 4;
+    this.getClassGroups(this.studentId);
   }
   getClassGroups(id: Number) {
     // this.api.getAllCoursesFromStudent(4).subscribe((data: Array<object>) => {
     //   this.classGroups = data;
+    //   this.getActiveCourses(this.classGroups);
+    //   this.getInactiveCourses(this.classGroups);
+    //   this.getPendingCourses(this.classGroups);
+    // });
+  }
+
+  getActiveCourses(classGroups: Array<ClassGroup>) {
+    this.activeClassGroups = _.filter(classGroups , function(o) {
+      // return o.active;
+    });
       // this.getActiveCourses(this.classGroups);
       // this.getInactiveCourses(this.classGroups);
       // this.getPendingCourses(this.classGroups);
     // });
   }
 
-  // getActiveCourses(classGroups: ClassGroup) {
-  //   this.activeClassGroups = _.filter(classGroups , function(o) {
-  //     return o.active;
-  //   });
-  // }
-
-  // getInactiveCourses(classGroups: ClassGroup) {
-  //   this.inactiveClassGroups = _.filter(classGroups , function(o) {
-  //     return !o.active;
-  //   });
-  // }
+  getInactiveCourses(classGroups: Array<ClassGroup>) {
+    this.inactiveClassGroups = _.filter(classGroups , function(o) {
+      // return !o.active;
+    });
+  }
 
   getPendingCourses(classGroups: any) {
     // TO DO FILTER

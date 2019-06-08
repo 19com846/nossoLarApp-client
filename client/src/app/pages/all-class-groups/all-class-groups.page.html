@@ -1,18 +1,43 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home-administrator"></ion-back-button>
+      <ion-back-button defaultHref="home-collaborator"></ion-back-button>
     </ion-buttons>
     <ion-title>Todas as turmas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <div>
-        <ion-item  (click)="goToAllCourses()" expand="block">Ciclos</ion-item>
-        <!-- <ion-item  (click)="cursosLivres()" expand="block">Cursos Livres</ion-item> -->
-        <!-- <ion-item  (click)="cursosLivres()" expand="block">Palestras</ion-item> -->
+    <ion-content>
+      <div *ngFor="let courses of course">
+          <ion-item>
+              <ion-label text-wrap>
+                <h1>Curso: {{courses.name}}</h1>
+              </ion-label>
+            </ion-item>
+      
+          <div *ngFor="let classGroups of classGroup">
+      
+            <div *ngIf="courses.name == classGroups.course">
+        <ion-card > 
+            
+          <ion-list>
+              <ion-item>
+              <ion-icon name="contact"></ion-icon>
+                  <h3>{{classGroups.title}}</h3>
+              </ion-item>
+              </ion-list>
+      
+        <ion-card-content>
+        <h2>Horario: {{classGroups.time}}</h2>
+      </ion-card-content>
+      <ion-button expand="block" (click)="clickCardClass(classGroups)">Alterar Chamada</ion-button>
+      </ion-card>
       </div>
+      </div>
+      </div>
+      <div *ngIf="id!==3">
       <ion-button expand="block" (click)="newClassGroup()">Criar Nova Turma</ion-button>
-      <ion-button expand="block" (click)="rollCall()">Alterar Chamada</ion-button>
+     
+    </div>
 </ion-content>

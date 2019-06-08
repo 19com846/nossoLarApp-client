@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { APIService } from '../../services/api.service';
+import { ClassGroup } from '../../interfaces/class-group';
+import { Course } from '../../interfaces/course';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-all-class-groups',
@@ -8,19 +12,39 @@ import { Router } from '@angular/router';
 })
 export class AllClassGroupsPage implements OnInit {
 
-  constructor(private router: Router) { }
+  public classGroup: Array<ClassGroup>;
+  public course: Array<Course>;
+  id: number;
+  constructor( private router: Router, private api: APIService,private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(this.id);
+    this.getAllCourses();
+    this.getAllClassGroup();
   }
 
-  goToAllCourses() {
-    this.router.navigate(['all-courses']);
+  getAllCourses() {
+    this.api.getAllCourses().subscribe((data: Array<Course>)=> {
+      this.course = data;
+      console.log(this.course)
+    });  
   }
 
-  cursosLivres() {
-
+  getAllClassGroup(){
+      this.api.getAllClassGroups().subscribe((dataClass: Array<ClassGroup>) => {
+        this.classGroup = dataClass;
+        console.log(this.classGroup);
+      })
   }
-  criarNovaTurma() {
+
+  clickCardClass(data) {
     
+      const idClass = data.id;
+      this.router.navigate(['all-lesson',idClass]);
+    
+  }
+  newClassGroup(){
+    this.router.navigate(['create-class']);
   }
 }

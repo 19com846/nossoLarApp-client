@@ -33,7 +33,18 @@ ngOnInit() {
 getEnrollment(id) {
   this.api.getClassGroupEnrollment(id).subscribe((data: Array<Enrollment>) => {
     this.enrollment = data;
+    this.enrollment.sort(this.compare);
   }); 
+}
+
+compare(a,b) {
+  if ( a.student.first_name < b.student.first_name ){
+    return -1;
+  }
+  if ( a.student.first_name > b.student.first_name ){
+    return 1;
+  }
+  return 0;
 }
 
 selectMember(data) {
@@ -61,7 +72,6 @@ selectMember(data) {
     var a = '';
   
     for(let i=0; i<this.selectedArray.length;i++){
-      console.log('teste '+this.selectedArray[i].id)
         if (i+1===this.selectedArray.length) {
           a = a + '{"student_id": '+this.selectedArray[i].id+',"was_present":'+this.selectedArray[i].attendance+'}';
         }
@@ -69,12 +79,9 @@ selectMember(data) {
           a = a + '{"student_id": '+this.selectedArray[i].id+',"was_present":'+this.selectedArray[i].attendance+'},';
         }
     }
-    console.log('a ' +a)
   body = '{"roll_call": ['+a+']}';
-  console.log('body '+body)
   var obj = JSON.parse(body);
   this.api.postLessonRollCall(this.lesson.id,obj,requestOptions).subscribe((data) => {
-    console.log(data);
    }); 
   }); 
   

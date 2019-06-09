@@ -76,7 +76,6 @@ export class EnrollmentsPage implements OnInit {
   }
 
   finalizar() {
-    console.log(this.selectedArray)
 
     this.router.navigate(['home-administrador']);
   }

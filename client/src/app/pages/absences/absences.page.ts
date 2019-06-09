@@ -27,7 +27,6 @@ export class AbsencesPage implements OnInit {
   getAbsences(studentId: Number, classGroupId: Number) {
     this.api.getAbsences(studentId, classGroupId).subscribe((data: Array<Attendance>) => {
       this.attendances = data;
-      console.log(data);
     });
   }
 }

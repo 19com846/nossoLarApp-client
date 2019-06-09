@@ -29,7 +29,6 @@ export class SeeStudentInfoPage implements OnInit {
   getStudent(id) {
     this.api.getStudent(id).subscribe((data: Student)=>{
       this.student = data;
-      console.log(data);
     })
     this.getStudentEnrollment(this.studentId);
   }
@@ -37,7 +36,6 @@ export class SeeStudentInfoPage implements OnInit {
   getStudentEnrollment(id) {
     this.api.getEnrollments(id).subscribe((data: Enrollment) => {
       this.enrollment = data;
-      console.log(data)
       this.loading = false;
     })
   }

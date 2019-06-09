@@ -50,7 +50,6 @@ export class CreateClassPage implements OnInit {
   getAllCourses() {
     this.api.getAllCourses().subscribe((data: Array<Course>)=> {
       this.course = data;
-      console.log(this.course)
     });  
   }
   

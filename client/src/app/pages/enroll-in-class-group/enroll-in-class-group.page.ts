@@ -32,7 +32,6 @@ export class EnrollInClassGroupPage implements OnInit {
   getAvailableClassGroups(studentId: Number) {
     this.api.getAvailableClassGroups(studentId).subscribe((data: Array<ClassGroup>) => {
       this.classGroups = data;
-      console.log(this.classGroups);
     })
   }
 
@@ -42,7 +41,6 @@ export class EnrollInClassGroupPage implements OnInit {
     
     this.api.enrollInNewClassGroup(this.newEnrollment).subscribe((data: any) => {
       console.log("Enrollment Request Successfull");
-      console.log(data);
     })
   }
 

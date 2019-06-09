@@ -19,7 +19,6 @@ export class AllClassGroupsPage implements OnInit {
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    console.log(this.id);
     this.getAllCourses();
     this.getAllClassGroup();
   }
@@ -27,14 +26,12 @@ export class AllClassGroupsPage implements OnInit {
   getAllCourses() {
     this.api.getAllCourses().subscribe((data: Array<Course>)=> {
       this.course = data;
-      console.log(this.course)
     });  
   }
 
   getAllClassGroup(){
       this.api.getAllClassGroups().subscribe((dataClass: Array<ClassGroup>) => {
         this.classGroup = dataClass;
-        console.log(this.classGroup);
       })
   }
 

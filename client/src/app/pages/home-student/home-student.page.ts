@@ -20,7 +20,6 @@ export class HomeStudentPage implements OnInit {
   constructor(private router: Router, private api: APIService) { }
 
   goToClassGroupDetails(enrollment: Enrollment) {
-    console.log(enrollment);
     const classGroupId = enrollment.class_group.id;
     this.router.navigate(['my-class-group', classGroupId]);
   }
@@ -37,7 +36,6 @@ export class HomeStudentPage implements OnInit {
   getEnrollments(studentId: Number) {
     this.api.getEnrollments(studentId).subscribe((data: Array<Enrollment>) => {
       this.enrollments = data;
-      console.log(this.enrollments);
       this.getActiveEnrollments(this.enrollments);
       this.getInactiveEnrollments(this.enrollments);
       this.getPendingEnrollments(this.enrollments);

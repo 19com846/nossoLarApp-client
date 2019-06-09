@@ -37,7 +37,6 @@ export class MyClassGroupPage implements OnInit {
     this.api.getClassGroupDetails(classGroupId).subscribe((data: ClassGroup) => {
       this.classGroup = data;
       this.getCollaborators(this.classGroup);
-      console.log(this.classGroup);
     });
     return this.classGroup;
   }

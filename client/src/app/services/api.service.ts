@@ -27,6 +27,19 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/class-groups/`+id+`/lessons/`)
   }
 
+  getAllAttendance(idLesson) {
+    return this.httpClient.get(`${this.API_URL}/lessons/`+idLesson+`/attendances/`)
+  }
+
+  postNewAttendance(idLesson,idAttendance,body,requestOptions){
+    this.httpClient.put(`${this.API_URL}/lessons/`+idLesson+`/attendances/`+
+    idAttendance+`/`, body, requestOptions)
+      .subscribe(data => {
+        console.log(data);
+       }, error => {
+        console.log(error);
+      });
+  }
   getAllAdministrators() {
     return this.httpClient.get(`${this.API_URL}/administrators/`);
   }

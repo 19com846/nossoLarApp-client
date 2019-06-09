@@ -34,14 +34,12 @@ export class NewTransferCollabPage implements OnInit {
     this.api.getAllStudents().subscribe((data: Array<Student>) => {
       this.student = data;
       this.items = data;
-      console.log(this.student)
       this.getAllClasses();
     });
   }
   getAllClasses() {
     this.api.getAllClassGroups().subscribe((data: Array<ClassGroup>) => {
       this.classes = data;
-      console.log(this.classes)
     });
   }
   async modal(id) {

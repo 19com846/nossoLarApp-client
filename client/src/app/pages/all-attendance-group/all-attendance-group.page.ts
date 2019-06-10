@@ -24,6 +24,7 @@ export class AllAttendanceGroupPage implements OnInit {
   getAllAttendance(idLesson){
     this.api.getAllAttendance(idLesson).subscribe((data: Array<allAttendance>) => {
       this.allAttendance = data;
+      console.log(data);
       this.allAttendance.sort(this.compare);
     
   });

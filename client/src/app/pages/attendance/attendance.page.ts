@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from 'src/app/services/api.service';
 import { Headers, Http, RequestOptions  } from '@angular/http';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-attendance',
@@ -60,7 +61,7 @@ selectMember(data) {
  }
 
  finalizar() {
-   //postar lesson
+   
    var headers = new Headers();
    headers.append("Accept", 'application/json');
    headers.append('Content-Type', 'application/json' );
@@ -72,10 +73,10 @@ selectMember(data) {
   
     for(let i=0; i<this.selectedArray.length;i++){
         if (i+1===this.selectedArray.length) {
-          a = a + '{"student_id": '+this.selectedArray[i].id+',"was_present":'+this.selectedArray[i].attendance+'}';
+          a = a + '{"student_id": '+this.selectedArray[i].student.id+',"was_present":'+this.selectedArray[i].attendance+'}';
         }
         else {
-          a = a + '{"student_id": '+this.selectedArray[i].id+',"was_present":'+this.selectedArray[i].attendance+'},';
+          a = a + '{"student_id": '+this.selectedArray[i].student.id+',"was_present":'+this.selectedArray[i].attendance+'},';
         }
     }
   body = '{"roll_call": ['+a+']}';

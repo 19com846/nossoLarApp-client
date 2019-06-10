@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>attendance</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chamada</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -11,5 +14,5 @@
       <ion-checkbox  style="border-color:blue" (click)="selectMember(entry)" [(ngModel)]="entry.attendance"></ion-checkbox>
     </ion-item>
   </ion-list>
-  <ion-button  (click)="finalizar()" expand="block">Concluir chamada</ion-button>
+  <ion-button (click)="finalizar()" expand="block">Concluir chamada</ion-button>
 </ion-content>

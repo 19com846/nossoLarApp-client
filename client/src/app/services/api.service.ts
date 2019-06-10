@@ -1,3 +1,5 @@
+import { Headers, Http, RequestOptions  } from '@angular/http';
+
 import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+  </ion-buttons>
     <div text-center>
       <ion-title>Minhas Turmas</ion-title>
     </div>
@@ -11,7 +11,7 @@
 <ion-content >
     <ion-item>
       <ion-label text-wrap>
-        Cursos em aberto
+        <h2>Cursos em aberto</h2>
       </ion-label>
     </ion-item>
     <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of activeEnrollments'>
@@ -25,7 +25,7 @@
     </ion-card>  
     <ion-item>
       <ion-label>
-        Cursos já realizados
+        <h2>Cursos já realizados</h2>
       </ion-label>
     </ion-item>
     <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of inactiveEnrollments'>
@@ -39,7 +39,7 @@
     </ion-card>
     <ion-item>
       <ion-label text-wrap>
-        Cursos aguardando aprovação
+        <h2>Cursos aguardando aprovação</h2>
       </ion-label>
     </ion-item>
     <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of pendingEnrollments'>

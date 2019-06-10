@@ -10,7 +10,6 @@ import { Headers, Http, RequestOptions  } from '@angular/http';
   styleUrls: ['./attendance.page.scss'],
 })
 export class AttendancePage implements OnInit {
-
   private classGroupId: Number;
   private courseId: Number;
   public turma: any;

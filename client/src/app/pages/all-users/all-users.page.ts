@@ -17,7 +17,7 @@ export class AllUsersPage implements OnInit {
     this.router.navigate(['all-admins']);
   }
   goToAllCollaborators() {
-    this.router.navigate(['all-collaborators']);
+    this.router.navigate(['all-collabs']);
   }
   goToAllStudents() {
 

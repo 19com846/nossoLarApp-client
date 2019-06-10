@@ -273,6 +273,7 @@ class AuthenticateCollaboratorApi(generics.CreateAPIView):
             fields = '__all__'
 
     serializer_class = PersonSerializer
+    permission_classes = []
     queryset = Person.objects.all()
 
     @swagger_auto_schema(request_body=AuthCollaboratorRequest)

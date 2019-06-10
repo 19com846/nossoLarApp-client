@@ -19,8 +19,7 @@ export class APIService {
   }
 
   getAvailableClassGroups(studentId: Number) {
-      //ENDPOINT NAME AND BACKEND IMPLEMENTATION NOT FINAL
-    return this.httpClient.get(`${this.API_URL}/student/` + studentId + '/available-class-groups')
+    return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/available-class-groups')
   }
 
   getAllLesson(id: Number) {
@@ -146,9 +145,8 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/transfer-requests/`);
   }
 
-  enrollInNewClassGroup(newEnrollment: NewEnrollment) {
-    return this.httpClient.post(`${this.API_URL}/enrollments/`, newEnrollment);
-
+  enrollInNewClassGroup(newEnrollment: NewEnrollment, studentId: Number) {
+    return this.httpClient.post(`${this.API_URL}/students/` + studentId +  '/enrollments/', newEnrollment);
   }
 
   getTransferClassGroups(studentId: Number, classGroupId: Number) {

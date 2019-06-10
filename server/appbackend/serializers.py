@@ -94,6 +94,15 @@ class StudentEnrollmentSerializer(serializers.ModelSerializer):
         fields = ('id', 'active', 'status', 'class_group', 'finalGrade', 'graduated')
 
 
+class ClassGroupEnrollmentSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(source='status.name')
+    student = StudentSerializer()
+
+    class Meta:
+        model = Enrollment
+        fields = ('id', 'active', 'status', 'student', 'finalGrade', 'graduated')
+
+
 class EnrollmentRequestSerializer(serializers.Serializer):
     class_group_id = serializers.IntegerField()
     enrollment_status = serializers.CharField()
@@ -107,13 +116,27 @@ class LessonSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ClassGroupLessonSerializer(serializers.ModelSerializer):
+    date = serializers.DateField()
+
+    class Meta:
+        model = Lesson
+        fields = ('id', 'date')
+
+
 class AttendanceSerializer(serializers.ModelSerializer):
     lesson = LessonSerializer(read_only=True)
     student = StudentSerializer(read_only=True)
+    was_present = serializers.BooleanField()
 
     class Meta:
         model = Attendance
         fields = '__all__'
+
+
+class CreateAttendanceRequest(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    was_present = serializers.BooleanField()
 
 
 class StudentAttendanceSerializer(serializers.ModelSerializer):
@@ -123,6 +146,14 @@ class StudentAttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
         fields = ('id', 'lesson_id', 'lesson_date', 'was_present')
+
+
+class LessonAttendanceSerializer(serializers.ModelSerializer):
+    student = StudentSerializer()
+
+    class Meta:
+        model = Attendance
+        fields = ('id', 'student', 'was_present')
 
 
 class LoginResponseSerializer(serializers.Serializer):

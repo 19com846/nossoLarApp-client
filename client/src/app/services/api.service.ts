@@ -3,7 +3,9 @@ import { Headers, Http, RequestOptions  } from '@angular/http';
 import { Injectable } from '@angular/core';
 import * as Constants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { resolve } from 'url';
+import { NewEnrollment } from '../interfaces/new-enrollment';
+import { take } from 'rxjs/operators';
+import { TransferRequest } from '../interfaces/transfer-request';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,28 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/courses/`)
   }
 
+  getAvailableClassGroups(studentId: Number) {
+      //ENDPOINT NAME AND BACKEND IMPLEMENTATION NOT FINAL
+    return this.httpClient.get(`${this.API_URL}/student/` + studentId + '/available-class-groups')
+  }
+
+  getAllLesson(id: Number) {
+    return this.httpClient.get(`${this.API_URL}/class-groups/`+id+`/lessons/`)
+  }
+
+  getAllAttendance(idLesson) {
+    return this.httpClient.get(`${this.API_URL}/lessons/`+idLesson+`/attendances/`)
+  }
+
+  postNewAttendance(idLesson,idAttendance,body,requestOptions){
+    this.httpClient.put(`${this.API_URL}/lessons/`+idLesson+`/attendances/`+
+    idAttendance+`/`, body, requestOptions)
+      .subscribe(data => {
+        console.log(data);
+       }, error => {
+        console.log(error);
+      });
+  }
   getAllAdministrators() {
     return this.httpClient.get(`${this.API_URL}/administrators/`);
   }
@@ -38,9 +62,10 @@ export class APIService {
     return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorId + '/' + classGroupId);
   }
 
-  getClassGroupAttendance(collaboratorId: Number) {
-    return this.httpClient.get(`${this.API_URL}/attendance/` + collaboratorId);
+  getCollaboratorClassGroups(collaboratorId: Number) {
+    return this.httpClient.get(`${this.API_URL}/collaborators/` + collaboratorId + '/class-groups/');
   }
+
   getClassGroupsFromCourse(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
@@ -52,8 +77,6 @@ export class APIService {
   getOpenClassGroups(studentId: Number) {
     return this.httpClient.get(`${this.API_URL}/enrollments/` + studentId);
   }
-
-  
 
   getEnrollments(studentId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/enrollments/');
@@ -73,14 +96,16 @@ export class APIService {
   }
 
   postClassGroupLesson(id,body, requestOptions) {
-    this.httpClient.post(`${this.API_URL}/class-groups/`+id+'/lessons/', body, requestOptions)
-      .subscribe(data => {
-        console.log(data);
-       }, error => {
-        console.log(error);
-      });
+   return this.httpClient.post(`${this.API_URL}/class-groups/`+id+'/lessons/', body, requestOptions)
+   .pipe(take(1));
   }
-
+  postLessonRollCall(id,body, requestOptions) {
+    console.log(body);
+    console.log(id)
+    return this.httpClient.post(`${this.API_URL}/lessons/`+id+'/roll-call/', body, requestOptions)
+   .pipe(take(1));
+  }
+  
   patchTransferRequest(id,body,requestOptions) {
     this.httpClient.patch(`${this.API_URL}/transfer-requests/`+id+`/confirm/`,body,requestOptions)
     .subscribe(data => {
@@ -90,6 +115,27 @@ export class APIService {
     });
   }
   
+  patchTransferRequestReject(id,body,requestOptions) {
+    this.httpClient.delete(`${this.API_URL}/transfer-requests/`+id+`/reject/`,body)
+    .subscribe(data => {
+      console.log(data);
+     }, error => {
+      console.log(error);
+    });
+  }
+
+  postTransferRequest(body,requestOptions) {
+    this.httpClient.post(`${this.API_URL}/transfer-requests/`,body,requestOptions)
+    .subscribe(data => {
+      console.log(data);
+     }, error => {
+      console.log(error);
+    });
+  }
+
+  getClassGroupEnrollment(id) {
+    return this.httpClient.get(`${this.API_URL}/class-groups/` + id+ `/enrollments/`);
+  }
   getClassGroupDetails(classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/class-groups/` + classGroupId);
   }
@@ -101,7 +147,17 @@ export class APIService {
   getTransferRequest() {
     return this.httpClient.get(`${this.API_URL}/transfer-requests/`);
   }
+
+  enrollInNewClassGroup(newEnrollment: NewEnrollment) {
+    return this.httpClient.post(`${this.API_URL}/enrollments/`, newEnrollment);
+
+  }
+
   getTransferClassGroups(studentId: Number, classGroupId: Number) {
     return this.httpClient.get(`${this.API_URL}/students/` + studentId + '/class-groups/' + classGroupId + '/transfer-targets');
+  }
+
+  requestClassGroupTransfer(transferRequest: TransferRequest) {
+    return this.httpClient.post(`${this.API_URL}/transfer-requests/`, transferRequest);
   }
 }

@@ -1,5 +1,11 @@
+import { Enrollment } from './../../interfaces/enrollment';
+import { ClassGroup } from './../../interfaces/class-group';
+import { Student } from './../all-students/student';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { APIService } from 'src/app/services/api.service';
+import { Router } from '@angular/router';
+import { ModalPagePage } from './../modal-page/modal-page.page';
+import { NavController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-new-transfer',
@@ -10,56 +16,19 @@ export class NewTransferPage implements OnInit {
 
   public turmas: Array<Object> =[];
   public students: any = [];
+  student: Array<Student>;
+  classes: Array<ClassGroup>;
+  public selectItem;
+  items: Array<Student>;
+  enrollment: Array<Enrollment>;
+  studentEnrollment: any = [];
+  studentData: any =[];
 
-  constructor(private navCtrl:NavController) {
-    this.students = [{
-      "name":"joao",
-      expanded: false
-    },{
-      "name":"pedro",
-      expanded: false
-    },{
-      "name":"paulo",
-      expanded: false
-    },]
-    this.turmas = [{
-      "name":"turma de comp"
-    },{
-      "name":"turma de mec"
-    },{
-      "name":"turma de dir"
-    },{
-      "name":"turma de prod"
-    },]
-   }
+  constructor(private api: APIService,  private router: Router, public modalController: ModalController) { }
 
   ngOnInit() {
-  }
+   
+ } 
 
-  expandItem(student): void {
-    if (student.expanded) {
-      student.expanded = false;
-    } else {
-      this.students.map(listStudent => {
-        if (student == listStudent) {
-          listStudent.expanded = !listStudent.expanded;
-        } else {
-          listStudent.expanded = false;
-        }
-        return listStudent;
-      });
-    }
-  }
-
-  stopPropagation($event){
-   event.stopPropagation();
-  }
-
-  transferConfirm(){
-    alert("ok")
-  }
-  pop(){
-    this.navCtrl.pop();
-  }
 
 }

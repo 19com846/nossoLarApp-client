@@ -30,7 +30,6 @@ export class ClassGroupDetailsPage implements OnInit {
   getClassGroupDetails(id: Number) {
     this.api.getClassGroupDetails(id).subscribe((data: Array<object>) => {
       this.classGroup = data;
-      console.log("data" + this.classGroup);
     });
   }
 
@@ -39,7 +38,6 @@ export class ClassGroupDetailsPage implements OnInit {
       this.students = data;
       this.students.forEach(() => {
         this.studentCount += 1;
-        console.log(this.studentCount);
       });
     });
   }

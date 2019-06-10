@@ -23,7 +23,8 @@ urlpatterns = [
     path('students/<int:pk>/class-groups/', StudentClassGroupsApi.as_view(), name='student-class-groups-list'),
     path('transfer-requests/', RequestTransferApi.as_view(), name='request-student-transfer'),
     path('transfer-requests/<int:pk>/confirm/', ConfirmTransferRequestApi.as_view(), name='confirm-student-transfer'),
-    path('class-groups/<int:pk>/lessons/', CreateLessonApi.as_view(), name='create-lesson'),
+    path('transfer-requests/<int:pk>/reject/', RejectTransferRequestApi.as_view(), name='cancel-student-transfer'),
+    path('class-groups/<int:pk>/lessons/', ClassGroupLessonApi.as_view(), name='create-lesson'),
     path('lessons/<int:pk>/roll-call/', CreateAttendancesApi.as_view(), name='take-attendance'),
     path('login/', LoginApi.as_view(), name='user-login'),
     path('login/phone', LoginByPhoneApi.as_view(), name='user-login-by-phone'),
@@ -33,7 +34,14 @@ urlpatterns = [
     path('login/collaborator/', AuthenticateCollaboratorApi.as_view(), name='authenticate-collaborator'),
     path('students/<int:pk>/enrollments/', StudentEnrollmentsApi.as_view(), name='see-enrolled-classes'),
     path('students/<int:pk>/class-groups/<int:group_id>/transfer-targets/', TransferTargetsApi.as_view(), name='list-transfer-targets'),
-    path('students/<int:pk>/class-groups/<int:group_id>/attendances', StudentAttendancesApi.as_view(), name='see-attendances')
+    path('students/<int:pk>/class-groups/<int:group_id>/attendances/', StudentAttendancesApi.as_view(), name='see-attendances'),
+    path('courses/<int:pk>/students/', CourseStudents.as_view(), name='list-course-students'),
+    path('lessons/<int:pk>/attendances/', LessonAttendances.as_view(), name='see-lesson-attendances'),
+    path('collaborators/<int:pk>/class-groups/', ManagedClassGroups.as_view(), name='see-managed-classes'),
+    path('class-groups/<int:pk>/enrollments/', ClassGroupEnrollments.as_view(), name='see-class-group-enrollments'),
+    path('lessons/<int:pk>/attendances/<int:att_pk>/', LessonAttendanceApi.as_view(), name='lesson-attendance'),
+    path('students/<int:pk>/available-class-groups/', AvailableClassGroups.as_view(), name='see-available-class-groups')
+
 ]
 
 

@@ -10,10 +10,13 @@ import { Collaborator } from '../all-collabs/collaborator';
   templateUrl: './my-class-group.page.html',
   styleUrls: ['./my-class-group.page.scss'],
 })
+
 export class MyClassGroupPage implements OnInit {
-  public classGroup: ClassGroup;
-  public collaborators: Array<Collaborator>;
+
+  private classGroup: ClassGroup;
+  private collaborators: Array<Collaborator>;
   private classGroupId: Number;
+  private classGroups: Array<ClassGroup>;
 
   constructor(private router: Router, 
               private route: ActivatedRoute,
@@ -25,21 +28,21 @@ export class MyClassGroupPage implements OnInit {
     this.router.navigate(['absences', this.classGroupId]);
   }
 
-  tranferClassGroup() {
+  goToTranferClassGroup() {
     const id = this.classGroupId;
     this.router.navigate(['transfer-class-group', id]);
   }
 
-  getClassGroupDetails(classGroupId: Number) {
+  getClassGroupDetails(classGroupId: Number): ClassGroup {
     this.api.getClassGroupDetails(classGroupId).subscribe((data: ClassGroup) => {
       this.classGroup = data;
       this.getCollaborators(this.classGroup);
-      console.log(this.classGroup);
     });
+    return this.classGroup;
   }
 
   getCollaborators(classGroup: ClassGroup): Array<Collaborator> {
-    return this.collaborators = this.classGroup.collaborators
+    return this.collaborators = classGroup.collaborators
   }
 
   ngOnInit() {

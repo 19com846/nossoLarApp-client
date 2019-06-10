@@ -17,11 +17,8 @@ export class PendingTransfersPage implements OnInit {
     
     
   }
-
-
    newTransfer(){
-    this.router.navigate(['new-transfer']);
-     
+    this.router.navigate(['new-transfer-collab']);  
    }
    
    accept(id) {
@@ -34,6 +31,15 @@ export class PendingTransfersPage implements OnInit {
     this.ngOnInit();
    }
 
+   cancel(id) {
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json' );
+    const requestOptions = new RequestOptions({ headers: headers });
+    const body = '';
+    this.api.patchTransferRequestReject(id,body,requestOptions);
+    this.ngOnInit();
+   }
   ngOnInit() {
     this.getAllTransferRequests();
   }

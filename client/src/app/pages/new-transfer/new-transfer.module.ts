@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { NewTransferPage } from './new-transfer.page';
+import { ModalPagePage } from './../modal-page/modal-page.page';
 
 const routes: Routes = [
   {
@@ -22,5 +23,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [NewTransferPage]
+
 })
 export class NewTransferPageModule {}

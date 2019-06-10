@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>all-attendance-group</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let allAttendances of allAttendance">
+    <ion-card (click)="changeAttendance(allAttendances)">
+        <ion-item>
+            <ion-label text-wrap>
+              <h1>{{allAttendances.student.first_name}}
+                  {{allAttendances.student.last_name}}</h1>
+            </ion-label>
+            <ion-checkbox checked="{{allAttendances.was_present}}"></ion-checkbox>
+          </ion-item>
+    </ion-card>
+  </div>
+
+</ion-content>

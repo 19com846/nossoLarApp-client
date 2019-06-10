@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class AllStudentsPage implements OnInit {
 
-  student: Array<Student>;
   items: Array<Student>;
+  students: Array<Student>;
 
   constructor(private api: APIService,  private router: Router) { }
 
@@ -22,12 +22,12 @@ export class AllStudentsPage implements OnInit {
   getAllStudents() {
     this.api.getAllStudents().subscribe((data: Array<Student>) => {
       this.items = data;
-      this.student = data;
+      this.students = data;
     });
   }
 
   initializeItems() {
-    this.items = this.student;
+    this.items = this.students;
   }
 
   clickCard(studentId){
@@ -35,13 +35,8 @@ export class AllStudentsPage implements OnInit {
   }
 
   getItems(ev: any) {
-    // Reset items back to all of the items
     this.initializeItems();
-
-    // set val to the value of the searchbar
     const val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
         return (item.first_name.toLowerCase().indexOf(val.toLowerCase()) > -1);

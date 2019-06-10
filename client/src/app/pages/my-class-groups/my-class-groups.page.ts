@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from 'src/app/services/api.service';
-import { ClassGroup } from 'src/app/interfaces/class-group';
-import { Router, ActivatedRoute } from '@angular/router';
+import { APIService } from '../../services/api.service';
+import { Enrollment } from '../../interfaces/enrollment';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-my-class-groups',
@@ -11,50 +12,57 @@ import * as _ from 'lodash';
 })
 export class MyClassGroupsPage implements OnInit {
 
-  private classGroups: Array<ClassGroup>;
-  private activeClassGroups: Array<ClassGroup>;
-  private inactiveClassGroups: Array<ClassGroup>;
+  private enrollments: Array<Enrollment>;
+  private activeEnrollments: Array<Enrollment>;
+  private inactiveEnrollments: Array<Enrollment>;
+  private pendingEnrollments: Array<Enrollment>;
+  private collaboratorId: Number;
 
-  constructor(private api: APIService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private router: Router, private api: APIService) { }
 
-
-  goToClassGroupDetails() {
-    this.router.navigate(['my-class-group']);
+  goToClassGroupDetails(enrollment: Enrollment) {
+    const classGroupId = enrollment.class_group.id;
+    this.router.navigate(['my-class-group', classGroupId]);
   }
   newEnrollment() {
-    this.router.navigate(['enroll-in-course']);
+    this.router.navigate(['enroll-in-class-group']);
   }
 
   ngOnInit() {
-    // const id = Number(this.route.snapshot.paramMap.get('id'));
-    const id = 4;
-    this.getClassGroups(id);
-  }
-  getClassGroups(id: Number) {
-    // this.api.getAllCoursesFromStudent(4).subscribe((data: Array<object>) => {
-    //   this.classGroups = data;
-      // this.getActiveCourses(this.classGroups);
-      // this.getInactiveCourses(this.classGroups);
-      // this.getPendingCourses(this.classGroups);
-    // });
+    //Get from paramMap
+    // this.collaboratorId = this.route.snapshot.paramMap.get('collaboratorId')
+    this.collaboratorId = 4;
+    this.getEnrollments(this.collaboratorId);
   }
 
-  // getActiveCourses(classGroups: ClassGroup) {
-  //   this.activeClassGroups = _.filter(classGroups , function(o) {
-  //     return o.active;
-  //   });
-  // }
-
-  // getInactiveCourses(classGroups: ClassGroup) {
-  //   this.inactiveClassGroups = _.filter(classGroups , function(o) {
-  //     return !o.active;
-  //   });
-  // }
-
-  getPendingCourses(classGroups: any) {
-    // TO DO FILTER
+  getEnrollments(collaboratorId: Number): Array<Enrollment> {
+    this.api.getEnrollments(collaboratorId).subscribe((data: Array<Enrollment>) => {
+      this.enrollments = data;
+      this.getActiveEnrollments(this.enrollments);
+      this.getInactiveEnrollments(this.enrollments);
+      this.getPendingEnrollments(this.enrollments);
+    });
+    return this.enrollments;
   }
 
+  getActiveEnrollments(enrollments: Array<Enrollment>): Array<Enrollment> {
+    this.activeEnrollments = _.filter(enrollments , (o) => {
+        return o.active && o.status === "ACCEPTED" && !o.graduated;
+    });
+    return this.activeEnrollments;
+  }
+
+  getInactiveEnrollments(enrollments: Array<Enrollment>): Array<Enrollment> {
+    this.inactiveEnrollments = _.filter(enrollments , (o) => {
+      return !o.active && o.status === "ACCEPTED" && o.graduated;
+    });
+    return this.inactiveEnrollments;
+  }
+
+  getPendingEnrollments(enrollments: Array<Enrollment>): Array<Enrollment> {
+   this.pendingEnrollments = _.filter(enrollments , (o) =>  {
+      return o.status === "PENDING" && o.active;
+   });
+   return this.pendingEnrollments;
+  }
 }

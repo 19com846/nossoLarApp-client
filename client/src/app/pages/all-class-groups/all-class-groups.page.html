@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home-collaborator" color="primary"></ion-back-button>
+      <ion-back-button defaultHref="home-collaborator"></ion-back-button>
     </ion-buttons>
     <ion-title>Todas as turmas</ion-title>
   </ion-toolbar>
@@ -12,7 +12,7 @@
       <div *ngFor="let courses of course">
           <ion-item>
               <ion-label text-wrap>
-                Curso: {{courses.name}}
+                <h1>Curso: {{courses.name}}</h1>
               </ion-label>
             </ion-item>
       
@@ -31,12 +31,13 @@
         <ion-card-content>
         <h2>Horario: {{classGroups.time}}</h2>
       </ion-card-content>
-        
+      <ion-button expand="block" (click)="clickCardClass(classGroups)">Alterar Chamada</ion-button>
       </ion-card>
       </div>
       </div>
       </div>
-      
+      <div *ngIf="id!==3">
       <ion-button expand="block" (click)="newClassGroup()">Criar Nova Turma</ion-button>
-      <ion-button expand="block" (click)="rollCall()">Alterar Chamada</ion-button>
+     
+    </div>
 </ion-content>

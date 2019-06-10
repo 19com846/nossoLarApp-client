@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { APIService } from '../../services/api.service';
 import { ClassGroup } from '../../interfaces/class-group';
 import { Course } from '../../interfaces/course';
@@ -14,10 +14,11 @@ export class AllClassGroupsPage implements OnInit {
 
   public classGroup: Array<ClassGroup>;
   public course: Array<Course>;
-
-  constructor( private router: Router, private api: APIService) {}
+  id: number;
+  constructor( private router: Router, private api: APIService,private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.getAllCourses();
     this.getAllClassGroup();
   }
@@ -25,17 +26,21 @@ export class AllClassGroupsPage implements OnInit {
   getAllCourses() {
     this.api.getAllCourses().subscribe((data: Array<Course>)=> {
       this.course = data;
-      console.log(this.course)
     });  
   }
 
   getAllClassGroup(){
       this.api.getAllClassGroups().subscribe((dataClass: Array<ClassGroup>) => {
         this.classGroup = dataClass;
-        console.log(this.classGroup);
       })
   }
 
+  clickCardClass(data) {
+    
+      const idClass = data.id;
+      this.router.navigate(['all-lesson',idClass]);
+    
+  }
   newClassGroup(){
     this.router.navigate(['create-class']);
   }

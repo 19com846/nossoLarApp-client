@@ -11,54 +11,55 @@ import { Enrollment } from '../../interfaces/enrollment';
 })
 export class HomeStudentPage implements OnInit {
 
-  public enrollments: Array<Enrollment>;
-  public activeEnrollments: Array<Enrollment>;
-  public inactiveEnrollments: Array<Enrollment>;
-  public pendingEnrollments: Array<Enrollment>;
+  private enrollments: Array<Enrollment>;
+  private activeEnrollments: Array<Enrollment>;
+  private inactiveEnrollments: Array<Enrollment>;
+  private pendingEnrollments: Array<Enrollment>;
+  private studentId: Number;
 
   constructor(private router: Router, private api: APIService) { }
 
   goToClassGroupDetails(enrollment: Enrollment) {
-    console.log(enrollment);
     const classGroupId = enrollment.class_group.id;
     this.router.navigate(['my-class-group', classGroupId]);
   }
   newEnrollment() {
-    this.router.navigate(['enroll-in-course']);
+    this.router.navigate(['enroll-in-class-group']);
   }
 
   ngOnInit() {
-    // const id = this.route.snapshot.params.id;
-    const id = 4;
-    this.getEnrollments(id);
+    //Get from paramMap
+    this.studentId = 4;
+    this.getEnrollments(this.studentId);
   }
 
-  getEnrollments(id) {
-    this.api.getEnrollments(id).subscribe((data: Array<Enrollment>) => {
+  getEnrollments(studentId: Number) {
+    this.api.getEnrollments(studentId).subscribe((data: Array<Enrollment>) => {
       this.enrollments = data;
-      console.log(this.enrollments);
       this.getActiveEnrollments(this.enrollments);
       this.getInactiveEnrollments(this.enrollments);
       this.getPendingEnrollments(this.enrollments);
     });
   }
 
-  getActiveEnrollments(enrollments: Array<Enrollment>) {
-    //this.activeEnrollments = _.filter(enrollments , (o) => {
-//return o.active && o.status === "ACCEPTED" && !o.graduated;
-    //});
+  getActiveEnrollments(enrollments: Array<Enrollment>): Array<Enrollment> {
+    this.activeEnrollments = _.filter(enrollments , (o) => {
+        return o.active && o.status === "ACCEPTED" && !o.graduated;
+    });
+    return this.activeEnrollments;
   }
 
-  getInactiveEnrollments(enrollments: Array<Enrollment>) {
-    //this.inactiveEnrollments = _.filter(enrollments , (o) => {
-     // return !o.active && o.status === "ACCEPTED" && o.graduated;
-   // });
+  getInactiveEnrollments(enrollments: Array<Enrollment>): Array<Enrollment> {
+    this.inactiveEnrollments = _.filter(enrollments , (o) => {
+      return !o.active && o.status === "ACCEPTED" && o.graduated;
+    });
+    return this.inactiveEnrollments;
   }
 
-  getPendingEnrollments(enrollments: Array<Enrollment>) {
-   //this.pendingEnrollments = _.filter(enrollments , (o) =>  {
-      //return o.status === "PENDING" && o.active;
-   // });
+  getPendingEnrollments(enrollments: Array<Enrollment>): Array<Enrollment> {
+   this.pendingEnrollments = _.filter(enrollments , (o) =>  {
+      return o.status === "PENDING" && o.active;
+   });
+   return this.pendingEnrollments;
   }
-
 }

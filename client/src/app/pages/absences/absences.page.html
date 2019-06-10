@@ -18,7 +18,8 @@
         <ion-card-header>
           <ion-card-title>	
             {{attendance.lesson_date}}	
-          </ion-card-title>	
+          </ion-card-title>
+          <ion-checkbox disabled="true" [checked]="attendance.was_present == true"></ion-checkbox>
         </ion-card-header>
       </ion-card>	
   </ion-list>

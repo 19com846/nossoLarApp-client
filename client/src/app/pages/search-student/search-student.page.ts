@@ -51,7 +51,6 @@ export class SearchStudentPage implements OnInit {
    async aprovarStudent($event, student) {
     event.stopPropagation();
 
-    console.log(student);
 
     const alert = await this.alertController.create({
       header: student.name ,

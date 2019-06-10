@@ -7,12 +7,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar></ion-searchbar>
+
   <ion-list>
-    <ion-item *ngFor="let entry of turma">
-      <ion-label>{{entry.name}}</ion-label>
-      <ion-checkbox slot="end" style="border-color:blue" (click)="selectMember(entry)" [(ngModel)]="entry.attendance1">
-      </ion-checkbox>
+    <ion-item *ngFor="let entry of enrollment; let i=index">
+      <ion-label>{{enrollment[i].student.first_name}} {{enrollment[i].student.last_name}}</ion-label>
+      <ion-checkbox  style="border-color:blue" (click)="selectMember(entry)" [(ngModel)]="entry.attendance"></ion-checkbox>
     </ion-item>
   </ion-list>
   <ion-button (click)="finalizar()" expand="block">Concluir chamada</ion-button>

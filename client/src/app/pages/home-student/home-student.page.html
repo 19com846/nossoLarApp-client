@@ -12,53 +12,49 @@
   <ion-item>
     <ion-label text-wrap>
       <h2>
-        Cursos em aberto
-      </h2>
-    </ion-label>
-  </ion-item>
-  <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward"
-    *ngFor='let enrollment of activeEnrollments'>
-    <ion-card-content>
-      <h1>Turma: {{enrollment.class_group.title}} </h1>
-      <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
-      <h3>Horario: {{enrollment.class_group.time}}</h3>
-      <h4>Semestre: {{enrollment.class_group.semester}}</h4>
-      <h4>Ano: {{enrollment.class_group.year}}</h4>
-    </ion-card-content>
-  </ion-card>
-  <ion-item>
-    <ion-label>
-      <h2>Cursos já realizados</h2>
-    </ion-label>
-  </ion-item>
-  <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward"
-    *ngFor='let enrollment of inactiveEnrollments'>
-    <ion-card-content>
-      <h1>Turma: {{enrollment.class_group.title}} </h1>
-      <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
-      <h3>Horario: {{enrollment.class_group.time}}</h3>
-      <h4>Semestre: {{enrollment.class_group.semester}}</h4>
-      <h4>Ano: {{enrollment.class_group.year}}</h4>
-    </ion-card-content>
-  </ion-card>
-  <ion-item>
-    <ion-label text-wrap>
-      <h2>Cursos aguardando aprovação</h2>
-    </ion-label>
-  </ion-item>
-  <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward"
-    *ngFor='let enrollment of pendingEnrollments'>
-    <ion-card-content>
-      <h1>Turma: {{enrollment.class_group.title}} </h1>
-      <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
-      <h3>Horario: {{enrollment.class_group.time}}</h3>
-      <h4>Semestre: {{enrollment.class_group.semester}}</h4>
-      <h4>Ano: {{enrollment.class_group.year}}</h4>
-    </ion-card-content>
-  </ion-card>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="newEnrollment()" routerDirection="Forward">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        Cursos em aberto</h2>
+      </ion-label>
+    </ion-item>
+    <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of activeEnrollments'>
+        <ion-card-content>
+          <h1>Turma: {{enrollment.class_group.title}} </h1>
+          <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
+          <h3>Horario: {{enrollment.class_group.time}}</h3>
+          <h4>Semestre: {{enrollment.class_group.semester}}</h4>
+          <h4>Ano: {{enrollment.class_group.year}}</h4>
+        </ion-card-content>
+    </ion-card>  
+    <ion-item>
+      <ion-label>
+        <h2>Cursos já realizados</h2>
+      </ion-label>
+    </ion-item>
+    <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of inactiveEnrollments'>
+      <ion-card-content>
+        <h1>Turma: {{enrollment.class_group.title}} </h1>
+        <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
+        <h3>Horario: {{enrollment.class_group.time}}</h3>
+        <h4>Semestre: {{enrollment.class_group.semester}}</h4>
+        <h4>Ano: {{enrollment.class_group.year}}</h4>
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <ion-label text-wrap>
+        <h2>Cursos aguardando aprovação</h2>
+      </ion-label>
+    </ion-item>
+    <ion-card (click)="goToClassGroupDetails(enrollment)" routerDirection="Forward" *ngFor='let enrollment of pendingEnrollments'>
+      <ion-card-content>
+        <h1>Turma: {{enrollment.class_group.title}} </h1>
+        <h2>Dirigente: {{enrollment.class_group.teacher}} </h2>
+        <h3>Horario: {{enrollment.class_group.time}}</h3>
+        <h4>Semestre: {{enrollment.class_group.semester}}</h4>
+        <h4>Ano: {{enrollment.class_group.year}}</h4>
+      </ion-card-content>
+    </ion-card>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="newEnrollment()" routerDirection="Forward">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
 </ion-content>

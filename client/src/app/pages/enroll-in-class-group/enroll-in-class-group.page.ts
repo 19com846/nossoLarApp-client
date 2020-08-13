@@ -15,8 +15,8 @@ export class EnrollInClassGroupPage implements OnInit {
   private classGroups: Array<ClassGroup>;
   private studentId: Number;
   private newEnrollment: NewEnrollment = {
-    student_id: 0,
-    class_group_id: 0
+    class_group_id: 0,
+    enrollment_status : 'p'
   }
 
   constructor(public alertController: AlertController, 
@@ -35,18 +35,12 @@ export class EnrollInClassGroupPage implements OnInit {
     })
   }
 
-  enrollInNewClassGroup(studentId: Number, classGroupId: Number) {
-    this.newEnrollment.class_group_id = classGroupId;
-    this.newEnrollment.student_id = studentId;
-    
-    this.api.enrollInNewClassGroup(this.newEnrollment).subscribe((data: any) => {
-      console.log("Enrollment Request Successfull");
+  enrollInNewClassGroup(classGroup: ClassGroup) {
+    this.newEnrollment.class_group_id = classGroup.id;
+    this.api.enrollInNewClassGroup(this.newEnrollment, this.studentId).subscribe(() => {
+      
     })
   }
-
-  // cardClicked(turmas) {
-  //   this.router.navigateByUrl('/menu/menu/home-student');
-  // }
 
   async presentAlertConfirm(classGroup: ClassGroup) {
     const alert = await this.alertController.create({
@@ -58,13 +52,12 @@ export class EnrollInClassGroupPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel: cancelado');
           }
         }, {
           text: 'SIM !',
           handler: () => {
-            console.log('Confirmed');
-            this.enrollInNewClassGroup(this.studentId, classGroup.id);
+            this.enrollInNewClassGroup(classGroup);
+            this.router.navigate(['home-student']);
           }
         }
       ]

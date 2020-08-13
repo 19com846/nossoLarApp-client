@@ -43,7 +43,6 @@ export class TransferClassGroupPage implements OnInit {
 
   requestClassGroupTransfer(transferRequest: TransferRequest) {
     this.api.requestClassGroupTransfer(transferRequest).subscribe((data) => {
-      console.log("Transfer Request Successful");
     })
   }
 
@@ -67,7 +66,6 @@ export class TransferClassGroupPage implements OnInit {
             this.transferRequest.student_id = this.studentId;
             this.transferRequest.target_group_id = classGroup.id;
             this.requestClassGroupTransfer(this.transferRequest);
-
             this.router.navigate(['home-student']);
           }
         }
